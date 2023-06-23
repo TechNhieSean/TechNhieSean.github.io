@@ -6,4 +6,4 @@ My name is Sean and I am a beginner in Data Analytics. I am excited to learn mor
 
 Here's my first case study:
 
-- [Cyclistic Bike-Share Case Study](Cyclistic_Bike_Share.html)
+- [Cyclistic Bike-Share Case Study](cyclistic_bike_share.html)
