@@ -1,0 +1,440 @@
+---
+title: "Cyclistic Bike-Share Case Study"
+author: "Sean Myro Marcelo"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This case study is aimed at understanding user behavior in Cyclistic's bike-share program by analyzing historical bike trip data. By differentiating between casual riders and annual members, we aim to derive insights to formulate targeted marketing strategies. The ultimate goal is to convert casual riders into annual members, promoting Cyclistic's growth.
+
+```{r data_import, message=FALSE, warning=FALSE}
+# Import necessary libraries
+library(tidyverse)
+library(lubridate)
+
+# Define file paths for the datasets for each month
+file_paths <- c("202305-divvy-tripdata/202305-divvy-tripdata.csv",
+                "202304-divvy-tripdata/202304-divvy-tripdata.csv",
+                "202303-divvy-tripdata/202303-divvy-tripdata.csv",
+                "202302-divvy-tripdata/202302-divvy-tripdata.csv",
+                "202301-divvy-tripdata/202301-divvy-tripdata.csv",
+                "202212-divvy-tripdata/202212-divvy-tripdata.csv",
+                "202211-divvy-tripdata/202211-divvy-tripdata.csv",
+                "202210-divvy-tripdata/202210-divvy-tripdata.csv",
+                "202209-divvy-tripdata/202209-divvy-publictripdata.csv",
+                "202208-divvy-tripdata/202208-divvy-tripdata.csv",
+                "202207-divvy-tripdata/202207-divvy-tripdata.csv",
+                "202206-divvy-tripdata/202206-divvy-tripdata.csv")
+
+# Initialize an empty list to store the data frames for each month
+data_list <- list()
+
+# Initialize an empty list to store the data frames for each month
+for (i in seq_along(file_paths)) {
+  data_list[[i]] <- read_csv(file_paths[i])
+}
+
+# Combine all monthly data frames into one master data frame "divvy"
+divvy <- bind_rows(data_list)
+```
+
+## Data Inspection
+
+We begin by inspecting the dataset to understand its structure, identify the types of data it contains, and check for any missing values or potential inconsistencies.
+
+### Preview the Dataset
+
+We first look at the first few rows of the dataset to get a glimpse of its structure and the nature of data it contains.
+
+```{r head_data}
+head(divvy)
+```
+
+### Descriptive Statistics
+
+To get a better understanding of the variables in our dataset, we can use the `summary()` function which provides us with some descriptive statistics.
+
+```{r summary_data}
+summary(divvy)
+```
+
+### Variables Overview
+
+Next, we take a look at the names of the variables in our dataset.
+
+```{r columns_data}
+colnames(divvy)
+```
+
+### Data Types
+
+Understanding the types of data in our dataset is crucial as it dictates the kind of analyses we can perform on the variables.
+
+```{r types_data}
+str(divvy)
+```
+
+By inspecting the data, we can build a solid foundation for our subsequent analyses.
+
+## Data Cleaning
+
+The first step of our data cleaning process involves handling missing values in the dataset.
+
+### Converting Data Types
+
+To support time-based analysis and trip duration calculations, we ensure the `started_at` and `ended_at` columns are in datetime format.
+
+Before the transformation, we check all entries to confirm they can be converted to the datetime format:
+
+```{r problem_entries}
+# Checking for potential parsing issues
+problem_entries <- sum(is.na(lubridate::parse_date_time(divvy$started_at, orders = "ymd HMS")))
+
+## Warning: 17 failed to parse.
+problem_entries
+```
+
+This function returns the number of entries in `started_at` that will fail to parse into datetime format. We have `r problem_entries` entries in the `started_at` column that cannot be parsed, which we expect to be treated as `NA` during transformation.
+
+```{r datetime_format}
+# Transforming 'started_at' and 'ended_at' into datetime format
+divvy <- divvy %>% mutate(
+  started_at = ymd_hms(started_at),
+  ended_at = ymd_hms(ended_at)
+)
+```
+
+During the datetime conversion, we received a warning that `r problem_entries` entries in the `started_at` column failed to parse. This is expected due to known irregularities in the raw data. These entries were treated as `NA` and have been accounted for in our downstream analyses.
+
+### Missing Values
+
+Missing data can lead to biased or incorrect results. Therefore, it's important to identify any missing values in our dataset.
+
+```{r missing_data}
+# Total missing values
+total_na <- sum(is.na(divvy))
+paste("Total missing values in the dataset: ", total_na)
+
+# Missing values per column
+col_na <- colSums(is.na(divvy))
+col_na_list <- paste(names(col_na), ":", col_na)
+print(col_na_list)
+
+# Calculate proportion of missing data
+missing_prop <- total_na / prod(dim(divvy))
+paste("Proportion of missing data in the dataset: ", round(missing_prop * 100, 2), "%")
+```
+
+### Handling Missing Values
+
+We detected a total of `r total_na` missing data entries. In our subsequent step, we eliminate rows with these missing values.
+
+```{r delete_na}
+
+# Summary statistics before dropping missing data
+summary_before <- summary(divvy)
+
+# Drop missing data
+divvy <- divvy %>% drop_na()
+
+# Summary statistics after dropping missing data
+summary_after <- summary(divvy)
+
+# Display summaries
+list(before = summary_before, after = summary_after)
+```
+
+After cleaning, we confirm that no missing values remain in our dataset.
+
+### Creating New Columns
+
+Next, we generate new columns: `trip_duration` (in minutes), `day_of_week`, and `hour_of_day` to support our forthcoming analysis.
+
+```{r new_columns}
+# Creating 'trip_duration' column
+divvy <- divvy %>% mutate(
+  trip_duration = as.numeric(difftime(ended_at, started_at, units="mins")) # nolint
+)
+
+# Creating 'day_of_week' and 'hour_of_day' columns
+divvy <- divvy %>% mutate(
+  day_of_week = wday(started_at, label = TRUE),
+  hour_of_day = hour(started_at)
+)
+```
+
+### Additional Time Variables
+
+To analyze trends and patterns over time, we create additional time variables: `semi_annual`, `quarterly`, and `monthly`. These variables allow us to observe trends within different timeframes.
+
+```{r newtime_columns}
+# Creating new time variables
+divvy <- divvy %>%
+  mutate(semi_annual = case_when(
+    month(started_at) %in% 1:6 ~ paste(year(started_at), "H1"),
+    month(started_at) %in% 7:12 ~ paste(year(started_at), "H2")
+  ),
+  quarterly = paste(year(started_at), "Q", quarter(started_at)),
+  monthly = paste(year(started_at), month(started_at, label = TRUE))
+  )
+```
+
+With these transformations, our dataset is now prepared for exploratory data analysis.
+
+## Data Analysis
+
+After preprocessing the data, we can now move on to the data analysis part. We are interested in comparing the behaviors of casual riders and annual members. We can analyze the frequency of rides, preferred bike type, average trip duration, and common routes for each user group.
+
+### Analysis of Rides Frequency
+
+First, we can start by comparing the frequency of rides between casual riders and annual members.
+
+```{r ride_counts}
+# Calculate ride count for each rider type
+ride_counts <- divvy %>%
+  group_by(semi_annual, quarterly, monthly, member_casual) %>%
+  summarise(ride_count = n(), .groups = "drop")
+
+# Preview the data frame
+print(ride_counts, n = 50)
+
+# Visualize the result in a bar chart
+ggplot(ride_counts, aes(x = member_casual, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Ride Frequency by User Type", x = "User Type", y = "Ride Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Semi-annually
+ggplot(ride_counts, aes(x = member_casual, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~semi_annual) +
+  labs(title = "Semi-Annual Ride Frequency by User Type", x = "User Type", y = "Ride Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Quarterly
+ggplot(ride_counts, aes(x = member_casual, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~quarterly) +
+  labs(title = "Quarterly Ride Frequency by User Type", x = "User Type", y = "Ride Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Monthly
+ggplot(ride_counts, aes(x = member_casual, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~monthly) +
+  labs(title = "Monthly Ride Frequency by User Type", x = "User Type", y = "Ride Count") +
+  theme_minimal()
+```
+
+### Analysis of Preferred Bike Type
+
+Next, let's analyze which bike types are preferred by casual riders and annual members.
+
+```{r bike_pref}
+# Determine preferred bike type for each user type
+bike_pref <- divvy %>%
+  group_by(semi_annual, quarterly, monthly, member_casual, rideable_type) %>%
+  summarise(bike_count = n(), .groups = "drop")
+
+# Preview the data frame
+print(bike_pref, n = 50)
+
+# Visualize the result in a bar chart
+ggplot(bike_pref, aes(x = member_casual, y = bike_count, fill = rideable_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Bike Preference by User Type", x = "User Type", y = "Bike Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Semi-annually
+bike_pref %>%
+  ggplot(aes(x = member_casual, y = bike_count, fill = rideable_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~semi_annual) +
+  labs(title = "Semi-annual Bike Preference by User Type", x = "User Type", y = "Bike Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Quarterly
+bike_pref %>%
+  ggplot(aes(x = member_casual, y = bike_count, fill = rideable_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~quarterly) +
+  labs(title = "Quarterly Bike Preference by User Type", x = "User Type", y = "Bike Count") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Monthly
+bike_pref %>%
+  ggplot(aes(x = member_casual, y = bike_count, fill = rideable_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~monthly) +
+  labs(title = "Monthly Bike Preference by User Type", x = "User Type", y = "Bike Count") +
+  theme_minimal()
+```
+
+### Analysis of Average Trip Duration
+
+Now, let's find out if there is any difference in average trip duration between casual riders and annual members.
+
+```{r avg_duration}
+# Calculate average trip duration for each user type
+avg_duration <- divvy %>%
+  group_by(semi_annual, quarterly, monthly, member_casual) %>%
+  summarise(avg_trip_duration = mean(trip_duration, na.rm = TRUE), .groups = "drop")
+
+# Preview the data frame
+print(avg_duration, n = 50)
+
+# Visualize the result in a bar chart
+ggplot(avg_duration, aes(x = member_casual, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Trip Duration by User Type", x = "User Type", y = "Avg Trip Duration (mins)") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Semi-annually
+avg_duration %>%
+  ggplot(aes(x = member_casual, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~semi_annual) +
+  labs(title = "Semi-annual Average Trip Duration by User Type", x = "User Type", y = "Avg Trip Duration (mins)") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Quarterly
+avg_duration %>%
+  ggplot(aes(x = member_casual, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~quarterly) +
+  labs(title = "Quarterly Average Trip Duration by User Type", x = "User Type", y = "Avg Trip Duration (mins)") +
+  theme_minimal()
+
+# Visualize the result in a bar chart - Monthly
+avg_duration %>%
+  ggplot(aes(x = member_casual, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~monthly) +
+  labs(title = "Monthly Average Trip Duration by User Type", x = "User Type", y = "Avg Trip Duration (mins)") +
+  theme_minimal()
+```
+
+### Analysis of Common Routes
+
+Lastly, we can explore the common routes for each user group.
+
+```{r top_routes}
+# Identify top 5 common routes for each user type
+top_routes <- divvy %>%
+  mutate(route = paste(start_station_name, end_station_name, sep = " to ")) %>%
+  group_by(member_casual, route) %>%
+  summarise(route_count = n(), .groups = "drop") %>%
+  arrange(member_casual, desc(route_count)) %>%
+  group_by(member_casual) %>%
+  slice_head(n = 5)
+
+# Preview the data frame
+print(top_routes)
+
+# Visualize the result in a bar chart
+top_routes %>%
+  ggplot(aes(x = reorder(route, route_count), y = route_count, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Routes by User Type", x = "Route", y = "Route Count") +
+  coord_flip() +
+  theme_minimal()
+```
+
+These results will provide insights into the motivations and preferences of casual riders, and help design targeted marketing strategies to convert them into annual members.
+
+# Additional Insights
+
+Now, let's compute some additional statistics that might be of interest.
+
+```{r add_insights}
+# Calculate mean trip duration
+mean_trip_duration <- mean(divvy$trip_duration, na.rm = TRUE)
+
+# Identify max trip duration
+max_trip_duration <- max(divvy$trip_duration, na.rm = TRUE)
+
+# Find most frequent day of the week
+day_of_week_mode <- divvy$day_of_week %>%
+  table() %>%
+  which.max() %>%
+  names()
+
+# Visualize mean and maximum trip durations
+cat("Mean trip duration: ", mean_trip_duration, " minutes\n")
+cat("Max trip duration: ", max_trip_duration, " minutes\n")
+
+# Visualize most frequent day of the week
+cat("Most frequent day of the week: ", day_of_week_mode, "\n")
+
+# Calculate average trip duration and number of rides for each user type by day_of_week
+avg_trip_duration_day <- divvy %>%
+  group_by(member_casual, day_of_week) %>%
+  summarise(avg_trip_duration = mean(trip_duration, na.rm = TRUE), .groups = "drop")
+
+print(avg_trip_duration_day, n = 50)
+
+rides_day <- divvy %>%
+  group_by(member_casual, day_of_week) %>%
+  summarise(ride_count = n(), .groups = "drop")
+
+print(rides_day, n = 50)
+
+# Visualize average trip duration by day of the week for each rider type
+ggplot(avg_trip_duration_day, aes(x = day_of_week, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Trip Duration by Day of the Week", x = "Day of the Week", y = "Average Trip Duration (minutes)") +
+  theme_minimal()
+
+# Visualize ride counts by day of the week for each rider type
+ggplot(rides_day, aes(x = day_of_week, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Ride Counts by Day of the Week", x = "Day of the Week", y = "Ride Counts") +
+  theme_minimal()
+
+# Calculate average trip duration and number of rides for each user type by hour_of_day
+avg_trip_duration_hour <- divvy %>%
+  group_by(member_casual, hour_of_day) %>%
+  summarise(avg_trip_duration = mean(trip_duration, na.rm = TRUE), .groups = "drop")
+
+print(avg_trip_duration_hour, n = 50)
+
+rides_hour <- divvy %>%
+  group_by(member_casual, hour_of_day) %>%
+  summarise(ride_count = n(), .groups = "drop")
+
+print(rides_hour, n = 50)
+
+# Visualize average trip duration by hour of the day for each rider type
+
+ggplot(avg_trip_duration_hour, aes(x = hour_of_day, y = avg_trip_duration, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Trip Duration by Hour of the Day", x = "Hour of the Day", y = "Average Trip Duration (minutes)") +
+  theme_minimal()
+
+# Visualize ride counts by hour of the day for each rider type
+ggplot(rides_hour, aes(x = hour_of_day, y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Ride Counts by Hour of the Day", x = "Hour of the Day", y = "Ride Counts") +
+  theme_minimal()
+```
+
+# Conclusion
+
+Based on the data analysis and the ultimate goal of converting casual riders into annual members, we conclude that there are different usage patterns between the two user types. Casual riders tend to ride longer, prefer classic and electric bikes, and use the service more heavily on weekends, often on specific routes that might be associated with recreational activities. Members, on the other hand, use the service more frequently, have shorter ride durations, use classic bikes more often, and use the service extensively throughout the week, indicating daily commuting patterns.
+
+These differences provide an opportunity to tailor marketing strategies to convert casual riders into annual members.
+
+# Recommendations
+
+1. **Introduce Cost-Effective Membership Plans**: Casual riders tend to have longer ride durations. They may benefit from membership plans that offer better cost-effectiveness for longer rides. Introduce membership plans highlighting the financial benefits for longer trips to attract this group. This could be bundled with a trial period to reduce the risk for casual riders.
+
+2. **Launch Weekend Promotions for Members**: Members use the service more consistently throughout the week, but both casual riders and members ride longer on weekends. This pattern suggests a potential interest in leisurely or recreational rides among members. Offering weekend promotions or organizing member-exclusive events during weekends could incentivize casual riders to convert into members to avail of these benefits.
+
+3. **Enhance Bike Availability**: Classic bikes are preferred by both user groups. Ensuring the availability of classic bikes could improve the user experience. This could be promoted among casual users to showcase the reliability of the service.
+
+Implementing these recommendations would require a balanced approach, ensuring existing services for members are not disrupted. Monitoring the impact of these changes and taking user feedback into consideration will be crucial to fine-tune these strategies moving forward.
