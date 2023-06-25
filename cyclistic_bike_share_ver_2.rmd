@@ -1,0 +1,373 @@
+---
+title: "Cyclistic Bike-Share Case Study"
+author: "Sean Myro Marcelo"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo  =  TRUE)
+```
+
+# Introduction
+
+This case study is aimed at understanding user behavior in Cyclistic's bike-share program by analyzing historical bike trip data. By differentiating between casual riders and annual members, we aim to derive insights to formulate targeted marketing strategies. The ultimate goal is to convert casual riders into annual members, promoting Cyclistic's growth.
+
+```{r data_import, message = FALSE, warning = FALSE}
+# Import necessary libraries
+library(tidyverse)
+library(lubridate)
+
+# Define file paths using a pattern
+# This assumes files are consistently named and in the same directory
+# Change the path and pattern according to your data
+file_paths <- list.files(path  =  ".", pattern  =  "*divvy-tripdata.csv", full.names  =  TRUE)
+
+# Use map_df to read in and bind rows in one step
+divvy <- map_df(file_paths, read_csv)
+```
+
+# Data Inspection
+
+We begin by inspecting the dataset to understand its structure, identify the types of data it contains, and check for any missing values or potential inconsistencies.
+
+## Preview the Dataset
+
+We first look at the first few rows of the dataset to get a glimpse of its structure and the nature of data it contains.
+
+```{r head_data}
+head(divvy)
+```
+
+## Descriptive Statistics
+
+To get a better understanding of the variables in our dataset, we can use the `summary()` function which provides us with some descriptive statistics.
+
+```{r summary_data}
+summary(divvy)
+```
+
+## Variables Overview
+
+Next, we take a look at the names of the variables in our dataset.
+
+```{r columns_data}
+colnames(divvy)
+```
+
+## Data Types
+
+Understanding the types of data in our dataset is crucial as it dictates the kind of analyses we can perform on the variables.
+
+```{r types_data}
+str(divvy)
+```
+
+By inspecting the data, we can build a solid foundation for our subsequent analyses.
+
+# Checking Data Integrity
+
+The next step is to check for any missing values or potential inconsistencies in our dataset. This is important to ensure the accuracy of our analyses and the validity of our conclusions.
+
+## Missing Values
+
+Missing data can lead to biased or incorrect results. Therefore, it's important to identify any missing values in our dataset.
+
+```{r missing_data}
+# Total missing values
+total_na <- sum(is.na(divvy))
+paste("Total missing values in the dataset: ", total_na)
+
+# Missing values per column
+col_na <- colSums(is.na(divvy))
+col_na_list <- paste(names(col_na), ":", col_na)
+print(col_na_list)
+
+# Calculate proportion of missing data
+missing_prop <- total_na / prod(dim(divvy))
+paste("Proportion of missing data in the dataset: ", round(missing_prop * 100, 2), "%")
+```
+
+## Handling Missing Data
+
+The previous section reveals missing data in the following variables: `start_station_name`, `start_station_id`, `end_station_name`, `end_station_id`, `end_lat`, and `end_lng`. While the overall proportion of missing data in the dataset is approximately 4.57%, the distribution of these missing values varies significantly across variables. Given the nature of these variables and the goals of our analysis, we have decided to drop the aforementioned variables. This decision is driven by the following considerations:
+
+1. The volume of missing data in these variables is substantial, which could introduce significant bias or distort our findings if we used imputation to fill the missing values. Complete-case analysis excluding all data from an observation that has one or more missing values could also do the same.
+2. Based on our understanding of the data and the context of our analysis, these variables are not considered critical. Specifically, our analysis does not primarily hinge on the exact start and end locations of rides, which are the fields with missing data.
+
+Please note that this decision to drop these variables could still introduce some degree of bias into our analysis. For example, if there is a meaningful pattern to the missingness of the data (i.e., the data is not missing at random), our results might overlook some nuances of the dataset.
+
+```{r remove_columns}
+divvy <- divvy[, !(names(divvy) %in% c("start_station_name", "start_station_id", "end_station_name", "end_station_id", "end_lat", "end_lng"))]
+```
+
+Now we have a dataset with no missing values, which we will use for our subsequent analysis.
+
+## Data Manipulation
+
+The `divvy` dataset provided only contains the start and end timestamps of each ride. In order to analyze the length of each ride, we need a `trip_duration` variable that represents the difference between the end and start times. The units for `trip_duration` are set as minutes.
+
+Additionally, the `day_of_week` variable is not provided directly in the dataset. It is added to the dataset by extracting the day of the week from the `started_at` variable.
+
+These new variables, `trip_duration` and `day_of_week`, are created. The new variables are appended to the dataset as additional columns.
+
+```{r new_columns}
+# Creating 'trip_duration' column
+divvy <- divvy %>% mutate(
+  trip_duration  =  as.numeric(difftime(ended_at, started_at, units  =  "mins"))
+)
+
+# Creating 'day_of_week' and 'hour_of_day' columns
+divvy <- divvy %>% mutate(
+  day_of_week  =  wday(started_at, label  =  TRUE),
+  hour_of_day  =  hour(started_at)
+)
+```
+
+## Handling Erroneous Data
+
+In our initial exploration of the data, we noticed that there were some negative values in our 'trip_duration' variable. Considering that this is physically impossible (a trip cannot have a negative duration), we will treat these values as data entry errors and replace them with the median trip duration.
+
+```{r handle_negative_durations}
+# Identify negative durations
+negative_durations <- divvy$trip_duration < 0
+
+# Calculate the median trip duration
+median_trip_duration <- median(divvy$trip_duration, na.rm  =  TRUE)
+
+# Replace negative durations with the median value
+divvy$trip_duration[negative_durations] <- median_trip_duration
+
+# Check if there are still any negative durations
+any_negative_durations <- any(divvy$trip_duration < 0)
+paste("Any negative durations left: ", any_negative_durations)
+```
+
+## Handling Outlier Data
+
+Now that we've dealt with erroneous data, let's move on to outliers. Outliers in our dataset can heavily skew our calculations and might lead to incorrect conclusions. These are defined as values that fall below the first quartile minus 1.5 times the interquartile range, or above the third quartile plus 1.5 times the interquartile range.
+
+```{r outlier_data}
+# Identify the outliers for the 'trip_duration' variable
+q1 <- quantile(divvy$trip_duration, 0.25)
+q3 <- quantile(divvy$trip_duration, 0.75)
+iqr <- q3 - q1
+
+lower_bound <- q1 - 1.5 * iqr
+upper_bound <- q3 + 1.5 * iqr
+
+outliers <- divvy$trip_duration[divvy$trip_duration < lower_bound | divvy$trip_duration > upper_bound]
+
+# Calculate the proportion of outlier data in the dataset
+proportion_outliers <- length(outliers) / length(divvy$trip_duration)
+
+print(paste0("Proportion of outliers: ", proportion_outliers * 100, "%"))
+```
+
+After identifying that about 7.37% of our trip_duration data were outliers, we decided to replace these extreme values with the median trip duration.
+
+```{r outliers_replace}
+# Calculate the median trip duration again
+median_trip_duration <- median(divvy$trip_duration, na.rm  =  TRUE)
+
+# Replace the outliers with the median value of 'trip_duration'
+divvy$trip_duration[divvy$trip_duration < lower_bound | divvy$trip_duration > upper_bound] <- median_trip_duration
+```
+
+## Additional Time Variables
+
+To analyze trends and patterns over time, we create additional time variables: `semi_annual`, `quarterly`, and `monthly`. These variables allow us to observe trends within different timeframes.
+
+```{r newtime_columns}
+# Creating new time variables
+divvy <- divvy %>%
+  mutate(semi_annual  =  case_when(
+    month(started_at) %in% 1:6 ~ paste(year(started_at), "H1"),
+    month(started_at) %in% 7:12 ~ paste(year(started_at), "H2")
+  ),
+  quarterly  =  paste(year(started_at), "Q", quarter(started_at)),
+  monthly  =  paste(year(started_at), month(started_at, label  =  TRUE))
+  )
+```
+
+## Data Preparation Verification
+
+After performing the necessary steps to ensure the data integrity and preparing the dataset for further analysis, it's critical to verify that these processes have been properly executed. 
+
+We have:
+
+- Identified and addressed missing values
+- Created necessary new variables
+- Handled outlier data
+- Added additional time variables
+
+Now, let's verify that these steps have been successfully completed.
+
+```{r data_prep_verification}
+# Check for any remaining missing values
+total_na_after <- sum(is.na(divvy))
+paste("Total missing values in the dataset after cleaning: ", total_na_after)
+
+# Check the presence of new variables
+new_vars <- c("trip_duration", "day_of_week", "hour_of_day", "semi_annual", "quarterly", "monthly")
+new_vars_present <- all(new_vars %in% names(divvy))
+paste("New variables added correctly: ", new_vars_present)
+
+# Check that outliers have been replaced
+outliers_after <- divvy$trip_duration[divvy$trip_duration < lower_bound | divvy$trip_duration > upper_bound]
+proportion_outliers_after <- length(outliers_after) / length(divvy$trip_duration)
+paste0("Proportion of outliers after replacement: ", proportion_outliers_after * 100, "%")
+
+# Check the creation of time variables
+time_vars <- c("semi_annual", "quarterly", "monthly")
+time_vars_present <- all(time_vars %in% names(divvy))
+paste("Time variables added correctly: ", time_vars_present)
+```
+
+There are no remaining missing values, our data has been properly cleaned and manipulated, and is ready for analysis.
+
+# Data Analysis
+
+First, let's calculate some basic statistics for the `trip_duration` variable. Please note that the `trip_duration` is in minutes.
+
+```{r trip_duration_stats}
+mean_trip_duration <- mean(divvy$trip_duration, na.rm  =  TRUE)
+max_trip_duration <- max(divvy$trip_duration, na.rm  =  TRUE)
+
+print(paste0("Mean trip duration: ", mean_trip_duration, " minutes"))
+print(paste0("Max trip duration: ", max_trip_duration, " minutes"))
+```
+
+Next, let's find the most frequent day of the week for rides.
+
+```{r day_of_week}
+mode_day_of_week <- names(which.max(table(divvy$day_of_week)))
+print(paste0("Most frequent day of week: ", mode_day_of_week))
+```
+
+Now, we'll calculate the average ride length for members and casual riders.
+
+```{r avg_ride_length_by_user_type}
+avg_ride_length_by_user_type <- divvy %>%
+  group_by(member_casual) %>%
+  summarise(average_ride_length  =  mean(trip_duration, na.rm  =  TRUE))
+
+print(avg_ride_length_by_user_type)
+```
+
+Let's also calculate the average ride length for users by day of the week.
+
+```{r avg_ride_length_by_day_of_week}
+avg_ride_length_by_day_of_week <- divvy %>%
+  group_by(day_of_week) %>%
+  summarise(average_ride_length  =  mean(trip_duration, na.rm  =  TRUE))
+
+print(avg_ride_length_by_day_of_week)
+```
+
+Next, we'll calculate the number of rides for users by day of the week.
+
+```{r number_of_rides_by_day_of_week}
+number_of_rides_by_day_of_week <- divvy %>%
+  group_by(day_of_week) %>%
+  summarise(number_of_rides  =  n())
+
+print(number_of_rides_by_day_of_week)
+```
+
+Now, let's explore the data by different seasons. We will use the `quarterly` variable to represent the seasons.
+
+```{r rides_by_season}
+rides_by_season <- divvy %>%
+  group_by(quarterly) %>%
+  summarise(
+    number_of_rides  =  n(),
+    average_ride_length  =  mean(trip_duration, na.rm  =  TRUE),
+    .groups  =  "drop"
+  )
+
+print(rides_by_season)
+```
+
+# Further Exploratory Data Analysis
+
+Let's analyze the hourly usage pattern.
+
+```{r hourly_usage}
+hourly_usage <- divvy %>%
+  group_by(hour_of_day) %>%
+  summarise(number_of_rides  =  n())
+
+print(hourly_usage, n = 24)
+
+ggplot(hourly_usage, aes(x = hour_of_day, y = number_of_rides)) +
+  geom_line() +
+  labs(x = "Hour of the day", y = "Number of Rides",
+       title = "Hourly Usage Pattern")
+```
+
+Now, we can examine the usage pattern by day of the week.
+
+```{r day_of_week_usage}
+day_of_week_usage <- divvy %>%
+  group_by(day_of_week) %>%
+  summarise(number_of_rides  =  n())
+
+print(day_of_week_usage, n = 7)
+
+ggplot(day_of_week_usage, aes(x = day_of_week, y = number_of_rides)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Day of Week", y = "Number of Rides",
+       title = "Usage Pattern by Day of Week")
+```
+
+We can also compare the hourly usage pattern between members and casual riders.
+
+```{r hourly_usage_by_user_type}
+hourly_usage_by_user_type <- divvy %>%
+  group_by(hour_of_day, member_casual) %>%
+  summarise(number_of_rides  =  n())
+
+print(hourly_usage_by_user_type, n = 48)
+
+ggplot(hourly_usage_by_user_type, aes(x = hour_of_day, y = number_of_rides, color = member_casual)) +
+  geom_line() +
+  labs(x = "Hour of the day", y = "Number of Rides",
+       title = "Hourly Usage Pattern by User Type")
+```
+
+Next, let's visualize the distribution of ride durations.
+
+```{r ride_duration_distribution}
+ggplot(divvy, aes(x = trip_duration)) +
+  geom_histogram(binwidth = 1) +
+  labs(x = "Trip Duration (minutes)", y = "Frequency",
+       title = "Distribution of Ride Durations")
+```
+
+# Conclusion
+
+Through our exploratory data analysis of the Divvy bike share system in Chicago, we have been able to uncover some key trends and insights that can help in converting casual riders into annual members.
+
+1. **Mean trip duration**: The average bike trip lasts about 11.07 minutes. Casual users tend to have longer trip durations with an average of 12.2 minutes as compared to members with an average of 10.3 minutes. Understanding the reasons behind these differences could provide insights into how to increase the usage of bikes among both types of users.
+
+2. **Day of the week**: Saturdays are the most popular day for bike rides. Further, we see an increase in trip durations on weekends. Offering promotions or incentives targeted towards weekend rides may encourage casual users to convert to annual members.
+
+3. **Hourly usage**: The peak usage of bikes is during the late afternoon/early evening around 4-6 PM. This suggests a high use for commuting. Tailored membership plans for commuters could be a good strategy to increase the conversion of casual users.
+
+4. **Seasonality**: The data also reveals a strong seasonality effect on bike usage. The highest usage is observed during the 3rd quarter (July - September), which coincides with the summer season in Chicago. Thus, offering seasonal membership options could potentially attract more casual users.
+
+# Recommendations
+
+Based on our analysis, we recommend the following strategies for converting casual riders into annual members:
+
+1. **Targeted Promotions**: Offer promotions or incentives for rides during the most popular days and times, such as Saturday afternoons. These promotions can specifically target casual riders with the goal of converting them to members.
+
+2. **Tailored Membership Plans**: Develop membership plans that cater to the usage patterns of casual riders. For instance, since the average trip duration of casual riders is slightly longer, offering a membership plan that includes longer trip durations could be attractive.
+
+3. **Seasonal Memberships**: Consider introducing seasonal membership plans. For instance, a summer membership plan could appeal to riders who prefer riding during the warm summer months.
+
+4. **Commuter Plans**: Given the peak usage during late afternoons/early evenings, commuter plans could be introduced. These plans could include unlimited rides during peak commuting hours.
+
+5. **User Feedback**: Lastly, it would be beneficial to directly gather feedback from casual users to understand their needs and what could potentially convert them into annual members. Surveys or focus group discussions could be used to gather this valuable input. 
+
+Overall, an understanding of the usage patterns of casual riders and providing tailored and flexible membership options could go a long way in converting them into annual members.

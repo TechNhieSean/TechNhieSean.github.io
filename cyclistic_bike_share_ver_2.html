@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="cyclistic-bike-share-case-study">Cyclistic Bike-Share Case
+Study</h1>
+<p>Sean Myro Marcelo</p>
+<h1 id="introduction">Introduction</h1>
+<p>This case study is aimed at understanding user behavior in
+Cyclistic’s bike-share program by analyzing historical bike trip data.
+By differentiating between casual riders and annual members, we aim to
+derive insights to formulate targeted marketing strategies. The ultimate
+goal is to convert casual riders into annual members, promoting
+Cyclistic’s growth.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Define file paths using a pattern</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># This assumes files are consistently named and in the same directory</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Change the path and pattern according to your data</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>file_paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path  =</span>  <span class="st">&quot;.&quot;</span>, <span class="at">pattern  =</span>  <span class="st">&quot;*divvy-tripdata.csv&quot;</span>, <span class="at">full.names  =</span>  <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Use map_df to read in and bind rows in one step</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>divvy <span class="ot">&lt;-</span> <span class="fu">map_df</span>(file_paths, read_csv)</span></code></pre></div>
+<h1 id="data-inspection">Data Inspection</h1>
+<p>We begin by inspecting the dataset to understand its structure,
+identify the types of data it contains, and check for any missing values
+or potential inconsistencies.</p>
+<h2 id="preview-the-dataset">Preview the Dataset</h2>
+<p>We first look at the first few rows of the dataset to get a glimpse
+of its structure and the nature of data it contains.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">head</span>(divvy)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 13
+##   ride_id          rideable_type started_at          ended_at           
+##   &lt;chr&gt;            &lt;chr&gt;         &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 600CFD130D0FD2A4 electric_bike 2022-06-30 17:27:53 2022-06-30 17:35:15
+## 2 F5E6B5C1682C6464 electric_bike 2022-06-30 18:39:52 2022-06-30 18:47:28
+## 3 B6EB6D27BAD771D2 electric_bike 2022-06-30 11:49:25 2022-06-30 12:02:54
+## 4 C9C320375DE1D5C6 electric_bike 2022-06-30 11:15:25 2022-06-30 11:19:43
+## 5 56C055851023BE98 electric_bike 2022-06-29 23:36:50 2022-06-29 23:45:17
+## 6 B664188E8163D045 electric_bike 2022-06-30 16:42:10 2022-06-30 16:58:22
+## # ℹ 9 more variables: start_station_name &lt;chr&gt;, start_station_id &lt;chr&gt;,
+## #   end_station_name &lt;chr&gt;, end_station_id &lt;chr&gt;, start_lat &lt;dbl&gt;,
+## #   start_lng &lt;dbl&gt;, end_lat &lt;dbl&gt;, end_lng &lt;dbl&gt;, member_casual &lt;chr&gt;</code></pre>
+<h2 id="descriptive-statistics">Descriptive Statistics</h2>
+<p>To get a better understanding of the variables in our dataset, we can
+use the <code>summary()</code> function which provides us with some
+descriptive statistics.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(divvy)</span></code></pre></div>
+<pre><code>##    ride_id          rideable_type        started_at                    
+##  Length:5829030     Length:5829030     Min.   :2022-06-01 00:00:04.00  
+##  Class :character   Class :character   1st Qu.:2022-07-27 14:54:51.00  
+##  Mode  :character   Mode  :character   Median :2022-09-23 07:56:12.50  
+##                                        Mean   :2022-10-28 01:02:13.02  
+##                                        3rd Qu.:2023-02-05 15:35:06.75  
+##                                        Max.   :2023-05-31 23:59:58.00  
+##                                                                        
+##     ended_at                      start_station_name start_station_id  
+##  Min.   :2022-06-01 00:02:38.00   Length:5829030     Length:5829030    
+##  1st Qu.:2022-07-27 15:16:15.75   Class :character   Class :character  
+##  Median :2022-09-23 08:14:32.50   Mode  :character   Mode  :character  
+##  Mean   :2022-10-28 01:20:55.64                                        
+##  3rd Qu.:2023-02-05 15:50:20.25                                        
+##  Max.   :2023-06-07 23:04:26.00                                        
+##                                                                        
+##  end_station_name   end_station_id       start_lat       start_lng     
+##  Length:5829030     Length:5829030     Min.   :41.64   Min.   :-87.87  
+##  Class :character   Class :character   1st Qu.:41.88   1st Qu.:-87.66  
+##  Mode  :character   Mode  :character   Median :41.90   Median :-87.64  
+##                                        Mean   :41.90   Mean   :-87.65  
+##                                        3rd Qu.:41.93   3rd Qu.:-87.63  
+##                                        Max.   :42.07   Max.   :-87.52  
+##                                                                        
+##     end_lat         end_lng       member_casual     
+##  Min.   : 0.00   Min.   :-88.11   Length:5829030    
+##  1st Qu.:41.88   1st Qu.:-87.66   Class :character  
+##  Median :41.90   Median :-87.64   Mode  :character  
+##  Mean   :41.90   Mean   :-87.65                     
+##  3rd Qu.:41.93   3rd Qu.:-87.63                     
+##  Max.   :42.37   Max.   :  0.00                     
+##  NA&#39;s   :5961    NA&#39;s   :5961</code></pre>
+<h2 id="variables-overview">Variables Overview</h2>
+<p>Next, we take a look at the names of the variables in our
+dataset.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">colnames</span>(divvy)</span></code></pre></div>
+<pre><code>##  [1] &quot;ride_id&quot;            &quot;rideable_type&quot;      &quot;started_at&quot;        
+##  [4] &quot;ended_at&quot;           &quot;start_station_name&quot; &quot;start_station_id&quot;  
+##  [7] &quot;end_station_name&quot;   &quot;end_station_id&quot;     &quot;start_lat&quot;         
+## [10] &quot;start_lng&quot;          &quot;end_lat&quot;            &quot;end_lng&quot;           
+## [13] &quot;member_casual&quot;</code></pre>
+<h2 id="data-types">Data Types</h2>
+<p>Understanding the types of data in our dataset is crucial as it
+dictates the kind of analyses we can perform on the variables.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">str</span>(divvy)</span></code></pre></div>
+<pre><code>## spc_tbl_ [5,829,030 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ ride_id           : chr [1:5829030] &quot;600CFD130D0FD2A4&quot; &quot;F5E6B5C1682C6464&quot; &quot;B6EB6D27BAD771D2&quot; &quot;C9C320375DE1D5C6&quot; ...
+##  $ rideable_type     : chr [1:5829030] &quot;electric_bike&quot; &quot;electric_bike&quot; &quot;electric_bike&quot; &quot;electric_bike&quot; ...
+##  $ started_at        : POSIXct[1:5829030], format: &quot;2022-06-30 17:27:53&quot; &quot;2022-06-30 18:39:52&quot; ...
+##  $ ended_at          : POSIXct[1:5829030], format: &quot;2022-06-30 17:35:15&quot; &quot;2022-06-30 18:47:28&quot; ...
+##  $ start_station_name: chr [1:5829030] NA NA NA NA ...
+##  $ start_station_id  : chr [1:5829030] NA NA NA NA ...
+##  $ end_station_name  : chr [1:5829030] NA NA NA NA ...
+##  $ end_station_id    : chr [1:5829030] NA NA NA NA ...
+##  $ start_lat         : num [1:5829030] 41.9 41.9 41.9 41.8 41.9 ...
+##  $ start_lng         : num [1:5829030] -87.6 -87.6 -87.7 -87.7 -87.6 ...
+##  $ end_lat           : num [1:5829030] 41.9 41.9 41.9 41.8 41.9 ...
+##  $ end_lng           : num [1:5829030] -87.6 -87.6 -87.6 -87.7 -87.6 ...
+##  $ member_casual     : chr [1:5829030] &quot;casual&quot; &quot;casual&quot; &quot;casual&quot; &quot;casual&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   ride_id = col_character(),
+##   ..   rideable_type = col_character(),
+##   ..   started_at = col_datetime(format = &quot;&quot;),
+##   ..   ended_at = col_datetime(format = &quot;&quot;),
+##   ..   start_station_name = col_character(),
+##   ..   start_station_id = col_character(),
+##   ..   end_station_name = col_character(),
+##   ..   end_station_id = col_character(),
+##   ..   start_lat = col_double(),
+##   ..   start_lng = col_double(),
+##   ..   end_lat = col_double(),
+##   ..   end_lng = col_double(),
+##   ..   member_casual = col_character()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<p>By inspecting the data, we can build a solid foundation for our
+subsequent analyses.</p>
+<h1 id="checking-data-integrity">Checking Data Integrity</h1>
+<p>The next step is to check for any missing values or potential
+inconsistencies in our dataset. This is important to ensure the accuracy
+of our analyses and the validity of our conclusions.</p>
+<h2 id="missing-values">Missing Values</h2>
+<p>Missing data can lead to biased or incorrect results. Therefore, it’s
+important to identify any missing values in our dataset.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Total missing values</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>total_na <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(divvy))</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Total missing values in the dataset: &quot;</span>, total_na)</span></code></pre></div>
+<pre><code>## [1] &quot;Total missing values in the dataset:  3464799&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Missing values per column</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>col_na <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(divvy))</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>col_na_list <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(col_na), <span class="st">&quot;:&quot;</span>, col_na)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">print</span>(col_na_list)</span></code></pre></div>
+<pre><code>##  [1] &quot;ride_id : 0&quot;                 &quot;rideable_type : 0&quot;          
+##  [3] &quot;started_at : 0&quot;              &quot;ended_at : 0&quot;               
+##  [5] &quot;start_station_name : 834545&quot; &quot;start_station_id : 834677&quot;  
+##  [7] &quot;end_station_name : 891757&quot;   &quot;end_station_id : 891898&quot;    
+##  [9] &quot;start_lat : 0&quot;               &quot;start_lng : 0&quot;              
+## [11] &quot;end_lat : 5961&quot;              &quot;end_lng : 5961&quot;             
+## [13] &quot;member_casual : 0&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Calculate proportion of missing data</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>missing_prop <span class="ot">&lt;-</span> total_na <span class="sc">/</span> <span class="fu">prod</span>(<span class="fu">dim</span>(divvy))</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Proportion of missing data in the dataset: &quot;</span>, <span class="fu">round</span>(missing_prop <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Proportion of missing data in the dataset:  4.57 %&quot;</code></pre>
+<h2 id="handling-missing-data">Handling Missing Data</h2>
+<p>The previous section reveals missing data in the following variables:
+<code>start_station_name</code>, <code>start_station_id</code>,
+<code>end_station_name</code>, <code>end_station_id</code>,
+<code>end_lat</code>, and <code>end_lng</code>. While the overall
+proportion of missing data in the dataset is approximately 4.57%, the
+distribution of these missing values varies significantly across
+variables. Given the nature of these variables and the goals of our
+analysis, we have decided to drop the aforementioned variables. This
+decision is driven by the following considerations:</p>
+<ol style="list-style-type: decimal">
+<li>The volume of missing data in these variables is substantial, which
+could introduce significant bias or distort our findings if we used
+imputation to fill the missing values. Complete-case analysis excluding
+all data from an observation that has one or more missing values could
+also do the same.</li>
+<li>Based on our understanding of the data and the context of our
+analysis, these variables are not considered critical. Specifically, our
+analysis does not primarily hinge on the exact start and end locations
+of rides, which are the fields with missing data.</li>
+</ol>
+<p>Please note that this decision to drop these variables could still
+introduce some degree of bias into our analysis. For example, if there
+is a meaningful pattern to the missingness of the data (i.e., the data
+is not missing at random), our results might overlook some nuances of
+the dataset.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>divvy <span class="ot">&lt;-</span> divvy[, <span class="sc">!</span>(<span class="fu">names</span>(divvy) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;start_station_name&quot;</span>, <span class="st">&quot;start_station_id&quot;</span>, <span class="st">&quot;end_station_name&quot;</span>, <span class="st">&quot;end_station_id&quot;</span>, <span class="st">&quot;end_lat&quot;</span>, <span class="st">&quot;end_lng&quot;</span>))]</span></code></pre></div>
+<p>Now we have a dataset with no missing values, which we will use for
+our subsequent analysis.</p>
+<h2 id="data-manipulation">Data Manipulation</h2>
+<p>The <code>divvy</code> dataset provided only contains the start and
+end timestamps of each ride. In order to analyze the length of each
+ride, we need a <code>trip_duration</code> variable that represents the
+difference between the end and start times. The units for
+<code>trip_duration</code> are set as minutes.</p>
+<p>Additionally, the <code>day_of_week</code> variable is not provided
+directly in the dataset. It is added to the dataset by extracting the
+day of the week from the <code>started_at</code> variable.</p>
+<p>These new variables, <code>trip_duration</code> and
+<code>day_of_week</code>, are created. The new variables are appended to
+the dataset as additional columns.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Creating &#39;trip_duration&#39; column</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>divvy <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">trip_duration  =</span>  <span class="fu">as.numeric</span>(<span class="fu">difftime</span>(ended_at, started_at, <span class="at">units  =</span>  <span class="st">&quot;mins&quot;</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>)</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co"># Creating &#39;day_of_week&#39; and &#39;hour_of_day&#39; columns</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>divvy <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="at">day_of_week  =</span>  <span class="fu">wday</span>(started_at, <span class="at">label  =</span>  <span class="cn">TRUE</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>  <span class="at">hour_of_day  =</span>  <span class="fu">hour</span>(started_at)</span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>)</span></code></pre></div>
+<h2 id="handling-erroneous-data">Handling Erroneous Data</h2>
+<p>In our initial exploration of the data, we noticed that there were
+some negative values in our ‘trip_duration’ variable. Considering that
+this is physically impossible (a trip cannot have a negative duration),
+we will treat these values as data entry errors and replace them with
+the median trip duration.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Identify negative durations</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>negative_durations <span class="ot">&lt;-</span> divvy<span class="sc">$</span>trip_duration <span class="sc">&lt;</span> <span class="dv">0</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co"># Calculate the median trip duration</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>median_trip_duration <span class="ot">&lt;-</span> <span class="fu">median</span>(divvy<span class="sc">$</span>trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co"># Replace negative durations with the median value</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>divvy<span class="sc">$</span>trip_duration[negative_durations] <span class="ot">&lt;-</span> median_trip_duration</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co"># Check if there are still any negative durations</span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>any_negative_durations <span class="ot">&lt;-</span> <span class="fu">any</span>(divvy<span class="sc">$</span>trip_duration <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Any negative durations left: &quot;</span>, any_negative_durations)</span></code></pre></div>
+<pre><code>## [1] &quot;Any negative durations left:  FALSE&quot;</code></pre>
+<h2 id="handling-outlier-data">Handling Outlier Data</h2>
+<p>Now that we’ve dealt with erroneous data, let’s move on to outliers.
+Outliers in our dataset can heavily skew our calculations and might lead
+to incorrect conclusions. These are defined as values that fall below
+the first quartile minus 1.5 times the interquartile range, or above the
+third quartile plus 1.5 times the interquartile range.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Identify the outliers for the &#39;trip_duration&#39; variable</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(divvy<span class="sc">$</span>trip_duration, <span class="fl">0.25</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(divvy<span class="sc">$</span>trip_duration, <span class="fl">0.75</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>outliers <span class="ot">&lt;-</span> divvy<span class="sc">$</span>trip_duration[divvy<span class="sc">$</span>trip_duration <span class="sc">&lt;</span> lower_bound <span class="sc">|</span> divvy<span class="sc">$</span>trip_duration <span class="sc">&gt;</span> upper_bound]</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="co"># Calculate the proportion of outlier data in the dataset</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>proportion_outliers <span class="ot">&lt;-</span> <span class="fu">length</span>(outliers) <span class="sc">/</span> <span class="fu">length</span>(divvy<span class="sc">$</span>trip_duration)</span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Proportion of outliers: &quot;</span>, proportion_outliers <span class="sc">*</span> <span class="dv">100</span>, <span class="st">&quot;%&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Proportion of outliers: 7.36837861530992%&quot;</code></pre>
+<p>After identifying that about 7.37% of our trip_duration data were
+outliers, we decided to replace these extreme values with the median
+trip duration.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Calculate the median trip duration again</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>median_trip_duration <span class="ot">&lt;-</span> <span class="fu">median</span>(divvy<span class="sc">$</span>trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co"># Replace the outliers with the median value of &#39;trip_duration&#39;</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>divvy<span class="sc">$</span>trip_duration[divvy<span class="sc">$</span>trip_duration <span class="sc">&lt;</span> lower_bound <span class="sc">|</span> divvy<span class="sc">$</span>trip_duration <span class="sc">&gt;</span> upper_bound] <span class="ot">&lt;-</span> median_trip_duration</span></code></pre></div>
+<h2 id="additional-time-variables">Additional Time Variables</h2>
+<p>To analyze trends and patterns over time, we create additional time
+variables: <code>semi_annual</code>, <code>quarterly</code>, and
+<code>monthly</code>. These variables allow us to observe trends within
+different timeframes.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Creating new time variables</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>divvy <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">semi_annual  =</span>  <span class="fu">case_when</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>    <span class="fu">month</span>(started_at) <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span> <span class="sc">~</span> <span class="fu">paste</span>(<span class="fu">year</span>(started_at), <span class="st">&quot;H1&quot;</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="fu">month</span>(started_at) <span class="sc">%in%</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">12</span> <span class="sc">~</span> <span class="fu">paste</span>(<span class="fu">year</span>(started_at), <span class="st">&quot;H2&quot;</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  ),</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  <span class="at">quarterly  =</span>  <span class="fu">paste</span>(<span class="fu">year</span>(started_at), <span class="st">&quot;Q&quot;</span>, <span class="fu">quarter</span>(started_at)),</span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>  <span class="at">monthly  =</span>  <span class="fu">paste</span>(<span class="fu">year</span>(started_at), <span class="fu">month</span>(started_at, <span class="at">label  =</span>  <span class="cn">TRUE</span>))</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>  )</span></code></pre></div>
+<h2 id="data-preparation-verification">Data Preparation
+Verification</h2>
+<p>After performing the necessary steps to ensure the data integrity and
+preparing the dataset for further analysis, it’s critical to verify that
+these processes have been properly executed.</p>
+<p>We have:</p>
+<ul>
+<li>Identified and addressed missing values</li>
+<li>Created necessary new variables</li>
+<li>Handled outlier data</li>
+<li>Added additional time variables</li>
+</ul>
+<p>Now, let’s verify that these steps have been successfully
+completed.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># Check for any remaining missing values</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>total_na_after <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(divvy))</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Total missing values in the dataset after cleaning: &quot;</span>, total_na_after)</span></code></pre></div>
+<pre><code>## [1] &quot;Total missing values in the dataset after cleaning:  0&quot;</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="co"># Check the presence of new variables</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>new_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;trip_duration&quot;</span>, <span class="st">&quot;day_of_week&quot;</span>, <span class="st">&quot;hour_of_day&quot;</span>, <span class="st">&quot;semi_annual&quot;</span>, <span class="st">&quot;quarterly&quot;</span>, <span class="st">&quot;monthly&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>new_vars_present <span class="ot">&lt;-</span> <span class="fu">all</span>(new_vars <span class="sc">%in%</span> <span class="fu">names</span>(divvy))</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;New variables added correctly: &quot;</span>, new_vars_present)</span></code></pre></div>
+<pre><code>## [1] &quot;New variables added correctly:  TRUE&quot;</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co"># Check that outliers have been replaced</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>outliers_after <span class="ot">&lt;-</span> divvy<span class="sc">$</span>trip_duration[divvy<span class="sc">$</span>trip_duration <span class="sc">&lt;</span> lower_bound <span class="sc">|</span> divvy<span class="sc">$</span>trip_duration <span class="sc">&gt;</span> upper_bound]</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>proportion_outliers_after <span class="ot">&lt;-</span> <span class="fu">length</span>(outliers_after) <span class="sc">/</span> <span class="fu">length</span>(divvy<span class="sc">$</span>trip_duration)</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;Proportion of outliers after replacement: &quot;</span>, proportion_outliers_after <span class="sc">*</span> <span class="dv">100</span>, <span class="st">&quot;%&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Proportion of outliers after replacement: 0%&quot;</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># Check the creation of time variables</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>time_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;semi_annual&quot;</span>, <span class="st">&quot;quarterly&quot;</span>, <span class="st">&quot;monthly&quot;</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>time_vars_present <span class="ot">&lt;-</span> <span class="fu">all</span>(time_vars <span class="sc">%in%</span> <span class="fu">names</span>(divvy))</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Time variables added correctly: &quot;</span>, time_vars_present)</span></code></pre></div>
+<pre><code>## [1] &quot;Time variables added correctly:  TRUE&quot;</code></pre>
+<p>There are no remaining missing values, our data has been properly
+cleaned and manipulated, and is ready for analysis.</p>
+<h1 id="data-analysis">Data Analysis</h1>
+<p>First, let’s calculate some basic statistics for the
+<code>trip_duration</code> variable. Please note that the
+<code>trip_duration</code> is in minutes.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>mean_trip_duration <span class="ot">&lt;-</span> <span class="fu">mean</span>(divvy<span class="sc">$</span>trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>max_trip_duration <span class="ot">&lt;-</span> <span class="fu">max</span>(divvy<span class="sc">$</span>trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Mean trip duration: &quot;</span>, mean_trip_duration, <span class="st">&quot; minutes&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Mean trip duration: 11.0668224673173 minutes&quot;</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Max trip duration: &quot;</span>, max_trip_duration, <span class="st">&quot; minutes&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Max trip duration: 35.6666666666667 minutes&quot;</code></pre>
+<p>Next, let’s find the most frequent day of the week for rides.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>mode_day_of_week <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">which.max</span>(<span class="fu">table</span>(divvy<span class="sc">$</span>day_of_week)))</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Most frequent day of week: &quot;</span>, mode_day_of_week))</span></code></pre></div>
+<pre><code>## [1] &quot;Most frequent day of week: Sat&quot;</code></pre>
+<p>Now, we’ll calculate the average ride length for members and casual
+riders.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>avg_ride_length_by_user_type <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>  <span class="fu">group_by</span>(member_casual) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_ride_length  =</span>  <span class="fu">mean</span>(trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a><span class="fu">print</span>(avg_ride_length_by_user_type)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   member_casual average_ride_length
+##   &lt;chr&gt;                       &lt;dbl&gt;
+## 1 casual                       12.2
+## 2 member                       10.3</code></pre>
+<p>Let’s also calculate the average ride length for users by day of the
+week.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>avg_ride_length_by_day_of_week <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="fu">group_by</span>(day_of_week) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_ride_length  =</span>  <span class="fu">mean</span>(trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>))</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="fu">print</span>(avg_ride_length_by_day_of_week)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##   day_of_week average_ride_length
+##   &lt;ord&gt;                     &lt;dbl&gt;
+## 1 Sun                        11.9
+## 2 Mon                        10.6
+## 3 Tue                        10.6
+## 4 Wed                        10.6
+## 5 Thu                        10.7
+## 6 Fri                        11.0
+## 7 Sat                        12.0</code></pre>
+<p>Next, we’ll calculate the number of rides for users by day of the
+week.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>number_of_rides_by_day_of_week <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">group_by</span>(day_of_week) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_of_rides  =</span>  <span class="fu">n</span>())</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="fu">print</span>(number_of_rides_by_day_of_week)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##   day_of_week number_of_rides
+##   &lt;ord&gt;                 &lt;int&gt;
+## 1 Sun                  770189
+## 2 Mon                  729223
+## 3 Tue                  823517
+## 4 Wed                  871238
+## 5 Thu                  878250
+## 6 Fri                  848026
+## 7 Sat                  908587</code></pre>
+<p>Now, let’s explore the data by different seasons. We will use the
+<code>quarterly</code> variable to represent the seasons.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>rides_by_season <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  <span class="fu">group_by</span>(quarterly) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>    <span class="at">number_of_rides  =</span>  <span class="fu">n</span>(),</span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>    <span class="at">average_ride_length  =</span>  <span class="fu">mean</span>(trip_duration, <span class="at">na.rm  =</span>  <span class="cn">TRUE</span>),</span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>    <span class="at">.groups  =</span>  <span class="st">&quot;drop&quot;</span></span>
+<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  )</span>
+<span id="cb44-8"><a href="#cb44-8" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" tabindex="-1"></a><span class="fu">print</span>(rides_by_season)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   quarterly number_of_rides average_ride_length
+##   &lt;chr&gt;               &lt;int&gt;               &lt;dbl&gt;
+## 1 2022 Q 2           769204               12.3 
+## 2 2022 Q 3          2310759               11.8 
+## 3 2022 Q 4          1078226               10.0 
+## 4 2023 Q 1           639424                9.11
+## 5 2023 Q 2          1031417               10.9</code></pre>
+<h1 id="further-exploratory-data-analysis">Further Exploratory Data
+Analysis</h1>
+<p>Let’s analyze the hourly usage pattern.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>hourly_usage <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>  <span class="fu">group_by</span>(hour_of_day) <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_of_rides  =</span>  <span class="fu">n</span>())</span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a><span class="fu">print</span>(hourly_usage, <span class="at">n =</span> <span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    hour_of_day number_of_rides
+##          &lt;int&gt;           &lt;int&gt;
+##  1           0           81803
+##  2           1           52042
+##  3           2           31279
+##  4           3           18603
+##  5           4           16309
+##  6           5           45321
+##  7           6          129916
+##  8           7          236723
+##  9           8          294650
+## 10           9          227488
+## 11          10          235081
+## 12          11          288186
+## 13          12          335766
+## 14          13          341365
+## 15          14          352106
+## 16          15          413144
+## 17          16          513153
+## 18          17          594163
+## 19          18          493938
+## 20          19          364019
+## 21          20          260308
+## 22          21          211492
+## 23          22          172453
+## 24          23          119722</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">ggplot</span>(hourly_usage, <span class="fu">aes</span>(<span class="at">x =</span> hour_of_day, <span class="at">y =</span> number_of_rides)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Hour of the day&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Rides&quot;</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Hourly Usage Pattern&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Now, we can examine the usage pattern by day of the week.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>day_of_week_usage <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="fu">group_by</span>(day_of_week) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_of_rides  =</span>  <span class="fu">n</span>())</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a><span class="fu">print</span>(day_of_week_usage, <span class="at">n =</span> <span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##   day_of_week number_of_rides
+##   &lt;ord&gt;                 &lt;int&gt;
+## 1 Sun                  770189
+## 2 Mon                  729223
+## 3 Tue                  823517
+## 4 Wed                  871238
+## 5 Thu                  878250
+## 6 Fri                  848026
+## 7 Sat                  908587</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">ggplot</span>(day_of_week_usage, <span class="fu">aes</span>(<span class="at">x =</span> day_of_week, <span class="at">y =</span> number_of_rides)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Day of Week&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Rides&quot;</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Usage Pattern by Day of Week&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>We can also compare the hourly usage pattern between members and
+casual riders.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>hourly_usage_by_user_type <span class="ot">&lt;-</span> divvy <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>  <span class="fu">group_by</span>(hour_of_day, member_casual) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_of_rides  =</span>  <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;hour_of_day&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">print</span>(hourly_usage_by_user_type, <span class="at">n =</span> <span class="dv">48</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 48 × 3
+## # Groups:   hour_of_day [24]
+##    hour_of_day member_casual number_of_rides
+##          &lt;int&gt; &lt;chr&gt;                   &lt;int&gt;
+##  1           0 casual                  44999
+##  2           0 member                  36804
+##  3           1 casual                  29501
+##  4           1 member                  22541
+##  5           2 casual                  18062
+##  6           2 member                  13217
+##  7           3 casual                  10482
+##  8           3 member                   8121
+##  9           4 casual                   7358
+## 10           4 member                   8951
+## 11           5 casual                  12679
+## 12           5 member                  32642
+## 13           6 casual                  31405
+## 14           6 member                  98511
+## 15           7 casual                  54307
+## 16           7 member                 182416
+## 17           8 casual                  72826
+## 18           8 member                 221824
+## 19           9 casual                  73853
+## 20           9 member                 153635
+## 21          10 casual                  92926
+## 22          10 member                 142155
+## 23          11 casual                 119945
+## 24          11 member                 168241
+## 25          12 casual                 142361
+## 26          12 member                 193405
+## 27          13 casual                 148837
+## 28          13 member                 192528
+## 29          14 casual                 158449
+## 30          14 member                 193657
+## 31          15 casual                 177787
+## 32          15 member                 235357
+## 33          16 casual                 200169
+## 34          16 member                 312984
+## 35          17 casual                 222040
+## 36          17 member                 372123
+## 37          18 casual                 196175
+## 38          18 member                 297763
+## 39          19 casual                 149278
+## 40          19 member                 214741
+## 41          20 casual                 109807
+## 42          20 member                 150501
+## 43          21 casual                  93807
+## 44          21 member                 117685
+## 45          22 casual                  83242
+## 46          22 member                  89211
+## 47          23 casual                  61778
+## 48          23 member                  57944</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(hourly_usage_by_user_type, <span class="fu">aes</span>(<span class="at">x =</span> hour_of_day, <span class="at">y =</span> number_of_rides, <span class="at">color =</span> member_casual)) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Hour of the day&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Rides&quot;</span>,</span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Hourly Usage Pattern by User Type&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Next, let’s visualize the distribution of ride durations.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(divvy, <span class="fu">aes</span>(<span class="at">x =</span> trip_duration)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Trip Duration (minutes)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Distribution of Ride Durations&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Through our exploratory data analysis of the Divvy bike share system
+in Chicago, we have been able to uncover some key trends and insights
+that can help in converting casual riders into annual members.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Mean trip duration</strong>: The average bike trip lasts
+about 11.07 minutes. Casual users tend to have longer trip durations
+with an average of 12.2 minutes as compared to members with an average
+of 10.3 minutes. Understanding the reasons behind these differences
+could provide insights into how to increase the usage of bikes among
+both types of users.</p></li>
+<li><p><strong>Day of the week</strong>: Saturdays are the most popular
+day for bike rides. Further, we see an increase in trip durations on
+weekends. Offering promotions or incentives targeted towards weekend
+rides may encourage casual users to convert to annual members.</p></li>
+<li><p><strong>Hourly usage</strong>: The peak usage of bikes is during
+the late afternoon/early evening around 4-6 PM. This suggests a high use
+for commuting. Tailored membership plans for commuters could be a good
+strategy to increase the conversion of casual users.</p></li>
+<li><p><strong>Seasonality</strong>: The data also reveals a strong
+seasonality effect on bike usage. The highest usage is observed during
+the 3rd quarter (July - September), which coincides with the summer
+season in Chicago. Thus, offering seasonal membership options could
+potentially attract more casual users.</p></li>
+</ol>
+<h1 id="recommendations">Recommendations</h1>
+<p>Based on our analysis, we recommend the following strategies for
+converting casual riders into annual members:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Targeted Promotions</strong>: Offer promotions or
+incentives for rides during the most popular days and times, such as
+Saturday afternoons. These promotions can specifically target casual
+riders with the goal of converting them to members.</p></li>
+<li><p><strong>Tailored Membership Plans</strong>: Develop membership
+plans that cater to the usage patterns of casual riders. For instance,
+since the average trip duration of casual riders is slightly longer,
+offering a membership plan that includes longer trip durations could be
+attractive.</p></li>
+<li><p><strong>Seasonal Memberships</strong>: Consider introducing
+seasonal membership plans. For instance, a summer membership plan could
+appeal to riders who prefer riding during the warm summer
+months.</p></li>
+<li><p><strong>Commuter Plans</strong>: Given the peak usage during late
+afternoons/early evenings, commuter plans could be introduced. These
+plans could include unlimited rides during peak commuting
+hours.</p></li>
+<li><p><strong>User Feedback</strong>: Lastly, it would be beneficial to
+directly gather feedback from casual users to understand their needs and
+what could potentially convert them into annual members. Surveys or
+focus group discussions could be used to gather this valuable
+input.</p></li>
+</ol>
+<p>Overall, an understanding of the usage patterns of casual riders and
+providing tailored and flexible membership options could go a long way
+in converting them into annual members.</p>
+
+</body>
+</html>
