@@ -4,12 +4,9 @@ Sean Myro Marcelo
 
 # Introduction
 
-This case study is aimed at understanding user behavior in Cyclistic’s
-bike-share program by analyzing historical bike trip data. By
-differentiating between casual riders and annual members, we aim to
-derive insights to formulate targeted marketing strategies. The ultimate
-goal is to convert casual riders into annual members, promoting
-Cyclistic’s growth.
+The goal of this case study is to design marketing strategies aimed at
+converting casual riders into annual members by analyzing the Cyclistic
+historical bike trip data to identify trends.
 
 ``` r
 # Import necessary libraries
@@ -675,9 +672,9 @@ ggplot(divvy, aes(x = trip_duration)) +
 
 # Conclusion
 
-Through our exploratory data analysis of the Divvy bike share system in
-Chicago, we have been able to uncover some key trends and insights that
-can help in converting casual riders into annual members.
+Through our exploratory data analysis of the the Cyclistic historical
+bike trip data, we have been able to uncover some key trends and
+insights that can help in converting casual riders into annual members.
 
 1.  **Mean trip duration**: The average bike trip lasts about 11.07
     minutes. Casual users tend to have longer trip durations with an
