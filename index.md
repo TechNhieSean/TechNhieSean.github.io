@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="styles.css">
+
 # Welcome to My Portfolio
 
 My name is Sean and I am a beginner in Data Analytics. I am excited to learn more about this field and share my progress along the way.
