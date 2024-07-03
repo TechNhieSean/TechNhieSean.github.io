@@ -18,6 +18,12 @@ This document provides a detailed analysis of Cyclistic's bike usage patterns in
 
 [Read the full report](2023_Bike_Usage_Patterns.pdf)
 
+### Emails
+
+- [Staffing Analysis](Staffing Analysis.pdf)
+- [Duration Analysis](NBH Duration.pdf)
+- [Analysis on Tech Givebacks](Analysis on Giveback.pdf)
+
 ## My Resume
 
 ### Contact
