@@ -29,7 +29,8 @@ This document provides a detailed analysis of Cyclistic's bike usage patterns in
 - [Staffing Analysis](GivebackNotification_VS_Workforce.xlsx)
 - [BigQuery Cleaned Cyclistic Table](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCaseCleaned_V2)
 - [BigQuery 2023 Cyclistic Table (combined from data made available by Moditvate International Inc.)](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCase)
-- [Cyclistic Case Study from Coursera](DA C8 Case Study 1 PDF.pdf)
+- [Cyclistic Case Study from Coursera](Case_Study.pdf)
+
 
 ## My Resume
 
