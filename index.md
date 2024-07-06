@@ -11,6 +11,7 @@ My name is Sean and I am a beginner in Data Analytics. I am excited to learn mor
 - [2023 Bike Usage Patterns (Cyclistic V3)](2023_Bike_Usage_Patterns.pdf)
 
 ### 2023 Bike Usage Patterns (Cyclistic V3)
+
 This document provides a detailed analysis of Cyclistic's bike usage patterns in 2023. The analysis includes:
 - Comparison of annual members and casual riders
 - Popular start and end stations
@@ -28,10 +29,11 @@ This document provides a detailed analysis of Cyclistic's bike usage patterns in
 
 - [Staffing Analysis Spreadsheet](GivebackNotification_VS_Workforce.xlsx)
 - [BigQuery Cleaned Cyclistic Table](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCaseCleaned_V2)
-- [BigQuery 2023 Cyclistic Table (combined from data made available by Moditvate International Inc.)](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCase)
+- [BigQuery 2023 Cyclistic Table (combined from data made available by Motivate International Inc.)](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCase)
 - [Cyclistic Case Study from Coursera](Case_Study.pdf)
+- [divvy-tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html)
+- [divvy-tripdata Data License Agreement](https://divvybikes.com/data-license-agreement)
 - [Tableau Dashboard](https://public.tableau.com/views/MinnesotaTrafficVolumeChartsDashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
-
 
 ## My Resume
 
