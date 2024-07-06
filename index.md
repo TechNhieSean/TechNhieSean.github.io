@@ -20,9 +20,9 @@ This document provides a detailed analysis of Cyclistic's bike usage patterns in
 
 ### Emails
 
-- [Staffing Analysis](Staffing Analysis.pdf)
-- [Duration Analysis](NBH Duration.pdf)
-- [Analysis on Tech Givebacks](Analysis on Giveback.pdf)
+- [Staffing Analysis](Staffing_Analysis.pdf)
+- [Duration Analysis](NBH_Duration.pdf)
+- [Analysis on Tech Givebacks](Analysis_on_Giveback.pdf)
 
 ### Spreadsheets, Tables, etc.
 
