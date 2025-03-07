@@ -36,7 +36,7 @@
         const id = idMatch ? idMatch[1] : "N/A";
 
         // District is after "District:"
-        const districtMatch = chunk.match(/District:\s*([A-Za-z\s]+)/i);
+        const districtMatch = chunk.match(/District:\s*([A-Za-z\s]+?)(?=\s+City:)/i);
         const district = districtMatch ? districtMatch[1] : "N/A";
 
         // Appointment Start line might look like:
