@@ -25,46 +25,43 @@
       const input = document.getElementById('inputText').value;
       let output = "";
       
-      // Split tasks from either the beginning of the text or a newline followed by a dash.
-      const taskChunks = input.split(/(?:\n|^)\s*-\s+/).slice(1);
-      
-      for (const chunk of taskChunks) {
-        // Extract the Task ID (first token in the chunk)
-        const idMatch = chunk.match(/^(\S+)/);
-        const id = idMatch ? idMatch[1] : "N/A";
+      // Split tasks by the '(1 Task Type:' pattern
+      const taskChunks = input.split(/\(1 Task Type:/);
 
-        // Extract District, stopping before "City:" using a lookahead.
-        const districtMatch = chunk.match(/District:\s*([A-Za-z\s]+?)(?=\s+City:)/i);
+      for (let i = 0; i < taskChunks.length - 1; i++) {
+        const chunk = taskChunks[i];
+        
+        // Task ID is everything after the previous line break, before '(1'
+        const idMatch = chunk.match(/([^-\n]+?)([^\n]*)$/);
+        const id = idMatch ? idMatch[1].trim().replace(/^-\s*/, '') : "N/A";
+
+        // Extract District
+        const districtMatch = taskChunks[i + 1].match(/District:\s*([^\n]+?)\s*City:/i);
         const district = districtMatch ? districtMatch[1].trim() : "N/A";
 
-        // Extract Appointment details:
-        // Format: "Appointment Start: YYYY-MM-DD hh:mm AM/PM - YYYY-MM-DD hh:mm AM/PM"
-        const apptMatch = chunk.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s+([\d:]+ [APM]{2})\s*-\s*\d{4}-\d{2}-\d{2}\s+([\d:]+ [APM]{2})/i);
-        if (!apptMatch) continue; // Skip if no match
+        // Extract Appointment details
+        const apptMatch = taskChunks[i + 1].match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s+([\d:]+ [APM]{2})\s*-\s*\d{4}-\d{2}-\d{2}\s+([\d:]+ [APM]{2})/i);
+        if (!apptMatch) continue; 
         
-        const startDate = apptMatch[1]; // YYYY-MM-DD
-        const startTime = apptMatch[2]; // e.g., 8:00 AM
-        const endTime   = apptMatch[3]; // e.g., 10:00 AM
+        const startDate = apptMatch[1];
+        const startTime = apptMatch[2];
+        const endTime   = apptMatch[3];
 
-        // Convert date to MM/DD/YY
+        // Format date to MM/DD/YY
         const parts = startDate.split("-");
         const formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0].slice(-2);
 
-        // Process times: remove AM/PM from the times then append a lowercased AM/PM to the window.
+        // Format times
         const startAMPM = startTime.slice(-2).toLowerCase();
-        const endAMPM   = endTime.slice(-2).toLowerCase();
         const startClock = startTime.replace(/\s*[APM]{2}/i, '').trim();
-        const endClock   = endTime.replace(/\s*[APM]{2}/i, '').trim();
-        const windowStr  = `${startClock}-${endClock} ${startAMPM}`;
+        const endClock = endTime.replace(/\s*[APM]{2}/i, '').trim();
+        const windowStr = `${startClock}-${endClock} ${startAMPM}`;
         
-        // Construct output line with tab-delimited fields.
+        // Build tab-separated output
         output += `${windowStr}\t${id}\t${formattedDate}\t${district}\n`;
       }
       
-      // Display the parsed output.
       document.getElementById('outputText').textContent = output || "No valid tasks found.";
-      
-      // Copy the output to the clipboard.
       navigator.clipboard.writeText(output)
         .then(() => alert("Output parsed and copied to clipboard!"))
         .catch(err => alert("Error copying to clipboard: " + err));
