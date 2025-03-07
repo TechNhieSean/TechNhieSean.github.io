@@ -27,7 +27,7 @@
 
       // Split by a dash at the start of a line (minus any preceding blank lines)
       // That way, each chunk corresponds to one task.
-      const taskChunks = input.split(/\n\s*-\s+/).slice(1);
+      const taskChunks = input.split(/(?:\n|^)\s*-\s+/).slice(1);
 
       for (const chunk of taskChunks) {
         // ID is the first token in the chunk
