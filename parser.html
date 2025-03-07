@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 2rem; }
     textarea { width: 100%; height: 200px; }
-    pre { background: #f4f4f4; padding: 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; white-space: pre; }
     button { padding: 0.5rem 1rem; font-size: 1rem; }
   </style>
 </head>
@@ -23,33 +24,48 @@
     function parseTasks() {
       const input = document.getElementById('inputText').value;
       let output = "";
-      
-      // Use a regex with the 's' flag so dot matches newline.
-      // This regex finds the ID, date, start time, end time, and district.
-      const regex = /-\s+(\S+).*?Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s*([\d:]+ [AP]M)\s*-\s*\d{4}-\d{2}-\d{2}\s*([\d:]+ [AP]M).*?District:\s*([A-Za-z]+)/gims;
-      let match;
-      
-      while ((match = regex.exec(input)) !== null) {
-        const id = match[1];
-        const dateRaw = match[2]; // in YYYY-MM-DD
-        const startTimeRaw = match[3];
-        const endTimeRaw = match[4];
-        const district = match[5];
-        
+
+      // Split by a dash at the start of a line (minus any preceding blank lines)
+      // That way, each chunk corresponds to one task.
+      const taskChunks = input.split(/\n\s*-\s+/).slice(1);
+
+      for (const chunk of taskChunks) {
+        // ID is the first token in the chunk
+        // e.g. "SC3144145 (1 Task Type..."
+        const idMatch = chunk.match(/^(\S+)/);
+        const id = idMatch ? idMatch[1] : "N/A";
+
+        // District is after "District:"
+        const districtMatch = chunk.match(/District:\s*([A-Za-z]+)/i);
+        const district = districtMatch ? districtMatch[1] : "N/A";
+
+        // Appointment Start line might look like:
+        // "Appointment Start: 2025-03-06 8:00 AM - 2025-03-06 10:00 AM"
+        const apptMatch = chunk.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s+([\d:]+ [APM]{2})\s*-\s*(\d{4}-\d{2}-\d{2})\s+([\d:]+ [APM]{2})/i);
+        if (!apptMatch) {
+          continue; // skip if we can’t find appointment details
+        }
+
+        // Extract data
+        const startDate = apptMatch[1]; // YYYY-MM-DD
+        const startTime = apptMatch[2]; // e.g. 8:00 AM
+        const endTime   = apptMatch[4]; // e.g. 10:00 AM
+
         // Convert date to MM/DD/YY
-        const parts = dateRaw.split("-");
-        const formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0].substring(2);
-        
-        // Remove AM/PM from startTime, but keep lower-case suffix from endTime.
-        const endPeriod = endTimeRaw.match(/(AM|PM)/i)[0].toLowerCase();
-        const startTime = startTimeRaw.replace(/\s*(AM|PM)/i, '');
-        const endTime = endTimeRaw.replace(/\s*(AM|PM)/i, '');
-        const windowStr = startTime + "-" + endTime + " " + endPeriod;
-        
-        // Construct output line (fields separated by tab)
-        output += windowStr + "\t" + id + "\t" + formattedDate + "\t" + district + "\n";
+        const parts = startDate.split("-");
+        const formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0].slice(-2);
+
+        // Format the window (lowercase AM/PM for style)
+        const startAMPM = startTime.slice(-2).toLowerCase();
+        const endAMPM   = endTime.slice(-2).toLowerCase();
+        const startClock = startTime.replace(/\s*[APM]{2}/i, '');
+        const endClock   = endTime.replace(/\s*[APM]{2}/i, '');
+        const windowStr  = `${startClock}-${endClock} ${startAMPM}`;
+
+        // Construct final line
+        output += `${windowStr}\t${id}\t${formattedDate}\t${district}\n`;
       }
-      
+
       document.getElementById('outputText').textContent = output || "No valid tasks found.";
     }
   </script>
