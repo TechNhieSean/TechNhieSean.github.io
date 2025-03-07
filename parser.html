@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Parser</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    textarea { width: 100%; height: 200px; }
+    pre { background: #f4f4f4; padding: 1rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Task Parser</h1>
+  <p>Paste your text (the “Before” format) below and click "Parse."</p>
+  <textarea id="inputText" placeholder="Paste your task text here"></textarea>
+  <br><br>
+  <button onclick="parseTasks()">Parse</button>
+  <h2>Parsed Output</h2>
+  <pre id="outputText"></pre>
+
+  <script>
+    function parseTasks() {
+      const input = document.getElementById('inputText').value;
+      let output = "";
+      
+      // Use a regex with the 's' flag so dot matches newline.
+      // This regex finds the ID, date, start time, end time, and district.
+      const regex = /-\s+(\S+).*?Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s*([\d:]+ [AP]M)\s*-\s*\d{4}-\d{2}-\d{2}\s*([\d:]+ [AP]M).*?District:\s*([A-Za-z]+)/gims;
+      let match;
+      
+      while ((match = regex.exec(input)) !== null) {
+        const id = match[1];
+        const dateRaw = match[2]; // in YYYY-MM-DD
+        const startTimeRaw = match[3];
+        const endTimeRaw = match[4];
+        const district = match[5];
+        
+        // Convert date to MM/DD/YY
+        const parts = dateRaw.split("-");
+        const formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0].substring(2);
+        
+        // Remove AM/PM from startTime, but keep lower-case suffix from endTime.
+        const endPeriod = endTimeRaw.match(/(AM|PM)/i)[0].toLowerCase();
+        const startTime = startTimeRaw.replace(/\s*(AM|PM)/i, '');
+        const endTime = endTimeRaw.replace(/\s*(AM|PM)/i, '');
+        const windowStr = startTime + "-" + endTime + " " + endPeriod;
+        
+        // Construct output line (fields separated by tab)
+        output += windowStr + "\t" + id + "\t" + formattedDate + "\t" + district + "\n";
+      }
+      
+      document.getElementById('outputText').textContent = output || "No valid tasks found.";
+    }
+  </script>
+</body>
+</html>
