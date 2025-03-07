@@ -13,16 +13,15 @@
 </head>
 <body>
   <h1>Task Parser</h1>
-  <p>Paste your text (the “Before” format) below and click "Parse."</p>
+  <p>Paste your text (the “Before” format) below and click "Parse and Copy to Clipboard."</p>
   <textarea id="inputText" placeholder="Paste your tasks here"></textarea>
   <br><br>
-  <button onclick="parseTasks()">Parse</button>
-  <button onclick="copyOutput()">Copy to Clipboard</button>
+  <button onclick="parseAndCopy()">Parse and Copy to Clipboard</button>
   <h2>Parsed Output</h2>
   <pre id="outputText"></pre>
 
   <script>
-    function parseTasks() {
+    function parseAndCopy() {
       const input = document.getElementById('inputText').value;
       let output = "";
       
@@ -62,14 +61,12 @@
         output += `${windowStr}\t${id}\t${formattedDate}\t${district}\n`;
       }
       
+      // Display the parsed output.
       document.getElementById('outputText').textContent = output || "No valid tasks found.";
-    }
-    
-    // Copy the parsed output to the clipboard.
-    function copyOutput() {
-      const text = document.getElementById('outputText').textContent;
-      navigator.clipboard.writeText(text)
-        .then(() => alert("Output copied to clipboard!"))
+      
+      // Copy the output to the clipboard.
+      navigator.clipboard.writeText(output)
+        .then(() => alert("Output parsed and copied to clipboard!"))
         .catch(err => alert("Error copying to clipboard: " + err));
     }
   </script>
