@@ -41,17 +41,24 @@
         const district = districtMatch ? districtMatch[1].trim() : "N/A";
 
         // Extract Appointment details:
-        // Format: "Appointment Start: YYYY-MM-DD hh:mm AM/PM - YYYY-MM-DD hh:mm AM/PM"
-        const apptMatch = chunk.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2})\s+([\d:]+ [APM]{2})\s*-\s*\d{4}-\d{2}-\d{2}\s+([\d:]+ [APM]{2})/i);
+        // Format: "Appointment Start: YYYY-MM-DD hh:mm AM/PM - YYYY-MM-DD hh:mm AM/PM" or "M/D/YYYY hh:mm AM/PM - M/D/YYYY hh:mm AM/PM"
+        const apptMatch = chunk.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})\s*-\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})/i);
         if (!apptMatch) continue; // Skip if no match
         
-        const startDate = apptMatch[1]; // YYYY-MM-DD
+        let startDate = apptMatch[1]; // YYYY-MM-DD or M/D/YYYY
         const startTime = apptMatch[2]; // e.g., 8:00 AM
-        const endTime   = apptMatch[3]; // e.g., 10:00 AM
+        const endTime   = apptMatch[4]; // e.g., 10:00 AM
 
         // Convert date to MM/DD/YY
-        const parts = startDate.split("-");
-        const formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0].slice(-2);
+        if (startDate.includes('-')) {
+          // Handle YYYY-MM-DD format
+          const parts = startDate.split("-");
+          startDate = parts[1] + "/" + parts[2] + "/" + parts[0].slice(-2);
+        } else {
+          // Handle M/D/YYYY format
+          const parts = startDate.split("/");
+          startDate = parts[0] + "/" + parts[1] + "/" + parts[2].slice(-2);
+        }
 
         // Process times: remove AM/PM from the times then append a lowercased AM/PM to the window.
         const startAMPM = startTime.slice(-2).toLowerCase();
@@ -61,7 +68,7 @@
         const windowStr  = `${startClock}-${endClock} ${startAMPM}`;
         
         // Construct output line with tab-delimited fields.
-        output += `${windowStr}\t${id}\t${formattedDate}\t${district}\n`;
+        output += `${windowStr}\t${id}\t${startDate}\t${district}\n`;
       }
       
       // Display the parsed output.
