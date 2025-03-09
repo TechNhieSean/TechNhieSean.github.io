@@ -25,7 +25,8 @@
 
   <script>
     function parseAndCopy() {
-      const input = document.getElementById('inputText').value;
+      const inputEl = document.getElementById('inputText');
+      const input = inputEl.value;
       let output = "";
       
       // Split tasks from either the beginning of the text or a newline followed by a dash.
@@ -74,9 +75,12 @@
       // Display the parsed output.
       document.getElementById('outputText').textContent = output || "No valid tasks found.";
       
-      // Copy the output to the clipboard.
+      // Copy the output to the clipboard and clear the input textarea.
       navigator.clipboard.writeText(output)
-        .then(() => alert("Output parsed and copied to clipboard!"))
+        .then(() => {
+          alert("Output parsed and copied to clipboard!");
+          inputEl.value = "";  // Clear the entered text.
+        })
         .catch(err => alert("Error copying to clipboard: " + err));
     }
   </script>
