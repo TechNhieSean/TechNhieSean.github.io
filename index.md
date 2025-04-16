@@ -11,6 +11,7 @@ My name is Sean and I am a beginner in Data Analytics. I am excited to learn mor
 - [2023 Bike Usage Patterns (Cyclistic V3)](2023_Bike_Usage_Patterns.pdf)
 - [Album Coffee Shop: Business Plan Document](Album_Business_Plan_03-13-2025.html)
 - [Task Parser Tool](parser.html)
+- [Task Parser Tool V2](parser_V2.html)
 
 ### 2023 Bike Usage Patterns (Cyclistic V3)
 

@@ -9,6 +9,12 @@
     textarea { width: 100%; height: 200px; }
     pre { background: #f4f4f4; padding: 1rem; white-space: pre; }
     button { padding: 0.5rem 1rem; font-size: 1rem; margin-right: 0.5rem; }
+    @media (max-width: 600px) {
+      body { margin: 0.5rem; }
+      textarea { height: 120px; }
+    }
+    .error-msg { color: #b00; font-weight: bold; margin-top: 1rem; }
+    label { font-weight: bold; }
   </style>
 </head>
 <body>
@@ -16,35 +22,60 @@
   <h2>Paste your text below and click "Parse and Copy to Clipboard."</h2>
   <h3>•	It requires the dash (-) before the ID (SC#/WO#) to work properly.</h3>
   <h3>•	Tasks must be unassigned.</h3>
-  <h3>•	Forced (F) and Must Do (Must) tasks don't work properly yet.</h3>
-  <textarea id="inputText" placeholder="Paste your tasks here"></textarea>
+  <label for="inputText">Task Input</label>
+  <textarea id="inputText" placeholder="Paste your tasks here" aria-label="Task Input"></textarea>
   <br><br>
-  <button onclick="parseAndCopy()">Parse and Copy to Clipboard</button>
+  <button id="parseBtn" onclick="parseAndCopy()" aria-label="Parse and Copy to Clipboard">Parse and Copy to Clipboard</button>
+  <div id="errorMsg" class="error-msg" aria-live="assertive" style="display:none;"></div>
   <h2>Parsed Output</h2>
-  <pre id="outputText"></pre>
+  <pre id="outputText" aria-label="Parsed Output"></pre>
 
   <script>
     function parseAndCopy() {
       const inputEl = document.getElementById('inputText');
+      const errorEl = document.getElementById('errorMsg');
       const input = inputEl.value;
       let output = "";
+      let errors = [];
       
-      // Split tasks from either the beginning of the text or a newline followed by a dash.
-      const taskChunks = input.split(/(?:\n|^)\s*-\s+/).slice(1);
+      // Improved regex: split only when a line starts with a dash, (Must), or (F) (optionally both)
+      const taskChunks = input.split(/(?:\n|^)(?=-|\(Must\)|\(F\))/g).filter(Boolean);
       
+      let parsedCount = 0;
+      let rows = [];
       for (const chunk of taskChunks) {
-        // Extract the Task ID (first token in the chunk)
-        const idMatch = chunk.match(/^(\S+)/);
-        const id = idMatch ? idMatch[1] : "N/A";
+        // Skip empty or whitespace-only chunks
+        if (!chunk.trim()) continue;
+        // Only process if it looks like a real task (must contain Appointment Start)
+        if (!/Appointment Start:/i.test(chunk)) continue;
+
+        // Extract Forced and Must Do flags (look for (Must) and/or (F) at the start)
+        let mustDo = false, forced = false;
+        let chunkCopy = chunk.trim();
+        chunkCopy = chunkCopy.replace(/^(\(Must\))?/i, m => { if(m) mustDo = true; return ''; });
+        chunkCopy = chunkCopy.replace(/^(\(F\))?/i, m => { if(m) forced = true; return ''; });
+        chunkCopy = chunkCopy.trim();
+
+        // Extract the Task ID (first token after dash or at start)
+        let id = "N/A";
+        if (/^-/.test(chunkCopy)) {
+          // Remove dash, then get first token
+          id = chunkCopy.replace(/^\-\s*/, '').split(/\s+/)[0];
+        } else {
+          id = chunkCopy.split(/\s+/)[0];
+        }
+
 
         // Extract District, stopping before "City:" using a lookahead.
-        const districtMatch = chunk.match(/District:\s*([A-Za-z\s]+?)(?=\s+City:)/i);
+        const districtMatch = chunkCopy.match(/District:\s*([A-Za-z\s]+?)(?=\s+City:)/i);
         const district = districtMatch ? districtMatch[1].trim() : "N/A";
 
         // Extract Appointment details:
-        // Format: "Appointment Start: YYYY-MM-DD hh:mm AM/PM - YYYY-MM-DD hh:mm AM/PM" or "M/D/YYYY hh:mm AM/PM - M/D/YYYY hh:mm AM/PM"
-        const apptMatch = chunk.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})\s*-\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})/i);
-        if (!apptMatch) continue; // Skip if no match
+        const apptMatch = chunkCopy.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})\s*-\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})/i);
+        if (!apptMatch) {
+          errors.push(`Skipped a task (ID: ${id}) due to missing or malformed appointment info.`);
+          continue;
+        }
         
         let startDate = apptMatch[1]; // YYYY-MM-DD or M/D/YYYY
         const startTime = apptMatch[2]; // e.g., 8:00 AM
@@ -68,21 +99,47 @@
         const endClock   = endTime.replace(/\s*[APM]{2}/i, '').trim();
         const windowStr  = `${startClock}-${endClock} ${startAMPM}`;
         
-        // Construct output line with tab-delimited fields.
-        output += `${windowStr}\t${id}\t${startDate}\t${district}\n`;
+        // Build row
+        rows.push({
+          windowStr,
+          id,
+          startDate,
+          district
+        });
+        parsedCount++;
       }
-      
-      // Display the parsed output.
+      // Build output without header
+      if (parsedCount > 0) {
+        for (const row of rows) {
+          let line = `${row.windowStr}\t${row.id}\t${row.startDate}\t${row.district}`;
+          output += line + "\n";
+        }
+      }
       document.getElementById('outputText').textContent = output || "No valid tasks found.";
-      
+      if (errors.length) {
+        errorEl.style.display = '';
+        errorEl.textContent = errors.join('\n');
+      } else {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+      }
       // Copy the output to the clipboard and clear the input textarea.
-      navigator.clipboard.writeText(output)
-        .then(() => {
-          alert("Output parsed and copied to clipboard!");
-          inputEl.value = "";  // Clear the entered text.
-        })
-        .catch(err => alert("Error copying to clipboard: " + err));
+      if (parsedCount > 0) {
+        navigator.clipboard.writeText(output)
+          .then(() => {
+            alert("Output parsed and copied to clipboard!");
+            inputEl.value = "";  // Clear the entered text.
+          })
+          .catch(err => alert("Error copying to clipboard: " + err));
+      }
     }
+    // Accessibility: allow Enter key to trigger parse when textarea is focused and Ctrl+Enter is pressed
+    document.getElementById('inputText').addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        document.getElementById('parseBtn').focus();
+        parseAndCopy();
+      }
+    });
   </script>
 </body>
 </html>
