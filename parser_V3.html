@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Parser V3</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: var(--bg, #fff);
+      color: var(--fg, #111);
+      transition: background 0.3s, color 0.3s;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      background: var(--textarea-bg, #fff);
+      color: var(--fg, #111);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    pre {
+      background: var(--pre-bg, #f4f4f4);
+      color: var(--fg, #111);
+      padding: 1rem;
+      white-space: pre;
+      border-radius: 4px;
+      transition: background 0.3s, color 0.3s;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+      border-radius: 4px;
+      border: none;
+      background: var(--btn-bg, #007bff);
+      color: var(--btn-fg, #fff);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    button:active {
+      background: var(--btn-bg-active, #0056b3);
+    }
+    .error-msg {
+      color: #b00;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    label { font-weight: bold; }
+    .toggle-dark {
+      float: right;
+      margin-top: -1.5rem;
+      margin-bottom: 1rem;
+      background: none;
+      color: var(--fg, #111);
+      border: 1px solid #ccc;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 2rem;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (max-width: 600px) {
+      body { margin: 0.5rem; }
+      textarea { height: 120px; }
+      .toggle-dark { float: none; display: block; margin: 0 0 1rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-dark" id="darkToggle" aria-label="Toggle dark mode">🌙 Dark Mode</button>
+  <h1>Task Parser V3</h1>
+  <h2>Paste your text below and click "Parse and Copy to Clipboard."</h2>
+  <h3>• It requires the dash (-) before the ID (SC#/WO#) to work properly.</h3>
+  <h3>• Tasks must be unassigned.</h3>
+  <label for="inputText">Task Input</label>
+  <textarea id="inputText" placeholder="Paste your tasks here" aria-label="Task Input"></textarea>
+  <br><br>
+  <button id="parseBtn" onclick="parseAndCopy()" aria-label="Parse and Copy to Clipboard">Parse and Copy to Clipboard</button>
+  <div id="errorMsg" class="error-msg" aria-live="assertive" style="display:none;"></div>
+  <h2>Parsed Output</h2>
+  <pre id="outputText" aria-label="Parsed Output"></pre>
+  <div class="toast" id="toast">Output parsed and copied to clipboard!</div>
+  <script>
+    // Dark mode logic
+    const darkStyles = {
+      '--bg': '#181a1b',
+      '--fg': '#e8e6e3',
+      '--textarea-bg': '#232629',
+      '--pre-bg': '#232629',
+      '--btn-bg': '#333',
+      '--btn-bg-active': '#222',
+      '--btn-fg': '#fff'
+    };
+    const lightStyles = {
+      '--bg': '#fff',
+      '--fg': '#111',
+      '--textarea-bg': '#fff',
+      '--pre-bg': '#f4f4f4',
+      '--btn-bg': '#007bff',
+      '--btn-bg-active': '#0056b3',
+      '--btn-fg': '#fff'
+    };
+    function setDarkMode(on) {
+      const root = document.documentElement;
+      const styles = on ? darkStyles : lightStyles;
+      for (const k in styles) root.style.setProperty(k, styles[k]);
+      document.getElementById('darkToggle').textContent = on ? '☀️ Light Mode' : '🌙 Dark Mode';
+      localStorage.setItem('darkMode', on ? '1' : '0');
+    }
+    document.getElementById('darkToggle').onclick = function() {
+      const on = localStorage.getItem('darkMode') !== '1';
+      setDarkMode(on);
+    };
+    // Init theme
+    setDarkMode(localStorage.getItem('darkMode') === '1');
+
+    // Toast logic
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function parseAndCopy() {
+      const inputEl = document.getElementById('inputText');
+      const errorEl = document.getElementById('errorMsg');
+      const input = inputEl.value;
+      let output = "";
+      let errors = [];
+      // Improved regex: split only when a line starts with a dash, (Must), or (F) (optionally both)
+      const taskChunks = input.split(/(?:\n|^)(?=-|\(Must\)|\(F\))/g).filter(Boolean);
+      let parsedCount = 0;
+      let rows = [];
+      for (const chunk of taskChunks) {
+        if (!chunk.trim()) continue;
+        if (!/Appointment Start:/i.test(chunk)) continue;
+        // Extract Forced and Must Do flags (look for (Must) and/or (F) at the start)
+        let chunkCopy = chunk.trim();
+        chunkCopy = chunkCopy.replace(/^\(Must\)?/i, '').replace(/^\(F\)?/i, '').trim();
+        // Extract the Task ID (first token after dash or at start)
+        let id = "N/A";
+        if (/^-/.test(chunkCopy)) {
+          id = chunkCopy.replace(/^-\s*/, '').split(/\s+/)[0];
+        } else {
+          id = chunkCopy.split(/\s+/)[0];
+        }
+        // Extract District, stopping before "City:" using a lookahead.
+        const districtMatch = chunkCopy.match(/District:\s*([A-Za-z\s]+?)(?=\s+City:)/i);
+        const district = districtMatch ? districtMatch[1].trim() : "N/A";
+        // Extract Appointment details:
+        const apptMatch = chunkCopy.match(/Appointment Start:\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})\s*-\s*(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})\s+([\d:]+ [APM]{2})/i);
+        if (!apptMatch) {
+          errors.push(`Skipped a task (ID: ${id}) due to missing or malformed appointment info.`);
+          continue;
+        }
+        let startDate = apptMatch[1];
+        const startTime = apptMatch[2];
+        const endTime   = apptMatch[4];
+        // Convert date to MM/DD/YY
+        if (startDate.includes('-')) {
+          const parts = startDate.split("-");
+          startDate = parts[1] + "/" + parts[2] + "/" + parts[0].slice(-2);
+        } else {
+          const parts = startDate.split("/");
+          startDate = parts[0] + "/" + parts[1] + "/" + parts[2].slice(-2);
+        }
+        // Process times: remove AM/PM from the times then append a lowercased AM/PM to the window.
+        const startAMPM = startTime.slice(-2).toLowerCase();
+        const endAMPM   = endTime.slice(-2).toLowerCase();
+        const startClock = startTime.replace(/\s*[APM]{2}/i, '').trim();
+        const endClock   = endTime.replace(/\s*[APM]{2}/i, '').trim();
+        const windowStr  = `${startClock}-${endClock} ${startAMPM}`;
+        rows.push({ windowStr, id, startDate, district });
+        parsedCount++;
+      }
+      // Build output without header
+      if (parsedCount > 0) {
+        for (const row of rows) {
+          let line = `${row.windowStr}\t${row.id}\t${row.startDate}\t${row.district}`;
+          output += line + "\n";
+        }
+      }
+      document.getElementById('outputText').textContent = output || "No valid tasks found.";
+      if (errors.length) {
+        errorEl.style.display = '';
+        errorEl.textContent = errors.join('\n');
+      } else {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+      }
+      if (parsedCount > 0) {
+        navigator.clipboard.writeText(output)
+          .then(() => {
+            showToast("Output parsed and copied to clipboard!");
+            inputEl.value = "";
+          })
+          .catch(err => showToast("Error copying to clipboard: " + err));
+      }
+    }
+    // Accessibility: allow Enter key to trigger parse when textarea is focused and Ctrl+Enter is pressed
+    document.getElementById('inputText').addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        document.getElementById('parseBtn').focus();
+        parseAndCopy();
+      }
+    });
+  </script>
+</body>
+</html>
