@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>Find a Local D&D/TTRPG Group</h1>
-        <p class="subtitle">Free, automated, and local-first – no paid DMs, no subscriptions!</p>
+        <p class="subtitle">Winnipeg-focused. Free, automated, and local-first – no paid DMs, no subscriptions!</p>
     </header>
     <main>
         <section id="profile-section">
@@ -20,22 +20,7 @@
                     <label for="name">Name/Nickname:</label>
                     <input type="text" id="name" required maxlength="24">
                 </div>
-                <div class="form-row">
-                    <label for="city">City/Location:</label>
-                    <input type="text" id="city" list="city-list" required maxlength="32">
-                    <datalist id="city-list">
-                        <option value="Toronto">
-                        <option value="Vancouver">
-                        <option value="Montreal">
-                        <option value="Calgary">
-                        <option value="Ottawa">
-                        <option value="Edmonton">
-                        <option value="Winnipeg">
-                        <option value="Halifax">
-                        <option value="London">
-                        <option value="Other">
-                    </datalist>
-                </div>
+
                 <div class="form-row">
                     <label>Role:</label>
                     <select id="role" required>
@@ -46,7 +31,28 @@
                 </div>
                 <div class="form-row">
                     <label for="system">Game System:</label>
-                    <input type="text" id="system" placeholder="e.g. D&D 5e, Pathfinder" required maxlength="32">
+                    <select id="system" required>
+                        <option value="D&D 5e">D&D 5e</option>
+                        <option value="Pathfinder">Pathfinder</option>
+                        <option value="Call of Cthulhu">Call of Cthulhu</option>
+                        <option value="D&D 3.5e">D&D 3.5e</option>
+                        <option value="D&D 4e">D&D 4e</option>
+                        <option value="D&D 1e/2e">D&D 1e/2e</option>
+                        <option value="Shadowrun">Shadowrun</option>
+                        <option value="Vampire: The Masquerade">Vampire: The Masquerade</option>
+                        <option value="Starfinder">Starfinder</option>
+                        <option value="Other">Other (specify below)</option>
+                    </select>
+                    <input type="text" id="system-other" placeholder="Enter game system" style="display:none; margin-top:0.5em;" maxlength="32">
+                </div>
+                <div class="form-row">
+                    <label for="play-pref">Play Preference:</label>
+                    <select id="play-pref" required>
+                        <option value="In-person only">In-person only</option>
+                        <option value="In-person preferred">In-person preferred</option>
+                        <option value="Online preferred">Online preferred</option>
+                        <option value="Online only">Online only</option>
+                    </select>
                 </div>
                 <div class="form-row">
                     <label>Days Available:</label>
@@ -79,10 +85,28 @@
         <section id="browse-section">
             <h2>Browse Local Players & DMs</h2>
             <div class="filter-row">
-                <label for="filter-city">City:</label>
-                <input type="text" id="filter-city" list="city-list" placeholder="Any">
                 <label for="filter-system">System:</label>
-                <input type="text" id="filter-system" placeholder="Any">
+                <select id="filter-system">
+                    <option value="">Any</option>
+                    <option value="D&D 5e">D&D 5e</option>
+                    <option value="Pathfinder">Pathfinder</option>
+                    <option value="Call of Cthulhu">Call of Cthulhu</option>
+                    <option value="D&D 3.5e">D&D 3.5e</option>
+                    <option value="D&D 4e">D&D 4e</option>
+                    <option value="D&D 1e/2e">D&D 1e/2e</option>
+                    <option value="Shadowrun">Shadowrun</option>
+                    <option value="Vampire: The Masquerade">Vampire: The Masquerade</option>
+                    <option value="Starfinder">Starfinder</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label for="filter-playpref">Play:</label>
+                <select id="filter-playpref">
+                    <option value="">Any</option>
+                    <option value="In-person only">In-person only</option>
+                    <option value="In-person preferred">In-person preferred</option>
+                    <option value="Online preferred">Online preferred</option>
+                    <option value="Online only">Online only</option>
+                </select>
                 <button id="clear-filters">Clear</button>
             </div>
             <div id="profiles-list"></div>

@@ -47,12 +47,12 @@ function getOverlapping(arr1, arr2) {
     return arr1.filter(x => arr2.includes(x));
 }
 
-function renderProfilesList(profiles, filterCity = '', filterSystem = '') {
+function renderProfilesList(profiles, filterPlayPref = '') {
     const list = document.getElementById('profiles-list');
     list.innerHTML = '';
     let filtered = profiles;
-    if (filterCity) filtered = filtered.filter(p => p.city.toLowerCase().includes(filterCity.toLowerCase()));
-    if (filterSystem) filtered = filtered.filter(p => p.system.toLowerCase().includes(filterSystem.toLowerCase()));
+    if (filterPlayPref) filtered = filtered.filter(p => p.playPref === filterPlayPref);
+    console.debug('[renderProfilesList] filterPlayPref:', filterPlayPref, 'Filtered profiles:', filtered);
     if (!filtered.length) {
         list.innerHTML = '<p>No profiles found.</p>';
         return;
@@ -62,56 +62,139 @@ function renderProfilesList(profiles, filterCity = '', filterSystem = '') {
         el.className = 'profile-card';
         el.innerHTML = `
             <strong>${escapeHtml(p.name)}</strong> <span class="role">(${p.role})</span><br>
-            <span class="city">${escapeHtml(p.city)}</span> | <span class="system">${escapeHtml(p.system)}</span><br>
-            <span class="days">${p.days.join(', ')}</span> <span class="times">${p.times.join(', ')}</span><br>
+            <span class="city">City: Winnipeg</span><br>
+            <span class="system">System: Dungeons & Dragons</span><br>
+            <span class="playpref">Play: ${escapeHtml(p.playPref)}</span><br>
+            <span class="days">Days: ${p.days.join(', ')}</span> <span class="times">Times: ${p.times.join(', ')}</span><br>
             <span class="contact">Contact: ${escapeHtml(p.contact)}</span>
         `;
         list.appendChild(el);
     });
 }
 
+function groupCompatibilityRank(subgroup, userPref) {
+    const prefs = subgroup.map(p => p.playPref);
+    const unique = new Set(prefs.filter(p => p !== 'No Preference'));
+    // Best match: all match userPref
+    if (unique.size === 1 && [...unique][0] === userPref) return 1;
+    // Next: all match a similar preference
+    if (unique.size === 1) {
+        switch ([...unique][0]) {
+            case 'In-person only': return userPref === 'Online only' ? 3 : 2;
+            case 'Online only': return userPref === 'In-person only' ? 3 : 2;
+            case 'In-person preferred': return 4;
+            case 'Online preferred': return 5;
+        }
+    }
+    if (prefs.includes('In-person only') && prefs.includes('Online only')) return 8;
+    if (prefs.includes(userPref)) return 6;
+    if (prefs.includes('In-person only')) return 7;
+    if (prefs.includes('Online only')) return 7;
+    return 9; // mixed/other
+}
+
+function isCompatibleGroup(subgroup) {
+    const prefs = subgroup.map(p => p.playPref);
+    // Exclude group if both 'In-person only' and 'Online only' are present
+    if (prefs.includes('In-person only') && prefs.includes('Online only')) return false;
+    return true;
+}
+
 function suggestMatches(profiles) {
     const matches = [];
-    // Group by city + system
-    const grouped = {};
-    profiles.forEach(p => {
-        const key = p.city.toLowerCase() + '|' + p.system.toLowerCase();
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(p);
-    });
-    for (const group of Object.values(grouped)) {
-        if (group.length < 4) continue; // only suggest groups of 4+
-        // Try to find subgroups with overlapping days/times
-        for (let i = 0; i < group.length; i++) {
-            const base = group[i];
-            const subgroup = [base];
-            for (let j = 0; j < group.length && subgroup.length < 6; j++) {
-                if (i === j) continue;
-                const candidate = group[j];
-                if (getOverlapping(base.days, candidate.days).length && getOverlapping(base.times, candidate.times).length) {
-                    subgroup.push(candidate);
+    // Determine user's current play preference from the form or filter (default to 'In-person only')
+    let userPref = 'In-person only';
+    const playPrefInput = document.getElementById('play-pref');
+    if (playPrefInput && playPrefInput.value) {
+        userPref = playPrefInput.value;
+    }
+    console.debug('[suggestMatches] userPref:', userPref);
+    // Try all possible groups of 4-6
+    for (let i = 0; i < profiles.length; i++) {
+        const base = profiles[i];
+        const candidates = profiles.filter((p, j) => j !== i && getOverlapping(base.days, p.days).length && getOverlapping(base.times, p.times).length);
+        // Try to build groups of 4-6
+        for (let j = 0; j < candidates.length; j++) {
+            for (let k = j + 1; k < candidates.length; k++) {
+                for (let l = k + 1; l < candidates.length; l++) {
+                    // Group of 4
+                    const subgroup = [base, candidates[j], candidates[k], candidates[l]];
+                    if (isCompatibleGroup(subgroup)) {
+                        matches.push(subgroup);
+                    }
+                    // Try group of 5
+                    for (let m = l + 1; m < candidates.length; m++) {
+                        const subgroup5 = [base, candidates[j], candidates[k], candidates[l], candidates[m]];
+                        if (isCompatibleGroup(subgroup5)) {
+                            matches.push(subgroup5);
+                        }
+                        // Try group of 6
+                        for (let n = m + 1; n < candidates.length; n++) {
+                            const subgroup6 = [base, candidates[j], candidates[k], candidates[l], candidates[m], candidates[n]];
+                            if (isCompatibleGroup(subgroup6)) {
+                                matches.push(subgroup6);
+                            }
+                        }
+                    }
                 }
-            }
-            if (subgroup.length >= 4 && !matches.some(m => m.includes(subgroup[0]))) {
-                matches.push(subgroup);
             }
         }
     }
-    renderMatches(matches);
-}
+    // Remove duplicate groups (same members)
+    const seen = new Set();
+    const uniqueMatches = matches.filter(group => {
+        const key = group.map(p => p.name + p.contact).sort().join('|');
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+    // Rank groups by compatibility for the current user
+    uniqueMatches.sort((a, b) => groupCompatibilityRank(a, userPref) - groupCompatibilityRank(b, userPref));
+    renderMatches(uniqueMatches, userPref);
+} 
 
-function renderMatches(matches) {
+function renderMatches(matches, userPref) {
     const list = document.getElementById('matches-list');
     list.innerHTML = '';
     if (!matches.length) {
         list.innerHTML = '<p>No suggested groups found yet. Encourage friends to submit profiles!</p>';
         return;
     }
+    const rankLabels = {
+        'In-person only': 'Best match: All In-person only',
+        'Online only': 'Best match: All Online only',
+        'In-person preferred': 'Best match: All In-person preferred',
+        'Online preferred': 'Best match: All Online preferred',
+        'No Preference': 'Best match: All No Preference',
+        'default': 'Best match: All In-person only'
+    };
     matches.forEach((group, idx) => {
+        const rank = groupCompatibilityRank(group, userPref);
+        let rankDesc = '';
+        if (rank === 1) {
+            rankDesc = rankLabels[userPref] || rankLabels['default'];
+        } else if (rank === 2) {
+            rankDesc = userPref === 'Online only' ? 'Good: All In-person only' : 'Good: All Online only';
+        } else if (rank === 3) {
+            rankDesc = 'Good: All with opposite strict preference';
+        } else if (rank === 4) {
+            rankDesc = 'Good: All In-person preferred';
+        } else if (rank === 5) {
+            rankDesc = 'Good: All Online preferred';
+        } else if (rank === 6) {
+            rankDesc = 'Mixed: Some match your preference';
+        } else if (rank === 7) {
+            rankDesc = 'Mixed: Some strict preferences';
+        } else if (rank === 8) {
+            rankDesc = 'Not recommended: In-person only + Online only';
+        } else {
+            rankDesc = 'Mixed/Other';
+        }
+        console.debug(`[renderMatches] Group #${idx+1} rank:`, rank, 'desc:', rankDesc, group);
         const el = document.createElement('div');
         el.className = 'match-card';
-        el.innerHTML = `<strong>Group #${idx+1}</strong> (${escapeHtml(group[0].city)}, ${escapeHtml(group[0].system)})<ul>` +
-            group.map(p => `<li>${escapeHtml(p.name)} (${p.role}) - Days: ${p.days.join(', ')} Times: ${p.times.join(', ')} Contact: ${escapeHtml(p.contact)}</li>`).join('') +
+        el.innerHTML = `<strong>Group #${idx+1}</strong> <span style=\"font-size:0.95em;color:#888;\">(${rankDesc})</span><ul>` +
+            group.map(p => `<li>${escapeHtml(p.name)} (${p.role}) - Play: ${escapeHtml(p.playPref)} - Days: ${p.days.join(', ')} Times: ${p.times.join(', ')} Contact: ${escapeHtml(p.contact)}</li>`).join('') +
             '</ul>';
         list.appendChild(el);
     });
@@ -137,19 +220,18 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async e => {
         e.preventDefault();
         const name = document.getElementById('name').value.trim();
-        const city = document.getElementById('city').value.trim();
         const role = document.getElementById('role').value;
-        const system = document.getElementById('system').value.trim();
+        const playPref = document.getElementById('play-pref').value;
         const days = Array.from(document.querySelectorAll('#days-group input:checked')).map(cb => cb.value);
         const times = Array.from(document.querySelectorAll('#times-group input:checked')).map(cb => cb.value);
         const contact = document.getElementById('contact').value.trim();
-        if (!name || !city || !role || !system || !days.length || !times.length || !contact) {
+        if (!name || !role || !playPref || !days.length || !times.length || !contact) {
             alert('Please fill in all fields and select at least one day and time.');
             return;
         }
         showLoading('profiles-list', 'Submitting profile...');
         try {
-            await addProfile({ name, city, role, system, days, times, contact });
+            await addProfile({ name, role, playPref, days, times, contact });
             clearForm(form);
             await refreshProfilesAndMatches();
             alert('Profile submitted!');
@@ -158,19 +240,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Show/hide system-other input
+    document.getElementById('system').addEventListener('change', function() {
+        const otherInput = document.getElementById('system-other');
+        if (this.value === 'Other') {
+            otherInput.style.display = '';
+        } else {
+            otherInput.style.display = 'none';
+            otherInput.value = '';
+        }
+    });
+
     // Filtering
-    document.getElementById('filter-city').addEventListener('input', filterChanged);
-    document.getElementById('filter-system').addEventListener('input', filterChanged);
+    document.getElementById('filter-system').addEventListener('change', filterChanged);
+    document.getElementById('filter-playpref').addEventListener('change', filterChanged);
     document.getElementById('clear-filters').addEventListener('click', e => {
-        document.getElementById('filter-city').value = '';
         document.getElementById('filter-system').value = '';
+        document.getElementById('filter-playpref').value = '';
         renderProfilesList(allProfiles);
     });
 
     function filterChanged() {
-        const city = document.getElementById('filter-city').value.trim();
-        const system = document.getElementById('filter-system').value.trim();
-        renderProfilesList(allProfiles, city, system);
+        const system = document.getElementById('filter-system').value;
+        const playPref = document.getElementById('filter-playpref').value;
+        renderProfilesList(allProfiles, system, playPref);
     }
 
     // Initial load
