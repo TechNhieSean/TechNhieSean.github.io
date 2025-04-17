@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local D&D/TTRPG Group Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lfg-scheduler.css">
+</head>
+<body>
+    <header>
+        <h1>Find a Local D&D/TTRPG Group</h1>
+        <p class="subtitle">Free, automated, and local-first – no paid DMs, no subscriptions!</p>
+    </header>
+    <main>
+        <section id="profile-section">
+            <h2>Submit Your Profile</h2>
+            <form id="profile-form" autocomplete="off">
+                <div class="form-row">
+                    <label for="name">Name/Nickname:</label>
+                    <input type="text" id="name" required maxlength="24">
+                </div>
+                <div class="form-row">
+                    <label for="city">City/Location:</label>
+                    <input type="text" id="city" list="city-list" required maxlength="32">
+                    <datalist id="city-list">
+                        <option value="Toronto">
+                        <option value="Vancouver">
+                        <option value="Montreal">
+                        <option value="Calgary">
+                        <option value="Ottawa">
+                        <option value="Edmonton">
+                        <option value="Winnipeg">
+                        <option value="Halifax">
+                        <option value="London">
+                        <option value="Other">
+                    </datalist>
+                </div>
+                <div class="form-row">
+                    <label>Role:</label>
+                    <select id="role" required>
+                        <option value="Player">Player</option>
+                        <option value="DM">DM</option>
+                        <option value="Either">Either</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="system">Game System:</label>
+                    <input type="text" id="system" placeholder="e.g. D&D 5e, Pathfinder" required maxlength="32">
+                </div>
+                <div class="form-row">
+                    <label>Days Available:</label>
+                    <div class="checkbox-group" id="days-group">
+                        <label><input type="checkbox" value="Mon">Mon</label>
+                        <label><input type="checkbox" value="Tue">Tue</label>
+                        <label><input type="checkbox" value="Wed">Wed</label>
+                        <label><input type="checkbox" value="Thu">Thu</label>
+                        <label><input type="checkbox" value="Fri">Fri</label>
+                        <label><input type="checkbox" value="Sat">Sat</label>
+                        <label><input type="checkbox" value="Sun">Sun</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>Time(s) Available:</label>
+                    <div class="checkbox-group" id="times-group">
+                        <label><input type="checkbox" value="Morning">Morning</label>
+                        <label><input type="checkbox" value="Afternoon">Afternoon</label>
+                        <label><input type="checkbox" value="Evening">Evening</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="contact">Contact (Email or Discord):</label>
+                    <input type="text" id="contact" required maxlength="48">
+                </div>
+                <button type="submit">Submit Profile</button>
+            </form>
+        </section>
+
+        <section id="browse-section">
+            <h2>Browse Local Players & DMs</h2>
+            <div class="filter-row">
+                <label for="filter-city">City:</label>
+                <input type="text" id="filter-city" list="city-list" placeholder="Any">
+                <label for="filter-system">System:</label>
+                <input type="text" id="filter-system" placeholder="Any">
+                <button id="clear-filters">Clear</button>
+            </div>
+            <div id="profiles-list"></div>
+        </section>
+
+        <section id="match-section">
+            <h2>Suggested Groups (Auto-Matched)</h2>
+            <p class="subtitle">We suggest groups of 4–6 with matching city, system, and overlapping days/times.</p>
+            <div id="matches-list"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Built as a community project. No accounts, no fees, just games!</p>
+        <p style="font-size:0.9em;">Data is stored locally in your browser and never shared.</p>
+    </footer>
+    <!-- Firebase SDKs (v9+ compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <!-- Firebase App Config and Initialization -->
+    <script src="firebase-app.js"></script>
+    <!-- Main LFG Scheduler Logic -->
+    <script src="lfg-scheduler.js"></script>
+</body>
+</html>

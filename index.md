@@ -36,6 +36,18 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 
 ---
 
+## 🎲 Local D&D/TTRPG Group Finder (Beta)
+
+**Find your next in-person D&D or tabletop RPG group instantly!**
+
+- Free, automated, and local-first — no paid DMs, no subscriptions, no accounts
+- Profiles and matches sync across all users (powered by Firebase)
+- Browse, filter, and auto-match with players and DMs in your city
+
+👉 [Try the Group Finder App](lfg-finder.html)
+
+---
+
 ## 📚 Resources & Reports
 
 ### Business Docs & Reports
