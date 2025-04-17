@@ -30,21 +30,15 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 <!-- INTERACTIVE TOOLS -->
 ## 🛠️ Interactive Tools
 
-<div class="tool-cards">
-
 - [Task Parser Tool (v1)](parser.html): Extract and format task data from text.
 - [Task Parser Tool (v2)](parser_V2.html): Improved parsing and accessibility.
 - [Task Parser Tool (v3)](parser_V3.html): Modern UI with dark mode support.
 
-</div>
-
 ---
 
-<!-- RESOURCES LIBRARY -->
 ## 📚 Resources & Reports
 
-<details>
-<summary><strong>Business Docs & Reports</strong></summary>
+### Business Docs & Reports
 
 - [Album Coffee Shop: Business Plan](Album_Business_Plan_03-13-2025.html)
 - [Staffing Analysis (PDF)](Staffing_Analysis.pdf)
@@ -52,10 +46,7 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 - [Analysis on Tech Givebacks (PDF)](Analysis_on_Giveback.pdf)
 - [Cyclistic Case Study from Coursera](Case_Study.pdf)
 
-</details>
-
-<details>
-<summary><strong>Spreadsheets & Data</strong></summary>
+### Spreadsheets & Data
 
 - [Staffing Analysis Spreadsheet (Excel)](GivebackNotification_VS_Workforce.xlsx)
 - [BigQuery Cleaned Cyclistic Table](https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sprojectechnhiesean!2sBikeCase!3s2023BikeCaseCleaned_V2)
@@ -64,7 +55,6 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 - [divvy-tripdata Data License Agreement](https://divvybikes.com/data-license-agreement)
 - [Tableau Dashboard](https://public.tableau.com/views/MinnesotaTrafficVolumeChartsDashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
-</details>
 
 ---
 
