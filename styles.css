@@ -1,8 +1,137 @@
 body {
-    background-color: #1e1e1e;
-    color: #ffffff;
+  background: #181c20;
+  color: #f5f5f7;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+.hero {
+  background: linear-gradient(90deg, #243b55 0%, #141e30 100%);
+  color: #fff;
+  padding: 2.5rem 1rem 2rem 1rem;
+  text-align: center;
+  border-bottom: 2px solid #222c37;
+}
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+.tagline {
+  font-size: 1.2rem;
+  color: #b0c4de;
+}
+
+.project-cards, .tool-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 1.5rem 0;
+}
+.project-cards > *, .tool-cards > * {
+  background: #232b33;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0003;
+  padding: 1.2rem 1.2rem 1rem 1.2rem;
+  min-width: 240px;
+  max-width: 350px;
+  flex: 1 1 300px;
+  margin-bottom: 0.5rem;
+}
+.project-cards img {
+  display: block;
+  margin: 0 auto 1rem auto;
+  border-radius: 8px;
+  max-width: 100%;
+  box-shadow: 0 2px 8px #0002;
+}
+
+section, details, summary {
+  margin-bottom: 1.2rem;
+}
+details {
+  background: #232b33;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+}
+details[open] {
+  box-shadow: 0 2px 8px #0002;
+}
+summary {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #7db2ff;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #7db2ff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+a {
+  color: #7db2ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #b0c4de;
+  text-decoration: underline;
+}
+
+button, .cta {
+  background: #7db2ff;
+  color: #181c20;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover, .cta:hover {
+  background: #b0c4de;
+  color: #232b33;
+}
+
+.footer {
+  text-align: center;
+  color: #b0c4de;
+  margin: 2rem 0 1rem 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .project-cards, .tool-cards {
+    flex-direction: column;
+    gap: 1rem;
   }
-  
-  a {
-    color: #58a6ff;
+  .project-cards > *, .tool-cards > * {
+    min-width: 0;
+    max-width: 100%;
   }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .tagline {
+    font-size: 1rem;
+  }
+  .project-cards, .tool-cards {
+    padding: 0 0.5rem;
+  }
+  body {
+    font-size: 1rem;
+  }
+}
