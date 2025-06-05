@@ -672,7 +672,7 @@ ggplot(divvy, aes(x = trip_duration)) +
 
 # Conclusion
 
-Through our exploratory data analysis of the the Cyclistic historical
+Through our exploratory data analysis of the Cyclistic historical
 bike trip data, we have been able to uncover some key trends and
 insights that can help in converting casual riders into annual members.
 
