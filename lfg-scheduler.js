@@ -240,17 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Show/hide system-other input
-    document.getElementById('system').addEventListener('change', function() {
-        const otherInput = document.getElementById('system-other');
-        if (this.value === 'Other') {
-            otherInput.style.display = '';
-        } else {
-            otherInput.style.display = 'none';
-            otherInput.value = '';
-        }
-    });
-
     // Filtering (only by play preference)
     const playPrefSelect = document.getElementById('filter-playpref');
     if (playPrefSelect) {
