@@ -207,10 +207,10 @@ async function refreshProfilesAndMatches() {
     showLoading('profiles-list', 'Loading profiles...');
     showLoading('matches-list', 'Loading matches...');
     allProfiles = await getProfiles();
-    // Get filters
-    const city = document.getElementById('filter-city').value.trim();
-    const system = document.getElementById('filter-system').value.trim();
-    renderProfilesList(allProfiles, city, system);
+    // Only filter by play preference (city/system filters were removed)
+    const playPrefEl = document.getElementById('filter-playpref');
+    const playPref = playPrefEl ? playPrefEl.value.trim() : '';
+    renderProfilesList(allProfiles, playPref);
     suggestMatches(allProfiles);
 }
 
@@ -251,19 +251,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Filtering
-    document.getElementById('filter-system').addEventListener('change', filterChanged);
-    document.getElementById('filter-playpref').addEventListener('change', filterChanged);
+    // Filtering (only by play preference)
+    const playPrefSelect = document.getElementById('filter-playpref');
+    if (playPrefSelect) {
+        playPrefSelect.addEventListener('change', filterChanged);
+    }
     document.getElementById('clear-filters').addEventListener('click', e => {
-        document.getElementById('filter-system').value = '';
-        document.getElementById('filter-playpref').value = '';
+        if (playPrefSelect) playPrefSelect.value = '';
         renderProfilesList(allProfiles);
     });
 
     function filterChanged() {
-        const system = document.getElementById('filter-system').value;
-        const playPref = document.getElementById('filter-playpref').value;
-        renderProfilesList(allProfiles, system, playPref);
+        const playPref = playPrefSelect ? playPrefSelect.value : '';
+        renderProfilesList(allProfiles, playPref);
     }
 
     // Initial load
