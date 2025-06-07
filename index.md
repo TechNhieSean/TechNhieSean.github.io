@@ -52,7 +52,7 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 
 ### Business Docs & Reports
 
-- [Album Coffee Shop: Business Plan](Album_Business_Plan_03-13-2025.html)
+- [Album Coffee Shop: Business Plan](Album_Business_Plan_06-07-2025.html)
 - [Staffing Analysis (PDF)](Staffing_Analysis.pdf)
 - [Duration Analysis (PDF)](NBH_Duration.pdf)
 - [Analysis on Tech Givebacks (PDF)](Analysis_on_Giveback.pdf)
