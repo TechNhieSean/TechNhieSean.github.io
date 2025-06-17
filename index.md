@@ -33,6 +33,7 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 - [Task Parser Tool (v1)](parser.html): Extract and format task data from text.
 - [Task Parser Tool (v2)](parser_V2.html): Improved parsing and accessibility.
 - [Task Parser Tool (v3)](parser_V3.html): Modern UI with dark mode support.
+- [Task Parser Tool (v4)](parser_V4.html): Parses additional fields like assigned resource and appointment window.
 
 ---
 
