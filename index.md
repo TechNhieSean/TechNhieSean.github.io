@@ -47,6 +47,12 @@ A multi-part case study analyzing ride patterns, user types, and business recomm
 
 👉 [Try the Group Finder App](lfg-finder.html)
 
+### 📜 Character Sheet Companion
+
+Access Sean's mobile-friendly character sheet hub with a built-in dice roller, HP tracker, and session notes.
+
+👉 [Open the Character Sheet Hub](dnd-character.html)
+
 ---
 
 ## 📚 Resources & Reports

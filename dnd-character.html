@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>Sean's D&D Character Sheet</title>
+  <link rel="stylesheet" href="dnd-character.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <div>
+        <p class="eyebrow">Session-ready character hub</p>
+        <h1>Sean's D&amp;D Character Sheet</h1>
+        <p class="subhead">Mobile-first access to your D&amp;D Beyond sheet plus fast tools for table play.</p>
+      </div>
+      <div class="header-actions">
+        <a class="button primary" href="https://www.dndbeyond.com/sheet-pdfs/technhiesean_152284979.pdf" target="_blank" rel="noopener">Open PDF</a>
+        <button class="button ghost" id="toggle-theme" type="button">Toggle Dark Mode</button>
+      </div>
+    </div>
+    <nav class="quick-nav">
+      <a href="#sheet">Sheet</a>
+      <a href="#tools">Toolkit</a>
+      <a href="#notes">Notes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sheet" class="section">
+      <div class="section-header">
+        <h2>Character Sheet</h2>
+        <p>Pinch to zoom. Tap the full-screen button for a distraction-free view.</p>
+      </div>
+      <div class="sheet-wrapper">
+        <div class="sheet-toolbar">
+          <button class="button ghost" id="zoom-out" type="button" aria-label="Zoom out">A-</button>
+          <button class="button ghost" id="zoom-in" type="button" aria-label="Zoom in">A+</button>
+          <button class="button ghost" id="sheet-fullscreen" type="button">Full Screen</button>
+        </div>
+        <div class="sheet-embed" id="sheet-embed">
+          <iframe
+            title="Sean's Character Sheet"
+            src="https://www.dndbeyond.com/sheet-pdfs/technhiesean_152284979.pdf#view=fitH"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <div class="section-header">
+        <h2>Session Toolkit</h2>
+        <p>Keep essentials at your fingertips: roll dice, track HP, and monitor conditions.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card" aria-live="polite">
+          <h3>Dice Roller</h3>
+          <div class="dice-controls">
+            <label>
+              Dice
+              <select id="dice-type">
+                <option value="4">d4</option>
+                <option value="6">d6</option>
+                <option value="8">d8</option>
+                <option value="10">d10</option>
+                <option value="12">d12</option>
+                <option value="20" selected>d20</option>
+                <option value="100">d100</option>
+              </select>
+            </label>
+            <label>
+              Count
+              <input id="dice-count" type="number" min="1" max="10" value="1">
+            </label>
+            <label>
+              Mode
+              <select id="dice-mode">
+                <option value="normal" selected>Normal</option>
+                <option value="adv">Advantage</option>
+                <option value="dis">Disadvantage</option>
+              </select>
+            </label>
+          </div>
+          <button class="button primary" id="roll-dice" type="button">Roll</button>
+          <div class="dice-output" id="dice-output">Ready to roll.</div>
+          <div class="dice-history" id="dice-history"></div>
+        </article>
+
+        <article class="card">
+          <h3>HP Tracker</h3>
+          <div class="hp-grid">
+            <label>
+              Max HP
+              <input id="hp-max" type="number" min="1" value="1">
+            </label>
+            <label>
+              Current HP
+              <input id="hp-current" type="number" min="0" value="1">
+            </label>
+            <label>
+              Temp HP
+              <input id="hp-temp" type="number" min="0" value="0">
+            </label>
+          </div>
+          <div class="hp-actions">
+            <button class="button ghost" data-hp-change="-5" type="button">-5</button>
+            <button class="button ghost" data-hp-change="-1" type="button">-1</button>
+            <button class="button ghost" data-hp-change="1" type="button">+1</button>
+            <button class="button ghost" data-hp-change="5" type="button">+5</button>
+          </div>
+          <div class="hp-actions">
+            <button class="button ghost" id="hp-reset" type="button">Reset to Max</button>
+            <button class="button ghost" id="hp-clear-temp" type="button">Clear Temp</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Spell Slots</h3>
+          <p class="muted">Tap plus/minus to spend or restore slots. Edit totals if you level up.</p>
+          <div class="slots" id="slot-list"></div>
+        </article>
+
+        <article class="card">
+          <h3>Conditions</h3>
+          <div class="conditions" id="condition-list"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="notes" class="section">
+      <div class="section-header">
+        <h2>Session Notes</h2>
+        <p>Auto-saved locally for quick recall between sessions.</p>
+      </div>
+      <textarea id="session-notes" placeholder="NPC names, loot, goals, reminders..."></textarea>
+      <div class="notes-actions">
+        <button class="button ghost" id="notes-clear" type="button">Clear Notes</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made for quick mobile access. Data is stored locally on your device.</p>
+  </footer>
+
+  <script src="dnd-character.js"></script>
+</body>
+</html>
