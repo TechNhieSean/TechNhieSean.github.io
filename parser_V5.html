@@ -207,7 +207,7 @@
       <h2 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Parsed Output</h2>
       
       <div class="button-group">
-        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button id="copyBtn" onclick="copyToClipboard()" style="display: none;">Copy Edits to Clipboard</button>
         <button class="secondary" onclick="downloadCSV()">Download CSV</button>
         <button class="secondary" id="editBtn" onclick="toggleEdit()">Enable Editing</button>
       </div>
@@ -273,8 +273,10 @@
     function toggleEdit() {
       isEditing = !isEditing;
       const btn = document.getElementById('editBtn');
+      const copyBtn = document.getElementById('copyBtn');
       btn.textContent = isEditing ? "Disable Editing" : "Enable Editing";
       btn.style.backgroundColor = isEditing ? "var(--btn-hover)" : "var(--btn-secondary)";
+      copyBtn.style.display = isEditing ? "inline-block" : "none";
       
       const cells = document.querySelectorAll('#tableBody td');
       cells.forEach(cell => {
@@ -381,7 +383,15 @@
         renderTable(parsedData);
         document.getElementById('outputSection').style.display = 'block';
         document.getElementById('tableContainer').style.display = 'block';
-        showToast(`Successfully parsed ${parsedData.length} task(s).`);
+        
+        // Auto-copy to clipboard on parse
+        let outputStr = "";
+        parsedData.forEach(row => {
+          outputStr += `${row.windowStr}\t${row.id}\t${row.startDate}\t${row.district}\n`;
+        });
+        navigator.clipboard.writeText(outputStr)
+          .then(() => showToast(`Output parsed and copied to clipboard! (${parsedData.length} tasks)`))
+          .catch(err => showToast("Parsed successfully, but failed to auto-copy: " + err));
       } else {
         document.getElementById('outputSection').style.display = 'none';
         if (errors.length === 0 && input.trim() !== '') {
