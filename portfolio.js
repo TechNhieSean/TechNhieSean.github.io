@@ -72,8 +72,14 @@
     all: 'all',
     analytics: 'Data Analytics & BI',
     apps: 'Interactive Apps',
-    reports: 'Business & Ops Reports'
+    reports: 'Business & Ops Reports',
+    workflow: 'AI & Workflow'
   };
+
+  function hasCategoryToken(attrValue, target) {
+    if (!attrValue) return false;
+    return attrValue.trim().split(/\s+/).indexOf(target) !== -1;
+  }
 
   function setCategoryFilter(filter) {
     var visibleCount = 0;
@@ -85,15 +91,18 @@
     });
 
     filterItems.forEach(function (item) {
-      var match = filter === 'all' || item.getAttribute('data-category') === filter;
+      var match = filter === 'all' || hasCategoryToken(item.getAttribute('data-category'), filter);
       item.classList.toggle('is-hidden', !match);
       if (match) visibleCount += 1;
     });
 
     workGroups.forEach(function (group) {
       var groupCat = group.getAttribute('data-group');
-      var showGroup = filter === 'all' || groupCat === filter;
+      var showGroup = filter === 'all' || hasCategoryToken(groupCat, filter);
       group.classList.toggle('is-hidden', !showGroup);
+      if (group.classList.contains('pod-callout-section')) {
+        group.classList.toggle('is-solo', filter === 'workflow');
+      }
     });
 
     if (filterStatus) {

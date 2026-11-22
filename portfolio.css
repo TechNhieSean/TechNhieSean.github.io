@@ -33,6 +33,8 @@
   --badge-xlsx-fg: #047857;
   --badge-bq-bg: rgba(99, 102, 241, 0.12);
   --badge-bq-fg: #4338ca;
+  --badge-new-bg: rgba(13, 148, 136, 0.12);
+  --badge-new-fg: #0f766e;
 
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
   --shadow-md: 0 10px 26px -12px rgba(15, 23, 42, 0.12), 0 4px 10px -6px rgba(15, 23, 42, 0.06);
@@ -84,6 +86,8 @@
   --badge-xlsx-fg: #6ee7b7;
   --badge-bq-bg: rgba(129, 140, 248, 0.18);
   --badge-bq-fg: #a5b4fc;
+  --badge-new-bg: rgba(45, 212, 191, 0.16);
+  --badge-new-fg: #5eead4;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 14px 32px -14px rgba(0, 0, 0, 0.65), 0 4px 12px -4px rgba(0, 0, 0, 0.4);
@@ -335,6 +339,31 @@ button {
 .btn-sm {
   padding: 0.54rem 0.95rem;
   font-size: 0.875rem;
+}
+
+.btn-wrap {
+  white-space: normal;
+  text-align: left;
+  line-height: 1.32;
+  flex-wrap: wrap;
+}
+
+.btn-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.14rem 0.44rem;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 23, 42, 0.22);
+  color: inherit;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .btn-primary .btn-badge {
+  background: rgba(8, 47, 73, 0.18);
 }
 
 .btn-primary {
@@ -673,6 +702,214 @@ button {
 }
 
 /* ==========================================================================
+   Agentic Pod Workflow Showcase Callout
+   ========================================================================== */
+
+.inline-code {
+  font-size: 0.84em;
+  padding: 0.08em 0.36em;
+  border-radius: 5px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.pod-callout-section {
+  padding: 1.15rem 0 0.5rem;
+}
+
+.pod-callout-section.is-solo {
+  padding: 1.35rem 0 clamp(2.25rem, 4.5vw, 3.25rem);
+}
+
+.pod-card {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--accent-border);
+  background:
+    radial-gradient(circle at top right, var(--accent-soft), transparent 48%),
+    var(--bg-surface);
+}
+
+.pod-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+}
+
+.pod-card-body {
+  padding: 1.5rem 1.6rem 1.45rem;
+}
+
+.pod-meta-left {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.pod-card-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(270px, 0.9fr);
+  gap: 1.45rem;
+  align-items: center;
+}
+
+.pod-card-title {
+  font-size: clamp(1.22rem, 1.9vw, 1.42rem);
+  margin-bottom: 0.55rem;
+}
+
+.pod-card-desc {
+  max-width: 66ch;
+  margin-bottom: 1.1rem;
+}
+
+.pod-badge-list {
+  margin-bottom: 0;
+}
+
+.pod-summary-panel {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+}
+
+.pod-summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pod-summary-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.pod-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent-secondary);
+}
+
+.pod-spec-list {
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.pod-spec-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.pod-spec-row dt {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.pod-spec-row dd {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.pod-drawer {
+  margin-top: 1.2rem;
+}
+
+.pod-stages {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.pod-stage {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.pod-stage:hover {
+  border-color: var(--accent-border);
+  background: var(--bg-surface-hover);
+}
+
+.pod-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.pod-stage-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.14rem 0.48rem;
+  border-radius: var(--radius-pill);
+}
+
+.pod-stage-arrow {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.pod-stage-check {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+}
+
+.pod-stage-title {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+.pod-stage-desc {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.52;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
    Sections & Cards
    ========================================================================== */
 
@@ -1001,6 +1238,7 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
+  align-items: start;
 }
 
 .resource-card {
@@ -1055,6 +1293,11 @@ button {
 .file-bq {
   background: var(--badge-bq-bg);
   color: var(--badge-bq-fg);
+}
+
+.file-new {
+  background: var(--badge-new-bg);
+  color: var(--badge-new-fg);
 }
 
 .dataset-links {
@@ -1408,7 +1651,8 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .dataset-links {
+  .dataset-links,
+  .pod-stages {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1444,15 +1688,36 @@ button {
 
   .featured-grid,
   .reports-grid,
-  .resume-grid {
+  .resume-grid,
+  .pod-card-layout {
     grid-template-columns: 1fr;
+  }
+
+  .pod-card-layout {
+    gap: 1.1rem;
   }
 }
 
 @media (max-width: 639px) {
   .apps-grid,
-  .dataset-links {
+  .dataset-links,
+  .pod-stages {
     grid-template-columns: 1fr;
+  }
+
+  .pod-card-body {
+    padding: 1.2rem 1.15rem 1.2rem;
+  }
+
+  .pod-stage-arrow {
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+
+  .btn-wrap {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   .theme-label {

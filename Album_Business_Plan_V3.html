@@ -1,0 +1,3162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Album Coffee Shop: Business Plan V3 (2026 Winnipeg Edition) — TechNhieSean</title>
+  <meta name="description" content="2026 data-validated business plan for Album Coffee Shop in Winnipeg, Manitoba — combining specialty coffee, affordable coworking, 12 high-end gaming PCs, live acoustic music, and the Share a Meal program.">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- Fonts: Inter + JetBrains Mono (matching portfolio.css) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Prevent theme flash before first paint (synced with index.html) -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        if (saved !== 'dark' && saved !== 'light') {
+          var legacy = localStorage.getItem('darkMode');
+          if (legacy === '1') saved = 'dark';
+          else if (legacy === '0') saved = 'light';
+        }
+        var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="portfolio.css">
+  <!-- Lightweight Chart.js 4 CDN (with automatic inline SVG fallback if offline) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+
+  <style>
+    /* ==========================================================================
+       Album Business Plan V3 — Scoped Document Styles (Extends portfolio.css)
+       ========================================================================== */
+
+    :root {
+      --plan-amber: #d97706;
+      --plan-amber-soft: rgba(217, 119, 6, 0.12);
+      --plan-amber-border: rgba(217, 119, 6, 0.32);
+      --plan-emerald: #059669;
+      --plan-emerald-soft: rgba(5, 150, 105, 0.12);
+      --plan-emerald-border: rgba(5, 150, 105, 0.30);
+      --plan-rose: #e11d48;
+      --plan-rose-soft: rgba(225, 29, 72, 0.10);
+      --plan-violet: #6366f1;
+      --plan-violet-soft: rgba(99, 102, 241, 0.12);
+      --container-plan: 1200px;
+    }
+
+    [data-theme="dark"] {
+      --plan-amber: #fbbf24;
+      --plan-amber-soft: rgba(251, 191, 36, 0.14);
+      --plan-amber-border: rgba(251, 191, 36, 0.32);
+      --plan-emerald: #34d399;
+      --plan-emerald-soft: rgba(52, 211, 153, 0.14);
+      --plan-emerald-border: rgba(52, 211, 153, 0.32);
+      --plan-rose: #fb7185;
+      --plan-rose-soft: rgba(251, 113, 133, 0.15);
+      --plan-violet: #a5b4fc;
+      --plan-violet-soft: rgba(165, 180, 252, 0.16);
+    }
+
+    .plan-container {
+      width: 100%;
+      max-width: var(--container-plan);
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 2.8vw, 2rem);
+    }
+
+    /* Sticky "Back to Portfolio" Header Bar matching portfolio.css */
+    .plan-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .back-portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.46rem 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, transform 0.15s ease;
+    }
+
+    .back-portfolio-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--bg-surface-hover);
+      transform: translateX(-2px);
+    }
+
+    .plan-doc-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 0.28rem 0.65rem;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .plan-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      padding: 0.46rem 0.8rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 0.83rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+    }
+
+    .btn-print:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--bg-surface-hover);
+    }
+
+    /* Hero Banner & KPI Strip */
+    .plan-hero {
+      position: relative;
+      padding: clamp(2.25rem, 4.5vw, 3.5rem) 0 clamp(1.75rem, 3.5vw, 2.5rem);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .plan-hero-inner {
+      position: relative;
+    }
+
+    .plan-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+    }
+
+    .plan-hero h1 {
+      margin: 0 0 0.8rem;
+      font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.14;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .plan-hero-lead {
+      margin: 0 0 1.6rem;
+      max-width: 70ch;
+      font-size: clamp(1rem, 1.35vw, 1.12rem);
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.05rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .kpi-value {
+      font-size: clamp(1.22rem, 2vw, 1.52rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .kpi-value.is-emerald {
+      color: var(--plan-emerald);
+    }
+
+    .kpi-value.is-amber {
+      color: var(--plan-amber);
+    }
+
+    .kpi-sub {
+      font-size: 0.77rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    /* Two-Column Workspace: Sticky TOC + Content */
+    .plan-body {
+      padding: clamp(1.5rem, 3vw, 2.4rem) 0 4rem;
+    }
+
+    .plan-layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      align-items: start;
+    }
+
+    .toc-sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + 1.25rem);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow-sm);
+      max-height: calc(100vh - var(--nav-height) - 2.5rem);
+      overflow-y: auto;
+    }
+
+    .toc-heading {
+      margin: 0 0 0.65rem;
+      padding: 0 0.5rem 0.55rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.16rem;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+      padding: 0.4rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-left: 2px solid transparent;
+      transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .toc-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .toc-link.is-active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .toc-num {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      min-width: 1.35rem;
+    }
+
+    .toc-link.is-active .toc-num {
+      color: var(--accent);
+    }
+
+    .toc-version-note {
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .toc-version-note a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Mobile Jump Drawer */
+    .mobile-toc {
+      display: none;
+      margin-bottom: 1.25rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mobile-toc summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .mobile-toc summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.3rem;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Document Sections */
+    .plan-main {
+      min-width: 0;
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+
+    .plan-section {
+      min-width: 0;
+      max-width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(1.35rem, 2.8vw, 2.15rem);
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: calc(var(--nav-height) + 1rem);
+    }
+
+    .plan-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.15rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-section-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .plan-sec-num {
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .plan-section h2 {
+      margin: 0;
+      font-size: clamp(1.32rem, 2.2vw, 1.68rem);
+      font-weight: 750;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .plan-section h3 {
+      margin: 1.5rem 0 0.65rem;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+    }
+
+    .plan-section h4 {
+      margin: 1.05rem 0 0.4rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .plan-section p {
+      margin: 0 0 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+      font-size: 0.965rem;
+    }
+
+    .plan-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .plan-section strong {
+      color: var(--text-primary);
+    }
+
+    .plan-list {
+      margin: 0 0 1rem;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      display: grid;
+      gap: 0.48rem;
+      font-size: 0.955rem;
+      line-height: 1.6;
+    }
+
+    .plan-list li::marker {
+      color: var(--accent);
+    }
+
+    .section-tag {
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 0.22rem 0.58rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .section-tag.is-updated {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+    }
+
+    .section-tag.is-new {
+      color: var(--plan-emerald);
+      background: var(--plan-emerald-soft);
+      border-color: var(--plan-emerald-border);
+    }
+
+    .section-tag.is-preserved {
+      color: var(--plan-amber);
+      background: var(--plan-amber-soft);
+      border-color: var(--plan-amber-border);
+    }
+
+    /* Callouts & Vision/Mission Quotes */
+    .quote-feature {
+      margin: 0.35rem 0 0;
+      padding: 1.25rem 1.4rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-subtle) 100%);
+      border-left: 4px solid var(--accent);
+      color: var(--text-primary);
+      font-size: 1.03rem;
+      line-height: 1.72;
+      font-weight: 500;
+    }
+
+    .callout {
+      margin: 1.15rem 0;
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      font-size: 0.91rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .callout.is-info {
+      border-color: var(--accent-border);
+      background: var(--accent-soft);
+    }
+
+    .callout.is-warn {
+      border-color: var(--plan-amber-border);
+      background: var(--plan-amber-soft);
+    }
+
+    .callout.is-success {
+      border-color: var(--plan-emerald-border);
+      background: var(--plan-emerald-soft);
+    }
+
+    .callout-title {
+      display: block;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      font-size: 0.88rem;
+    }
+
+    /* Grids for Offerings, Charter Pillars, Personas, Risks, Pricing */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin: 1rem 0;
+    }
+
+    .subcard {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .subcard h4 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .subcard p {
+      margin: 0;
+      font-size: 0.895rem;
+      line-height: 1.58;
+      color: var(--text-secondary);
+    }
+
+    .pillar-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .charter-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.2rem;
+    }
+
+    .charter-card:nth-child(2) {
+      border-top-color: var(--accent-secondary);
+    }
+
+    .charter-card:nth-child(3) {
+      border-top-color: var(--plan-violet);
+    }
+
+    .charter-card:nth-child(4) {
+      border-top-color: var(--plan-amber);
+    }
+
+    .charter-card h4 {
+      margin: 0 0 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.02rem;
+    }
+
+    .charter-card p {
+      margin: 0;
+      font-size: 0.91rem;
+      line-height: 1.62;
+    }
+
+    /* Tables (Horizontal Scroll on Narrow Viewports) */
+    .table-scroll {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.865rem;
+      text-align: left;
+      min-width: 600px;
+    }
+
+    .data-table.compact {
+      min-width: 500px;
+    }
+
+    .data-table th {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.77rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border-strong);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 0.72rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tbody tr:hover td {
+      background: var(--bg-surface-hover);
+    }
+
+    .data-table tr.row-highlight td {
+      background: var(--accent-soft);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .data-table tr.row-total td {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      font-weight: 700;
+      border-top: 2px solid var(--border-strong);
+    }
+
+    .num {
+      text-align: right;
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    .badge-cat {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.16rem 0.48rem;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    .cat-coffee {
+      background: var(--plan-amber-soft);
+      color: var(--plan-amber);
+    }
+
+    .cat-gaming {
+      background: var(--plan-violet-soft);
+      color: var(--plan-violet);
+    }
+
+    .cat-cowork {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .cat-album {
+      background: var(--plan-emerald-soft);
+      color: var(--plan-emerald);
+    }
+
+    /* Filter Pills inside Section 6 & Scenario Controls inside Section 11 */
+    .control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0.85rem 0 1rem;
+      padding: 0.65rem 0.8rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+    }
+
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .control-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    .seg-btn {
+      padding: 0.4rem 0.78rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .seg-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+
+    .seg-btn.is-active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .seg-btn.is-active {
+      color: #082f49;
+    }
+
+    /* Charts Containers */
+    .chart-panel {
+      min-width: 0;
+      max-width: 100%;
+      margin: 1.25rem 0;
+      padding: 1.15rem 1.2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-page);
+    }
+
+    .chart-panel-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .chart-panel-title {
+      margin: 0;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .chart-panel-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .chart-stage {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      height: 290px;
+      overflow: hidden;
+    }
+
+    .chart-stage canvas {
+      max-width: 100% !important;
+    }
+
+    .chart-stage.is-tall {
+      height: 320px;
+    }
+
+    .chart-stage.is-donut {
+      height: 275px;
+    }
+
+    .chart-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin: 1.25rem 0;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .chart-grid-2 > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .chart-grid-2 .chart-panel {
+      margin: 0;
+    }
+
+    /* Dynamic Scenario KPI Bar */
+    .scenario-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 0.9rem 0 1.1rem;
+    }
+
+    .scen-kpi {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.82rem 0.9rem;
+    }
+
+    .scen-kpi-lbl {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.22rem;
+    }
+
+    .scen-kpi-val {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .scen-kpi-val.is-positive {
+      color: var(--plan-emerald);
+    }
+
+    .scen-kpi-val.is-negative {
+      color: var(--plan-rose);
+    }
+
+    .scen-kpi-note {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin-top: 0.16rem;
+    }
+
+    /* Social Impact Feature Banner */
+    .impact-banner {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--plan-emerald-border);
+      background: linear-gradient(135deg, var(--plan-emerald-soft) 0%, var(--bg-subtle) 100%);
+      padding: 1.3rem 1.4rem;
+      margin-top: 1rem;
+    }
+
+    .impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .impact-stat {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 0.95rem;
+    }
+
+    .impact-stat-num {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--plan-emerald);
+    }
+
+    .impact-stat-lbl {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    /* Pricing Tier Cards */
+    .pricing-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .pricing-price {
+      font-family: var(--font-mono);
+      font-size: 1.32rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .pricing-gm {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--plan-emerald);
+      background: var(--plan-emerald-soft);
+      border: 1px solid var(--plan-emerald-border);
+      padding: 0.16rem 0.5rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .pricing-list {
+      margin: 0.2rem 0 0;
+      padding-left: 1.05rem;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    /* Inline Citation Superscripts & Appendix */
+    .cite-ref {
+      font-family: var(--font-mono);
+      font-size: 0.72em;
+      color: var(--accent);
+      font-weight: 600;
+      vertical-align: super;
+      margin-left: 1px;
+    }
+
+    .cite-ref:hover {
+      text-decoration: underline;
+    }
+
+    .sources-grid {
+      list-style: none;
+      margin: 0.75rem 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .sources-grid li {
+      line-height: 1.48;
+      padding-left: 2rem;
+      position: relative;
+      overflow-wrap: anywhere;
+    }
+
+    .source-idx {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.76rem;
+    }
+
+    .sources-grid a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* SVG Fallback Styling */
+    .svg-fallback {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1080px) {
+      .kpi-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .plan-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .toc-sidebar {
+        display: none;
+      }
+
+      .mobile-toc {
+        display: block;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .chart-grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .plan-doc-pill {
+        display: none;
+      }
+
+      .btn-print span {
+        display: none;
+      }
+
+      .btn-print {
+        padding: 0.5rem;
+        width: 38px;
+        height: 38px;
+        justify-content: center;
+      }
+
+      .kpi-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .scenario-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-2,
+      .grid-3,
+      .impact-metrics,
+      .sources-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .kpi-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .grid-4,
+      .scenario-kpis,
+      .mobile-toc-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .back-portfolio-link {
+        padding: 0.42rem 0.68rem;
+        font-size: 0.82rem;
+      }
+
+      .plan-section {
+        padding: 1.15rem 1rem;
+      }
+
+      .chart-stage {
+        height: 250px;
+      }
+
+      .chart-stage.is-tall {
+        height: 270px;
+      }
+    }
+
+    /* Print / Export to PDF Stylesheet */
+    @media print {
+      .site-header,
+      .toc-sidebar,
+      .mobile-toc,
+      .control-bar,
+      .skip-link {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        font-size: 11pt;
+      }
+
+      .plan-layout {
+        display: block !important;
+      }
+
+      .plan-section,
+      .kpi-card,
+      .chart-panel {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border-color: #cbd5e1 !important;
+        background: #ffffff !important;
+      }
+
+      .table-scroll {
+        overflow: visible !important;
+      }
+
+      .data-table {
+        min-width: 0 !important;
+        font-size: 9pt;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- STICKY "BACK TO PORTFOLIO" NAVIGATION BAR (Matches portfolio.css) -->
+  <header class="site-header" id="site-header">
+    <div class="plan-container nav-inner">
+      <div class="plan-nav-left">
+        <a class="back-portfolio-link" href="index.html#reports-data" aria-label="Return to TechNhieSean portfolio reports section">
+          <span aria-hidden="true">←</span>
+          <span>Back to Portfolio</span>
+        </a>
+        <span class="plan-doc-pill mono">Album Coffee Shop · Business Plan V3 (2026)</span>
+      </div>
+
+      <div class="plan-nav-right">
+        <button type="button" class="btn-print" id="btn-print" aria-label="Print or save business plan as PDF">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span>Print / PDF</span>
+        </button>
+
+        <button
+          type="button"
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle dark and light mode"
+          aria-pressed="false"
+        >
+          <span class="theme-icon theme-icon-sun" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
+          <span class="theme-icon theme-icon-moon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="theme-label" id="theme-label">Theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- EXECUTIVE HERO & 2026 KPI STRIP -->
+  <section class="plan-hero" aria-labelledby="plan-title">
+    <div class="hero-backdrop" aria-hidden="true"></div>
+    <div class="plan-container plan-hero-inner">
+      <div class="plan-hero-meta">
+        <span class="hero-eyebrow" style="margin-bottom:0;">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="mono">Winnipeg, Manitoba</span>
+          <span class="eyebrow-sep" aria-hidden="true">/</span>
+          <span class="mono">2026 Data-Validated V3</span>
+        </span>
+        <span class="flagship-chip mono">Exchange District Baseline · 2,200 sq ft</span>
+        <span class="version-chip mono">Updated Nov 2026</span>
+      </div>
+
+      <h1 id="plan-title">
+        Album Coffee Shop: <span class="heading-accent">Business Plan V3</span>
+      </h1>
+
+      <p class="plan-hero-lead">
+        A unique, alcohol-free hybrid hub in Winnipeg combining specialty third-wave coffee, live acoustic music, affordable ergonomic workspaces, 12 high-end gaming PC setups, and community-driven events—upgraded with verified 2026 Winnipeg market data, active competitor intelligence, and full unit economics.
+      </p>
+
+      <div class="kpi-strip" aria-label="Executive key performance indicators">
+        <div class="kpi-card">
+          <span class="kpi-label mono">2026 City TAM (15–64)</span>
+          <span class="kpi-value mono">564,300</span>
+          <span class="kpi-sub">+13.5% vs. V2 (CMA: 630,300)</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label mono">Year-1 Active SOM</span>
+          <span class="kpi-value mono">2,822</span>
+          <span class="kpi-sub">5.0% of 56,430 SAM · ~50 seats</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label mono">Startup CAPEX (CAD)</span>
+          <span class="kpi-value is-amber mono">$275,000</span>
+          <span class="kpi-sub">2nd-gen retrofit · 12 RTX 5070 PCs</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label mono">Monthly Break-Even</span>
+          <span class="kpi-value mono">$43,325</span>
+          <span class="kpi-sub">Reached Month 6 (Base Case)</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label mono">Stabilized Op. Margin</span>
+          <span class="kpi-value is-emerald mono">12.6%</span>
+          <span class="kpi-sub">$6,516/mo · 61.3% Prime Cost</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN DOCUMENT BODY -->
+  <div class="plan-body">
+    <div class="plan-container">
+
+      <!-- Mobile Quick-Jump Table of Contents -->
+      <details class="mobile-toc">
+        <summary>
+          <span>Jump to Section (Sections 1–11 &amp; Sources)</span>
+          <span class="mono" style="font-size:0.75rem;color:var(--accent);">Menu ▾</span>
+        </summary>
+        <div class="mobile-toc-grid">
+          <a class="toc-link" href="#sec-1"><span class="toc-num mono">01</span>Problem</a>
+          <a class="toc-link" href="#sec-2"><span class="toc-num mono">02</span>Vision</a>
+          <a class="toc-link" href="#sec-3"><span class="toc-num mono">03</span>Charter (Values)</a>
+          <a class="toc-link" href="#sec-4"><span class="toc-num mono">04</span>Mission</a>
+          <a class="toc-link" href="#sec-5"><span class="toc-num mono">05</span>Market Analysis</a>
+          <a class="toc-link" href="#sec-6"><span class="toc-num mono">06</span>Competitors</a>
+          <a class="toc-link" href="#sec-7"><span class="toc-num mono">07</span>Risk Management</a>
+          <a class="toc-link" href="#sec-8"><span class="toc-num mono">08</span>Interest Testing</a>
+          <a class="toc-link" href="#sec-9"><span class="toc-num mono">09</span>Viability</a>
+          <a class="toc-link" href="#sec-10"><span class="toc-num mono">10</span>Share a Meal</a>
+          <a class="toc-link" href="#sec-11"><span class="toc-num mono">11</span>Financial Model</a>
+          <a class="toc-link" href="#sec-sources"><span class="toc-num mono">12</span>Cited Sources</a>
+        </div>
+      </details>
+
+      <div class="plan-layout">
+        <!-- Desktop Sticky Sidebar TOC -->
+        <aside class="toc-sidebar" aria-label="Document sections">
+          <p class="toc-heading mono">Contents</p>
+          <ul class="toc-list">
+            <li><a class="toc-link is-active" href="#sec-1" data-toc="sec-1"><span class="toc-num mono">01</span>Problem</a></li>
+            <li><a class="toc-link" href="#sec-2" data-toc="sec-2"><span class="toc-num mono">02</span>Vision</a></li>
+            <li><a class="toc-link" href="#sec-3" data-toc="sec-3"><span class="toc-num mono">03</span>Charter (Values)</a></li>
+            <li><a class="toc-link" href="#sec-4" data-toc="sec-4"><span class="toc-num mono">04</span>Mission</a></li>
+            <li><a class="toc-link" href="#sec-5" data-toc="sec-5"><span class="toc-num mono">05</span>2026 Market Analysis</a></li>
+            <li><a class="toc-link" href="#sec-6" data-toc="sec-6"><span class="toc-num mono">06</span>Competitive Matrix</a></li>
+            <li><a class="toc-link" href="#sec-7" data-toc="sec-7"><span class="toc-num mono">07</span>Risk Management</a></li>
+            <li><a class="toc-link" href="#sec-8" data-toc="sec-8"><span class="toc-num mono">08</span>Consumer Testing</a></li>
+            <li><a class="toc-link" href="#sec-9" data-toc="sec-9"><span class="toc-num mono">09</span>Viability Conclusion</a></li>
+            <li><a class="toc-link" href="#sec-10" data-toc="sec-10"><span class="toc-num mono">10</span>Share a Meal Impact</a></li>
+            <li><a class="toc-link" href="#sec-11" data-toc="sec-11"><span class="toc-num mono">11</span>Financial Projections</a></li>
+            <li><a class="toc-link" href="#sec-sources" data-toc="sec-sources"><span class="toc-num mono">12</span>Cited 2026 Sources</a></li>
+          </ul>
+          <div class="toc-version-note">
+            <strong>Archive:</strong> Prior editions remain unmodified —
+            <a href="Album_Business_Plan_06-07-2025_V2.html">V2 (2025)</a> ·
+            <a href="Album_Business_Plan_06-07-2025.html">V1</a>.
+          </div>
+        </aside>
+
+        <!-- Main Plan Sections -->
+        <main class="plan-main" id="main-content">
+
+          <!-- ============================================================
+               SECTION 1: PROBLEM
+               ============================================================ -->
+          <section class="plan-section" id="sec-1" aria-labelledby="h-sec-1">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 01</span>
+                <h2 id="h-sec-1">Problem</h2>
+              </div>
+              <span class="section-tag is-updated mono">V2 Core + 2026 Evidence</span>
+            </div>
+
+            <p>
+              While improved education, health awareness, and technology have led many Canadians to reduce alcohol or drug consumption—with past-year alcohol use among Canadian post-secondary students dropping from <strong>84.3% (2019–2020) to 74.9% (2024–2025)</strong><a class="cite-ref" href="#src-12">[12]</a>—widespread digital connectivity often replaces in-person community, deepening physical isolation. Young professionals, university students, gamers, entrepreneurs, musicians, and creative enthusiasts in Winnipeg face a structural gap in physical spaces that seamlessly balance productivity, networking, and sober leisure.
+            </p>
+            <p>
+              Traditional options fail to meet these hybrid needs: most independent Winnipeg cafés close by 4:00–6:00 PM<a class="cite-ref" href="#src-22">[22]</a><a class="cite-ref" href="#src-23">[23]</a>, formal downtown coworking spaces charge <strong>$40–$65 per day</strong><a class="cite-ref" href="#src-28">[28]</a><a class="cite-ref" href="#src-29">[29]</a>, evening tabletop and arcade venues pivot heavily toward alcohol or enforce 18+ cutoffs<a class="cite-ref" href="#src-14">[14]</a><a class="cite-ref" href="#src-16">[16]</a>, and Winnipeg has <strong>zero permanent public PC/esports gaming cafés</strong> in 2026. Album Coffee Shop fills this gap by creating a bright, safe, vibrant, and inclusive environment where collaboration thrives, creativity flows, and connection is real.
+            </p>
+
+            <div class="grid-2">
+              <div class="subcard">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                  </span>
+                  Affordable Coworking &amp; Creative Zones
+                </h4>
+                <p>16 ergonomic workstations with gigabit fiber Wi-Fi and drop-in passes at $18/day (including a drip coffee), cutting local coworking costs by 55%–72%.</p>
+              </div>
+              <div class="subcard">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg>
+                  </span>
+                  High-End Gaming Areas &amp; Social Events
+                </h4>
+                <p>12 RTX 5070 / 240Hz PC stations with Steam PC Café commercial licensing, weekly tournaments, and casual LAN sessions open until 10–11 PM.</p>
+              </div>
+              <div class="subcard">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                  </span>
+                  Musicians' Lounge (Sound, Spirit &amp; Espresso)
+                </h4>
+                <p>Acoustic-treated coffeehouse stage hosting local Winnipeg songwriters, open mics, and sober evening showcases without bar noise or cover barriers.</p>
+              </div>
+              <div class="subcard">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </span>
+                  Welcoming Online Community
+                </h4>
+                <p>Active Winnipeg Discord hub and booking portal connecting regulars for study groups, squad play, jam sessions, and menu feedback loops.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================================
+               SECTION 2: VISION
+               ============================================================ -->
+          <section class="plan-section" id="sec-2" aria-labelledby="h-sec-2">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 02</span>
+                <h2 id="h-sec-2">Vision</h2>
+              </div>
+              <span class="section-tag is-preserved mono">Core Identity Preserved</span>
+            </div>
+
+            <blockquote class="quote-feature">
+              To become Winnipeg’s most vibrant launchpad for bold ideas—where students, musicians, remote workers, gamers, entrepreneurs, and creatives break boundaries in productivity, creativity, and community. As more people reduce harmful substance use and seek meaningful connection beyond screens, we provide a joyful, safe, and energizing space for real-world engagement. We invite everyone to dream together, achieve together, and welcome connections with a warm cup—fueling daily collaboration, sparking unstoppable inspiration, fostering innovative thinking, and celebrating music that leads the way to a brighter tomorrow.
+            </blockquote>
+          </section>
+
+          <!-- ============================================================
+               SECTION 3: CHARTER (VALUES)
+               ============================================================ -->
+          <section class="plan-section" id="sec-3" aria-labelledby="h-sec-3">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 03</span>
+                <h2 id="h-sec-3">Charter (Values)</h2>
+              </div>
+              <span class="section-tag is-preserved mono">Core Charter Preserved</span>
+            </div>
+
+            <p>
+              Our Charter describes the core principles we uphold at Album Coffee Shop, guiding how we innovate, collaborate, and connect with our community. While market trends and technology evolve, these pillars remain our compass, ensuring that every decision reflects our commitment to a safe, inclusive environment rooted in genuine human engagement.
+            </p>
+
+            <div class="grid-2">
+              <article class="charter-card">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                  </span>
+                  Progress
+                </h4>
+                <p>We aim to innovate beyond adaptation, avoiding complacency or outdated methods. Instead, we pursue bold ways to unite productivity with play, measuring success by how our evolution enables others to grow and thrive.</p>
+              </article>
+
+              <article class="charter-card">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M8 9h8M8 15h8"/></svg>
+                  </span>
+                  Equality
+                </h4>
+                <p>We trust in our peers beyond merit, avoiding discrimination or favoritism. Instead, we ensure every voice and background has a seat at our table—because true equity is felt when inclusion strengthens everyone’s potential.</p>
+              </article>
+
+              <article class="charter-card">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </span>
+                  Justice
+                </h4>
+                <p>We strive to be fair beyond honesty, avoiding exploitation or convenience. Instead, we hold ourselves to ethical standards that uplift others—recognizing that integrity means protecting what’s right for all, not just what works for us.</p>
+              </article>
+
+              <article class="charter-card">
+                <h4>
+                  <span class="pillar-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </span>
+                  Love
+                </h4>
+                <p>We choose to care beyond empathy, avoiding apathy, conditions, or judgment. Instead, we act with wholehearted presence, nurturing bonds that affirm dignity, foster belonging, and celebrate our shared humanity—knowing our greatest measure is our effectiveness in making the people around us better.</p>
+              </article>
+            </div>
+
+            <p style="margin-top:0.5rem;">
+              These principles power Album Coffee Shop’s mission, shaping everything from how we design our space to the partnerships we form. Our Charter is an evolving pledge to keep moving forward in the best interests of our patrons, our team, and the broader society we serve.
+            </p>
+          </section>
+
+          <!-- ============================================================
+               SECTION 4: MISSION
+               ============================================================ -->
+          <section class="plan-section" id="sec-4" aria-labelledby="h-sec-4">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 04</span>
+                <h2 id="h-sec-4">Mission</h2>
+              </div>
+              <span class="section-tag is-preserved mono">Core Identity Preserved</span>
+            </div>
+
+            <blockquote class="quote-feature">
+              We exist to create a safe, inclusive space that bridges the gap between digital convenience and real-world community for Winnipeg’s students, remote workers, gamers, entrepreneurs, musicians, and creatives. By blending premium coffee, ergonomic workspaces, and accessible gaming zones into a single vibrant hub where productivity meets play, we empower people to grow, collaborate, and connect in real, meaningful ways—winning together, every day.
+            </blockquote>
+          </section>
+
+          <!-- ============================================================
+               SECTION 5: MARKET ANALYSIS (2026 VERIFIED)
+               ============================================================ -->
+          <section class="plan-section" id="sec-5" aria-labelledby="h-sec-5">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 05</span>
+                <h2 id="h-sec-5">Market Analysis (2026 Winnipeg Validation)</h2>
+              </div>
+              <span class="section-tag is-updated mono">Audited &amp; Updated for 2026</span>
+            </div>
+
+            <p>
+              V2 estimated Winnipeg's 15–64 TAM at <code>497,000</code> (reflecting 2021 Census counts). Official Statistics Canada subprovincial estimates show the City of Winnipeg surpassed <strong>850,260</strong> residents in mid-2025 (projected at <strong>~855,000</strong> in 2026), while the wider Winnipeg Census Metropolitan Area (CMA) reached <strong>~955,000</strong><a class="cite-ref" href="#src-1">[1]</a><a class="cite-ref" href="#src-2">[2]</a>. Applying Statistics Canada's standard <strong>66% working-age (15–64) share</strong><a class="cite-ref" href="#src-3">[3]</a> updates Album's core market funnel:
+            </p>
+
+            <div class="table-scroll">
+              <table class="data-table compact">
+                <thead>
+                  <tr>
+                    <th>Market Sizing Tier</th>
+                    <th class="num">V2 Estimate (2025)</th>
+                    <th class="num">V3 Verified (2026)</th>
+                    <th class="num">Delta</th>
+                    <th>2026 Methodology &amp; Capacity Check</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>TAM — City of Winnipeg (Ages 15–64)</strong></td>
+                    <td class="num">497,000</td>
+                    <td class="num"><strong>564,300</strong></td>
+                    <td class="num" style="color:var(--plan-emerald);font-weight:600;">+13.5%</td>
+                    <td>855,000 City pop. × 66% working-age share (Extended CMA TAM: <strong>630,300</strong>)<a class="cite-ref" href="#src-1">[1]</a><a class="cite-ref" href="#src-3">[3]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SAM — Core Hybrid Segments (10%)</strong></td>
+                    <td class="num">49,700</td>
+                    <td class="num"><strong>56,430</strong></td>
+                    <td class="num" style="color:var(--plan-emerald);font-weight:600;">+13.5%</td>
+                    <td>Overlap-adjusted cohort of 64,968 post-secondary students, 79,124 remote workers &amp; urban creatives/gamers.</td>
+                  </tr>
+                  <tr class="row-highlight">
+                    <td><strong>Year-1 SOM — Active Local Patrons (5%)</strong></td>
+                    <td class="num">2,485</td>
+                    <td class="num"><strong>2,822</strong></td>
+                    <td class="num" style="color:var(--plan-emerald);font-weight:700;">+13.6%</td>
+                    <td>Validated as <strong>unique annual active customers</strong> (~1.8–2.0 visits/mo), anchored by 32 monthly members &amp; 115 daily café orders across ~50 seats.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- CHART 1: Market Sizing & Winnipeg Demand Cohorts -->
+            <div class="chart-panel">
+              <div class="chart-panel-head">
+                <h3 class="chart-panel-title">2026 Winnipeg Addressable Market &amp; Core Customer Cohorts</h3>
+                <span class="chart-panel-sub mono">Verified 2025–2026 StatCan · OIA · Buffer Benchmarks</span>
+              </div>
+              <div class="chart-stage" id="chart-market-wrap">
+                <canvas id="chart-market" aria-label="Bar chart comparing 2026 Winnipeg market cohorts and V2 vs V3 TAM/SAM/SOM"></canvas>
+              </div>
+            </div>
+
+            <h3>Post-Secondary Student Density (64,968 Registered Students)</h3>
+            <p>
+              Winnipeg's three major public institutions form an exceptionally dense customer base concentrated directly along the Exchange District, Downtown, Osborne, and Pembina corridors:
+            </p>
+            <div class="table-scroll">
+              <table class="data-table compact">
+                <thead>
+                  <tr>
+                    <th>Institution</th>
+                    <th class="num">2025–2026 Enrollment</th>
+                    <th>Key Campus Location</th>
+                    <th>Strategic Relevance to Album</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>University of Manitoba (U of M)</strong><a class="cite-ref" href="#src-4">[4]</a></td>
+                    <td class="num">32,568</td>
+                    <td>Fort Garry (Pembina Hwy) &amp; Bannatyne (Downtown)</td>
+                    <td>+1.7% YoY growth; ~29,172 full-time; Bannatyne health sciences campus sits minutes from Exchange District.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>RRC Polytech</strong><a class="cite-ref" href="#src-6">[6]</a></td>
+                    <td class="num">23,400</td>
+                    <td>Exchange District Campus (Roblin Centre) &amp; Notre Dame</td>
+                    <td>Immediate walking-distance foot traffic of IT, digital media, creative arts, and culinary/business students (+3% domestic growth).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>University of Winnipeg (U of W)</strong><a class="cite-ref" href="#src-5">[5]</a></td>
+                    <td class="num">9,000</td>
+                    <td>Downtown (Portage Ave)</td>
+                    <td>Urban commuter &amp; arts-heavy demographic (~17%–18% international, ~13% Indigenous) within a 10-minute walk/transit ride.</td>
+                  </tr>
+                  <tr class="row-total">
+                    <td>Combined Big-Three Student Ecosystem</td>
+                    <td class="num">64,968</td>
+                    <td>Exchange ↔ Downtown ↔ Osborne ↔ Pembina</td>
+                    <td>11.5% of Winnipeg's entire 15–64 working-age TAM (excluding CMU, USB &amp; MITT).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Detailed 2026 Market Demand Drivers (Fact-Checked)</h3>
+            <div class="grid-2">
+              <div class="subcard">
+                <h4>Hybrid Café–Workspace &amp; Sober Socializing</h4>
+                <p>According to the <strong>Coffee Association of Canada</strong>, <strong>71% of Canadians</strong> drink coffee daily, while <strong>45% of Gen Z</strong> prefer cold/iced specialty coffee year-round and <strong>75%</strong> customize beverages<a class="cite-ref" href="#src-9">[9]</a><a class="cite-ref" href="#src-19">[19]</a>. Meanwhile, Statistics Canada shows past-year alcohol abstinence (ages 12+) climbed from <strong>23% to 29%</strong> (2015–2024)<a class="cite-ref" href="#src-13">[13]</a>, driving demand for affordable, alcohol-free evening third places.</p>
+              </div>
+              <div class="subcard">
+                <h4>Remote &amp; Hybrid Work Culture in Winnipeg</h4>
+                <p>With Winnipeg CMA employment exceeding <strong>524,000</strong> (5.4%–5.7% unemployment)<a class="cite-ref" href="#src-17">[17]</a> and <strong>15.1%</strong> mostly working from home<a class="cite-ref" href="#src-7">[7]</a>, roughly <strong>79,124 local workers</strong> operate remotely—supported by Manitoba's flexible public-service hybrid agreements<a class="cite-ref" href="#src-18">[18]</a>. Applying Buffer's benchmark that <strong>27%</strong> use cafés as a secondary workplace (and <strong>23%–25%</strong> cite loneliness as a top struggle)<a class="cite-ref" href="#src-10">[10]</a> yields <strong>~21,363</strong> local café-working remote pros.</p>
+              </div>
+              <div class="subcard">
+                <h4>Unmet PC Gaming &amp; Esports Demand</h4>
+                <p>Live 2026 audits confirm Winnipeg still has <strong>zero permanent hourly PC gaming / esports cafés</strong>. The commercial success of <em>Across the Board</em> (Exchange District), <em>GameKnight</em> (Osborne), and <em>Select Start</em> proves strong face-to-face gaming appetite—yet gamers wanting RTX-class hardware, 240Hz displays, and structured weekly LAN brackets have no dedicated daily storefront.</p>
+              </div>
+              <div class="subcard">
+                <h4>Student Caffeine Nuance &amp; Community Events</h4>
+                <p><em>V2 Audit Note:</em> Peer-reviewed <em>Clinical Nutrition</em> research (n=1,248) confirms <strong>92% of college students consume caffeine</strong> in some form (with coffee the #1 contributor, rather than 92% daily coffee)<a class="cite-ref" href="#src-8">[8]</a>. Pairing customizable iced/espresso menus with alcohol-free acoustic open mics, jam nights, and esports brackets turns online hobbies into repeatable real-world habits.</p>
+              </div>
+            </div>
+
+            <h3>Target Customer Segments</h3>
+            <div class="grid-4">
+              <div class="subcard">
+                <h4>Students</h4>
+                <p>Budget-friendly study tables, ample outlets, fast Wi-Fi, customizable iced/espresso drinks, and stress-relief gaming after exams.</p>
+              </div>
+              <div class="subcard">
+                <h4>Remote Workers</h4>
+                <p>Eliminates café "table guilt" and poor Wi-Fi with $18/day passes, $165/mo memberships, ergonomic chairs, and acoustic zoning.</p>
+              </div>
+              <div class="subcard">
+                <h4>Gamers &amp; Esports</h4>
+                <p>Access to 12 RTX 5070 / 240Hz rigs ($6.50–$8.00/hr), Steam PC Café licenses, and weekly tournaments without $2,500+ home hardware.</p>
+              </div>
+              <div class="subcard">
+                <h4>Creatives &amp; Musicians</h4>
+                <p>Warm acoustic lounge for original songwriters, informal networking, indie showcases, and collaborative community events.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================================
+               SECTION 6: COMPETITIVE ANALYSIS & MATRIX
+               ============================================================ -->
+          <section class="plan-section" id="sec-6" aria-labelledby="h-sec-6">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 06</span>
+                <h2 id="h-sec-6">Competitive Analysis &amp; 2026 Winnipeg Matrix</h2>
+              </div>
+              <span class="section-tag is-updated mono">13 Active Competitors Mapped</span>
+            </div>
+
+            <p>
+              Album Coffee Shop sits at the intersection of four distinct Winnipeg sectors—specialty coffee, tabletop/arcade entertainment, PC gaming lounges, and coworking spaces. While incumbents excel within single silos, <strong>no active Winnipeg venue integrates specialty coffee, affordable drop-in coworking, high-end PC gaming, and alcohol-free live acoustic music under one roof</strong>. Live 2026 market checks also note two notable independent café closures—<em>Parlour Coffee</em> (468 Main St, succeeded by <em>Passage Café</em>) and <em>MAKE Coffee + Stuff</em> (751 Corydon Ave)<a class="cite-ref" href="#src-20">[20]</a><a class="cite-ref" href="#src-21">[21]</a>—underscoring why diversified multi-daypart revenue streams outperform pure single-stream coffee shops.
+            </p>
+
+            <!-- Interactive Category Filter for Competitor Table -->
+            <div class="control-bar" aria-label="Filter Winnipeg competitors by category">
+              <div class="control-group" role="tablist" aria-label="Competitor category filter">
+                <span class="control-label mono">Filter:</span>
+                <button type="button" class="seg-btn is-active" data-comp-filter="all" role="tab" aria-selected="true">All (14)</button>
+                <button type="button" class="seg-btn" data-comp-filter="coffee" role="tab" aria-selected="false">Specialty Coffee (6)</button>
+                <button type="button" class="seg-btn" data-comp-filter="gaming" role="tab" aria-selected="false">Gaming &amp; Lounges (4)</button>
+                <button type="button" class="seg-btn" data-comp-filter="cowork" role="tab" aria-selected="false">Coworking (3)</button>
+              </div>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-muted);" id="comp-count">Showing Album + 13 Winnipeg venues</span>
+            </div>
+
+            <div class="table-scroll">
+              <table class="data-table" id="competitor-table">
+                <thead>
+                  <tr>
+                    <th>Venue</th>
+                    <th>Category</th>
+                    <th>Location(s)</th>
+                    <th>2026 Pricing (CAD)</th>
+                    <th>Hours</th>
+                    <th>Strengths &amp; Market Gap</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-highlight" data-comp-cat="album">
+                    <td><strong>Album Coffee Shop (Proposed)</strong></td>
+                    <td><span class="badge-cat cat-album mono">Hybrid Hub</span></td>
+                    <td>Exchange District (2,200 sq ft baseline)</td>
+                    <td>Coffee $3.50–$7; CW $18/day or $165/mo; PC $6.50–$8/hr</td>
+                    <td>Mon–Thu 8 AM–10 PM; Fri–Sat 8 AM–11 PM; Sun 9 AM–9 PM</td>
+                    <td><strong>All-in-one sober third place:</strong> morning specialty espresso + affordable daytime coworking + 12 RTX 5070 rigs + acoustic music stage.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Thom Bargen Coffee Roasters</strong><a class="cite-ref" href="#src-22">[22]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>Sherbrook, Kennedy, Corydon, Tuxedo</td>
+                    <td>Drip $3.30–$4.00; Espresso $4.50–$6.30</td>
+                    <td>7 AM–4/5 PM (Downtown/Sherbrook); until 8–9 PM (Tuxedo/Corydon)</td>
+                    <td>Premier local craft roaster; Corydon pivots to evening wine. No coworking membership tiers or gaming setups.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Little Sister Coffee Maker</strong><a class="cite-ref" href="#src-23">[23]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>Osborne Village</td>
+                    <td>Drip $3.25–$4.50; Specialty Lattes $5–$7; Pastries $4–$7+</td>
+                    <td>Daily 8:00 AM – 6:00 PM</td>
+                    <td>Iconic greenhouse vibe &amp; pastries. Closes at 6 PM; cozy layout not built for long workdays or evening events.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Fools &amp; Horses Coffee</strong><a class="cite-ref" href="#src-24">[24]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>Hargrave St Market, The Forks</td>
+                    <td>Drip $3.25–$4.10; Lattes $5.05–$5.75; Matcha ~$5.60</td>
+                    <td>~7/8 AM – Market evening hours</td>
+                    <td>High-precision Modbar espresso in bustling food halls. Loud shared hall seating; unsuitable for focused remote work or gaming.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Empty Cup Collective</strong><a class="cite-ref" href="#src-25">[25]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>Academy Rd, Bridgwater, Downtown</td>
+                    <td>Coffee $3–$6; Signature drinks $6–$8+; Food $7–$14</td>
+                    <td>Weekdays 7 AM–7/9 PM; Sun 9 AM–5 PM</td>
+                    <td>Strong expanding multi-branch brand with evening hours. Pure café model without coworking ergonomics, stage, or gaming.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Café Postal</strong><a class="cite-ref" href="#src-26">[26]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>St. Boniface (202 Provencher)</td>
+                    <td>Filter $2.75–$3.25; Lattes $3.50–$5.00; Matcha $4.25–$4.75</td>
+                    <td>~7:30/8:00 AM – 4:00/5:00 PM</td>
+                    <td>Accessible specialty pricing &amp; neighborhood warmth. Daytime-only and compact footprint.</td>
+                  </tr>
+                  <tr data-comp-cat="coffee">
+                    <td><strong>Passage Café</strong><a class="cite-ref" href="#src-20">[20]</a></td>
+                    <td><span class="badge-cat cat-coffee mono">Specialty Coffee</span></td>
+                    <td>Exchange District (474 Main St)</td>
+                    <td>Specialty third-wave (~$4–$7)</td>
+                    <td>Daytime into extended evening hours</td>
+                    <td>Former Parlour Coffee owners extending into Exchange evening social hours—validates demand, but no coworking/gaming stack.</td>
+                  </tr>
+                  <tr data-comp-cat="gaming">
+                    <td><strong>Across the Board Game Café</strong><a class="cite-ref" href="#src-14">[14]</a></td>
+                    <td><span class="badge-cat cat-gaming mono">Board-Game Café</span></td>
+                    <td>Exchange District (211 Bannatyne)</td>
+                    <td>$12 adult cover ($7 kids ≤12) + full restaurant/bar</td>
+                    <td>Tue–Thu/Sun 11 AM–10 PM; Fri–Sat 11 AM–12 AM (Closed Mon)</td>
+                    <td>1,600+ board games &amp; Game Masters prove Exchange gaming demand. Licensed bar/restaurant; closed Mondays &amp; mornings; zero PCs.</td>
+                  </tr>
+                  <tr data-comp-cat="gaming">
+                    <td><strong>GameKnight Games</strong><a class="cite-ref" href="#src-15">[15]</a></td>
+                    <td><span class="badge-cat cat-gaming mono">Tabletop Hobby</span></td>
+                    <td>Osborne Village (519 Osborne)</td>
+                    <td>Retail + table bookings / TCG tournament entries</td>
+                    <td>Daytime to evening tournament hours</td>
+                    <td>Established TCG &amp; Warhammer community hub since 2003. Retail hobby shop—no espresso bar, coworking, or PC gaming rigs.</td>
+                  </tr>
+                  <tr data-comp-cat="gaming">
+                    <td><strong>Select Start</strong><a class="cite-ref" href="#src-16">[16]</a></td>
+                    <td><span class="badge-cat cat-gaming mono">Retro Barcade</span></td>
+                    <td>Exchange District (110 Market)</td>
+                    <td>$12.50 flat admission + bar/food menu</td>
+                    <td>Wed–Thu 4–10 PM; Fri 4–12 AM; Sat 12–12 AM; Sun 12–10 PM</td>
+                    <td>Popular Exchange retro arcade. <strong>18+ after 7:30 PM</strong>, alcohol-focused, closed Mon–Tue &amp; mornings; retro cabinets vs. modern esports PCs.</td>
+                  </tr>
+                  <tr data-comp-cat="gaming">
+                    <td><strong>The Rec Room</strong><a class="cite-ref" href="#src-27">[27]</a></td>
+                    <td><span class="badge-cat cat-gaming mono">Mega-Arcade</span></td>
+                    <td>Seasons of Tuxedo (696 Sterling Lyon)</td>
+                    <td>Game Band credits (from ~$20) + separate VR/bowling</td>
+                    <td>Mon–Thu 12–11 PM; Fri–Sat 11:30 AM–2 AM; Sun 12–11 PM</td>
+                    <td>High-volume suburban entertainment/bar complex. Car-dependent, loud, alcohol-heavy; unsuitable for studying, coworking, or PC esports.</td>
+                  </tr>
+                  <tr data-comp-cat="cowork">
+                    <td><strong>Launch Coworking</strong><a class="cite-ref" href="#src-28">[28]</a></td>
+                    <td><span class="badge-cat cat-cowork mono">Coworking</span></td>
+                    <td>Exchange District (Lombard) &amp; Chevrier</td>
+                    <td>Half-day $29–$39; Full Day <strong>$40–$49</strong>; Dedicated ~$249/mo</td>
+                    <td>Business hours (9 AM–5 PM drop-in; member access)</td>
+                    <td>Strong local coworking operator. $40–$49/day prices out students &amp; casual freelancers; corporate office feel, no evening/gaming vibe.</td>
+                  </tr>
+                  <tr data-comp-cat="cowork">
+                    <td><strong>Regus / Spaces (IWG)</strong><a class="cite-ref" href="#src-29">[29]</a></td>
+                    <td><span class="badge-cat cat-cowork mono">Coworking</span></td>
+                    <td>Downtown (201 Portage, 330 St. Mary)</td>
+                    <td>Day pass from <strong>~$65/day</strong>; Flex from $159/mo; Dedicated $265/mo</td>
+                    <td>Business hours / member access</td>
+                    <td>Corporate business-centre offices. Expensive drop-in rate, formal atmosphere, multi-year contract framing.</td>
+                  </tr>
+                  <tr data-comp-cat="cowork">
+                    <td><strong>North Forge</strong><a class="cite-ref" href="#src-30">[30]</a></td>
+                    <td><span class="badge-cat cat-cowork mono">Incubator/FabLab</span></td>
+                    <td>U of M SmartPark &amp; 312 William Ave</td>
+                    <td>Application-based Founders Program / FabLab tiers</td>
+                    <td>Program &amp; member hours</td>
+                    <td>Excellent startup incubator &amp; makerspace, but not an open public drop-in café, general coworking lounge, or gaming venue.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Competitive Positioning &amp; Defensible Moat</h3>
+            <div class="grid-3">
+              <div class="subcard">
+                <h4>14-Hour Daypart Synergy</h4>
+                <p>Cafés peak 7:30 AM–2 PM and sit quiet at night; gaming lounges peak 5 PM–11 PM and sit empty mornings. Album monetizes the same 2,200 sq ft continuously from 8 AM espresso to 11 PM tournaments.</p>
+              </div>
+              <div class="subcard">
+                <h4>How We Stand Out</h4>
+                <p>Rather than compartmentalized services, patrons seamlessly flow from morning study or remote work into afternoon coffee chats and evening gaming or live acoustic sets—without leaving the building.</p>
+              </div>
+              <div class="subcard">
+                <h4>Difficult to Copy</h4>
+                <p>Deep local partnerships (campus clubs, Winnipeg indie musicians, Share-a-Meal shelters), an active Discord feedback loop, an interactive web portal, and a welcoming alcohol-free culture create community switching costs superficial imitators cannot replicate.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================================
+               SECTION 7: RISK MANAGEMENT
+               ============================================================ -->
+          <section class="plan-section" id="sec-7" aria-labelledby="h-sec-7">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 07</span>
+                <h2 id="h-sec-7">Risk Management</h2>
+              </div>
+              <span class="section-tag is-updated mono">V2 Risks + Winnipeg Ops Controls</span>
+            </div>
+
+            <p>Operating a multi-zone hybrid venue in Winnipeg introduces operational, seasonal, and capital risks that require proactive engineering and financial discipline from day one:</p>
+
+            <div class="table-scroll">
+              <table class="data-table compact">
+                <thead>
+                  <tr>
+                    <th>Risk Category</th>
+                    <th>Winnipeg-Specific Exposure</th>
+                    <th>Strategic Mitigation &amp; Operational Control</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Seasonality &amp; Winter Utility Spikes</strong></td>
+                    <td>Winnipeg winters drive January–February foot-traffic dips and elevated heating bills (compounded by Manitoba Hydro's Jan 2026 +4% rate hike<a class="cite-ref" href="#src-56">[56]</a>), while campus traffic dips May–August.</td>
+                    <td>Anchor revenue in year-round recurring coworking/gaming memberships, winter indoor esports leagues, cozy evening acoustic showcases, and Exchange District proximity (less dependent on U of M summer recess than Pembina).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Acoustic &amp; Zone Conflict</strong></td>
+                    <td>Quiet remote workers taking Zoom calls clash with enthusiastic PC gamers or evening acoustic musicians if poorly separated.</td>
+                    <td>Allocate build-out funds specifically for <strong>acoustic glass partitions, sound baffles, and zoned HVAC</strong> separating the 16-seat coworking bay from the 12-PC gaming bay and café stage; schedule live acoustic sets strictly after 6:30 PM.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tech Failures &amp; GPU Obsolescence</strong></td>
+                    <td>Espresso downtime, internet drops during tournaments, or aging GPUs degrade customer trust and utilization.</td>
+                    <td>Maintain espresso preventive maintenance contracts, spare peripherals on-site, <strong>dual-ISP fiber + LTE failover</strong>, diskless LAN imaging (ggLeap/SENET), and a dedicated <strong>$950/month PC Hardware Refresh Sinking Fund</strong> (3.5-yr upgrade cycle).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Build-Out Overruns &amp; Capital Shortfalls</strong></td>
+                    <td>Raw-shell Canadian café buildouts cost $150–$275/sq ft ($330k–$605k), threatening startup liquidity<a class="cite-ref" href="#src-41">[41]</a>.</td>
+                    <td>Strictly lease a <strong>second-generation café/retail space</strong> with existing plumbing/200A power ($50/sq ft blended retrofit = $110k), hold a <strong>$38,000 working capital reserve</strong>, and blend founder equity with CSBFP / Futurpreneur / BDC financing.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Demand Uncertainty &amp; Wage Inflation</strong></td>
+                    <td>Manitoba minimum wage reached $16.40/hr (Oct 1, 2026) with CPI indexing<a class="cite-ref" href="#src-50">[50]</a>; slow ramp-up pushes prime cost above 65%.</td>
+                    <td>Validate demand pre-lease (Section 8), cross-train baristas as gaming/coworking hosts, scale floor hours dynamically (85%–100% ramp), keep menu fresh/seasonal, and hold external catering/event-rental pivot levers.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Regulatory &amp; Permit Delays</strong></td>
+                    <td>City of Winnipeg occupancy permits and Manitoba Health floor-plan reviews can delay launch if sequenced late.</td>
+                    <td>Submit Manitoba Health plans ($0 permit fee<a class="cite-ref" href="#src-45">[45]</a>) and City Occupancy / Fire Load applications (~$381–$391+ base<a class="cite-ref" href="#src-43">[43]</a>) concurrently during lease fixturing; negotiate 60–90 days of rent-free fixturing period.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ============================================================
+               SECTION 8: CONSUMER INTEREST TESTING
+               ============================================================ -->
+          <section class="plan-section" id="sec-8" aria-labelledby="h-sec-8">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 08</span>
+                <h2 id="h-sec-8">Consumer Interest Testing &amp; Pre-Launch Validation</h2>
+              </div>
+              <span class="section-tag is-updated mono">V2 Methods + Go/No-Go KPIs</span>
+            </div>
+
+            <p>
+              Before signing a multi-year commercial lease or purchasing $81,000+ of café and gaming hardware, Album will execute a staged, low-cost Winnipeg validation sprint with measurable go/no-go thresholds:
+            </p>
+
+            <ul class="plan-list">
+              <li><strong>Targeted Winnipeg Surveys &amp; Questionnaires:</strong> Distribute structured willingness-to-pay surveys via <code>r/Winnipeg</code>, UMSU/UWSA/RRC Polytech student channels, and local tech/music groups testing $18 coworking day passes, $165/mo memberships, and $6.50–$8.00/hr PC rates. <em>Target KPI: ≥ 300 completed local responses with ≥ 60% price acceptance.</em></li>
+              <li><strong>Focus Groups &amp; Discovery Interviews:</strong> Conduct 4–6 small-group sessions segmented by persona (students, remote workers, competitive gamers, local acoustic artists) to fine-tune zone noise tolerance, drink menus, and opening hours.</li>
+              <li><strong>Prototype Pop-Up Events:</strong> Partner with an existing Exchange District gallery, café, or community venue to run 3 weekend "Album Pop-Up Nights" featuring specialty pour-overs, 4–6 demo gaming setups, and local acoustic sets. <em>Target KPI: ≥ 75% attendance capacity and ≥ 4.5/5 post-event rating.</em></li>
+              <li><strong>Discord Community &amp; Web Waitlist:</strong> Launch the Album Winnipeg Discord server and landing page to run menu polls, tournament title votes (<em>Valorant, CS2, League, Rocket League, Tekken</em>), and acoustic artist signups. <em>Target KPI: ≥ 500 local members prior to lease signing.</em></li>
+              <li><strong>Pre-Launch Founding Memberships / Crowdfunding:</strong> Offer discounted Founding Creator &amp; Gamer Packs (e.g., 10-hour PC bundles or 2-month coworking passes) to test actual wallet commitment. <em>Target KPI: ≥ 50 paid pre-launch Founding Members ($5,000–$8,000 validated pre-sales).</em></li>
+            </ul>
+          </section>
+
+          <!-- ============================================================
+               SECTION 9: RECOMMENDATION & VIABILITY CONCLUSION
+               ============================================================ -->
+          <section class="plan-section" id="sec-9" aria-labelledby="h-sec-9">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 09</span>
+                <h2 id="h-sec-9">Recommendation &amp; Viability Conclusion</h2>
+              </div>
+              <span class="section-tag is-updated mono">Data-Backed Go Decision</span>
+            </div>
+
+            <p>
+              Supported by 2026 Winnipeg demographic expansion (+13.5% TAM growth to <strong>564,300</strong>), a <strong>64,968-student</strong> post-secondary core, declining youth alcohol consumption, and the verified absence of any dedicated PC/esports gaming café in Winnipeg, Album Coffee Shop represents a timely, commercially viable hybrid venture—<strong>provided launch execution stays disciplined on second-generation real estate and Exchange District occupancy economics</strong>.
+            </p>
+
+            <h3>Key Success Factors</h3>
+            <ul class="plan-list">
+              <li><strong>Multi-Stream Excellence Without Dilution:</strong> Maintain specialty third-wave coffee quality (72.5% gross margin), ergonomic quiet coworking (92% margin), and smooth 240Hz PC performance (95% margin) via proper acoustic separation and cross-trained staff.</li>
+              <li><strong>Lease &amp; Capital Discipline:</strong> Anchor in a ~2,200 sq ft second-generation Exchange District unit (~$5,500/mo gross) to keep monthly operating break-even at <strong>$43,325/mo</strong> (reached in <strong>Month 6</strong> under Base Case assumptions, with peak ramp burn of -$21,779 comfortably covered by the $38,000 working capital reserve).</li>
+              <li><strong>Community Flywheel &amp; Pivot Agility:</strong> Continuously measure seat yield across coffee, coworking, gaming, and music via POS and ggLeap/SENET analytics—retaining modular floor-plan flexibility to expand whichever zone demonstrates the highest contribution margin per square foot.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================================
+               SECTION 10: SOCIAL IMPACT — SHARE A MEAL
+               ============================================================ -->
+          <section class="plan-section" id="sec-10" aria-labelledby="h-sec-10">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 10</span>
+                <h2 id="h-sec-10">Social Impact &amp; Charitable Contributions</h2>
+              </div>
+              <span class="section-tag is-preserved mono">Share a Meal · Modeled in P&amp;L</span>
+            </div>
+
+            <p>
+              In keeping with our mission to foster real-world connections and cultivate a sense of community, Album Coffee Shop is committed to giving back. We will introduce a <strong>“Share a Meal”</strong> initiative for select products—every time a customer buys an eligible specialty drink or snack bundle under this program, a dedicated portion of proceeds goes directly toward feeding homeless and food-insecure neighbours through partnerships with local Winnipeg organizations.
+            </p>
+            <p>
+              This allows patrons not only to enjoy their favorite coffee or snack but also to experience the genuine generosity of providing a meal to someone in need. By engaging customers in a simple, tangible act of kindness, we reinforce our core Charter values—<em>Progress, Equality, Justice, and Love</em>—and encourage people to see Album Coffee Shop as a place where everyday moments spark meaningful impact and build a loving community and family.
+            </p>
+
+            <div class="impact-banner">
+              <h3 style="margin-top:0;font-size:1.05rem;">Transparent 2026 Winnipeg Unit Economics for “Share a Meal”</h3>
+              <p style="margin-bottom:0.4rem;">
+                Rather than treating charity as an afterthought, Album embeds <strong>$0.50 per eligible specialty drink / meal combo</strong> (~50% of café orders → <strong>$0.25 blended per café transaction</strong>) directly inside Section 11 Variable Costs. Partnering with established Winnipeg food-security leaders—such as <strong>Harvest Manitoba</strong> ($30 ≈ 31 meals / ~$0.97 per meal via bulk food rescue)<a class="cite-ref" href="#src-61">[61]</a>, <strong>Siloam Mission</strong> (~$4.33 per hot shelter meal)<a class="cite-ref" href="#src-62">[62]</a>, or <strong>Main Street Project</strong> (serving 1,000+ daily shelter meals)<a class="cite-ref" href="#src-62">[62]</a>—translates everyday coffee orders into auditable community impact:
+              </p>
+
+              <div class="impact-metrics">
+                <div class="impact-stat">
+                  <span class="impact-stat-num">$863 / mo</span>
+                  <span class="impact-stat-lbl">Base Case monthly Share-a-Meal contribution ($10,356/yr stabilized; 1.7% of total revenue)</span>
+                </div>
+                <div class="impact-stat">
+                  <span class="impact-stat-num">~890 meals/mo</span>
+                  <span class="impact-stat-lbl">Equivalent monthly meals funded via <strong>Harvest Manitoba</strong> (~$0.97/meal benchmark; ~10,680/yr)<a class="cite-ref" href="#src-61">[61]</a></span>
+                </div>
+                <div class="impact-stat">
+                  <span class="impact-stat-num">~199 hot meals/mo</span>
+                  <span class="impact-stat-lbl">Equivalent monthly hot shelter meals via <strong>Siloam Mission</strong> (~$4.33/meal benchmark; ~2,390/yr)<a class="cite-ref" href="#src-62">[62]</a></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================================
+               SECTION 11: FINANCIAL PROJECTIONS & UNIT ECONOMICS (NEW)
+               ============================================================ -->
+          <section class="plan-section" id="sec-11" aria-labelledby="h-sec-11">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Section 11</span>
+                <h2 id="h-sec-11">Financial Projections &amp; Unit Economics (2026 CAD)</h2>
+              </div>
+              <span class="section-tag is-new mono">New in V3 · Interactive Model</span>
+            </div>
+
+            <p>
+              All financial projections below are denominated in <strong>2026 Canadian Dollars (CAD, pre-tax)</strong>, benchmarked against verified Winnipeg commercial leases, Canadian equipment quotes, Manitoba's October 1, 2026 minimum wage (<strong>$16.40/hr</strong>), 2026 statutory employer payroll taxes, and Canadian hospitality prime-cost standards (&lt;65% target)<a class="cite-ref" href="#src-42">[42]</a><a class="cite-ref" href="#src-50">[50]</a><a class="cite-ref" href="#src-52">[52]</a>.
+            </p>
+
+            <!-- 11.1 STARTUP CAPEX -->
+            <h3>11.1 Startup CAPEX Breakdown ($275,000 CAD — 2,200 sq ft, 12 PCs)</h3>
+
+            <div class="callout is-warn">
+              <span class="callout-title">Build-Out Discipline &amp; Hardware Scaling Notes</span>
+              Raw-shell Canadian café construction averages <strong>$150–$275/sq ft</strong> ($330k–$605k before equipment)<a class="cite-ref" href="#src-41">[41]</a>. This model intentionally targets a <strong>second-generation Exchange District café/retail space</strong> with existing plumbing and 200A+ electrical service (~$50/sq ft cosmetic, electrical &amp; acoustic-partition retrofit = $110,000). For gaming hardware, the baseline deploys <strong>12 RTX 5070 / 240Hz stations ($47,000 loaded)</strong>; scaling to <strong>10 stations</strong> lowers hardware CAPEX to <strong>$40,040</strong> (-$6,960), while expanding to <strong>15 stations</strong> raises it to <strong>$57,440</strong> (+$10,440). Upgrading from a <em>Nuova Simonelli Appia Life XT</em> (~$11.8k) to a <em>La Marzocco Linea Classic S AV</em> (~$24k) adds ~$12,200<a class="cite-ref" href="#src-35">[35]</a>.
+            </div>
+
+            <div class="chart-grid-2">
+              <div class="chart-panel">
+                <div class="chart-panel-head">
+                  <h4 class="chart-panel-title" style="margin:0;">Startup CAPEX Allocation ($275,000)</h4>
+                  <span class="chart-panel-sub mono">2nd-Gen Retrofit · 12 Rigs</span>
+                </div>
+                <div class="chart-stage is-donut" id="chart-capex-wrap">
+                  <canvas id="chart-capex" aria-label="Doughnut chart of $275,000 startup CAPEX allocation"></canvas>
+                </div>
+              </div>
+
+              <div class="table-scroll" style="margin:0;">
+                <table class="data-table compact" style="min-width:340px;">
+                  <thead>
+                    <tr>
+                      <th>CAPEX Line Item</th>
+                      <th class="num">CAD</th>
+                      <th class="num">%</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Leasehold &amp; Acoustic Zoning</strong><br><span style="font-size:0.78rem;">2,200 sq ft 2nd-gen retrofit, 200A circuits, acoustic glass</span></td>
+                      <td class="num">$110,000</td>
+                      <td class="num">40.0%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>12 Gaming PCs &amp; Network</strong><br><span style="font-size:0.78rem;">12× $3,480 (RTX 5070, 240Hz, gear, desk/chair) + $5,240 LAN/cache</span></td>
+                      <td class="num">$47,000</td>
+                      <td class="num">17.1%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Working Capital Reserve</strong><br><span style="font-size:0.78rem;">4-month ramp buffer (covers -$21,779 Base burn)</span></td>
+                      <td class="num">$38,000</td>
+                      <td class="num">13.8%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Espresso Bar &amp; Café Equip.</strong><br><span style="font-size:0.78rem;">Nuova Simonelli 2-grp XT, 2× grinders, filtration, fridges, POS</span></td>
+                      <td class="num">$34,000</td>
+                      <td class="num">12.4%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Permits, Deposits &amp; Opening Inv.</strong><br><span style="font-size:0.78rem;">MEP/permits $9k, 2-mo lease deposit $11k, inventory $6k</span></td>
+                      <td class="num">$26,000</td>
+                      <td class="num">9.5%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Coworking, Seating &amp; Stage AV</strong><br><span style="font-size:0.78rem;">16 CW seats, 22 lounge seats, compact acoustic PA/mics</span></td>
+                      <td class="num">$20,000</td>
+                      <td class="num">7.3%</td>
+                    </tr>
+                    <tr class="row-total">
+                      <td>Total Startup Capital</td>
+                      <td class="num">$275,000</td>
+                      <td class="num">100.0%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Manitoba Regulatory & Licensing Checklist -->
+            <div class="callout is-info">
+              <span class="callout-title">Manitoba &amp; City of Winnipeg Regulatory Compliance Summary (2026)</span>
+              <strong>Manitoba Health Permit:</strong> Mandatory Food Handling Establishment Permit under M.R. 339/88R — <strong>$0 permit fee</strong>, annual March 31 renewal; Certified Food Handler training (~$50–$100/staff)<a class="cite-ref" href="#src-44">[44]</a><a class="cite-ref" href="#src-45">[45]</a>.
+              <strong>City of Winnipeg:</strong> Municipal food business licence eliminated in 2015; requires Zoning Approval + Building Occupancy Permit &amp; Occupant Load (~$381–$391 base + per-m² fee)<a class="cite-ref" href="#src-43">[43]</a><a class="cite-ref" href="#src-46">[46]</a>.
+              <strong>Music &amp; Tax:</strong> Entandem SOCAN Tariff 3.A (3% of performer pay, min ~$89.76/yr) + background music licence<a class="cite-ref" href="#src-47">[47]</a>; prepared café food/drinks charge <strong>5% GST + 7% Manitoba PST (12% combined)</strong><a class="cite-ref" href="#src-48">[48]</a>. Alcohol-free positioning avoids LGCA liquor fees and 18+ age barriers.
+            </div>
+
+            <!-- 11.2 CORRIDOR LEASE BENCHMARKS -->
+            <h3>11.2 Winnipeg Commercial Corridor Comparison &amp; Sensitivity (2,200 sq ft)</h3>
+            <p>
+              Comparing 2026 commercial retail lease benchmarks across Winnipeg's three candidate corridors illustrates why the <strong>Exchange District</strong> serves as Album's primary financial baseline<a class="cite-ref" href="#src-31">[31]</a><a class="cite-ref" href="#src-32">[32]</a><a class="cite-ref" href="#src-33">[33]</a><a class="cite-ref" href="#src-34">[34]</a>:
+            </p>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Winnipeg Corridor</th>
+                    <th class="num">Net Rent (/sf)</th>
+                    <th class="num">CAM / Tax (/sf)</th>
+                    <th class="num">Gross (/sf)</th>
+                    <th class="num">Monthly Rent</th>
+                    <th class="num">Base Break-Even</th>
+                    <th class="num">Base Op. Profit</th>
+                    <th>Strategic Trade-Off</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-highlight">
+                    <td><strong>Exchange District (Baseline)</strong></td>
+                    <td class="num">$19.00</td>
+                    <td class="num">$11.00</td>
+                    <td class="num">$30.00</td>
+                    <td class="num"><strong>$5,500</strong></td>
+                    <td class="num"><strong>$43,325/mo</strong></td>
+                    <td class="num" style="color:var(--plan-emerald);">$6,516/mo</td>
+                    <td>Lowest occupancy cost; steps from RRC Polytech &amp; U of W; proven evening gaming corridor.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pembina Hwy / U of M</strong></td>
+                    <td class="num">$26.00</td>
+                    <td class="num">$10.00</td>
+                    <td class="num">$36.00</td>
+                    <td class="num">$6,600</td>
+                    <td class="num">$44,767/mo</td>
+                    <td class="num">$5,416/mo</td>
+                    <td>Closest to 32,568 U of M students &amp; surface parking; +$1,100/mo rent &amp; sharper May–Aug lull.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Osborne Village</strong></td>
+                    <td class="num">$25.00</td>
+                    <td class="num">$13.00</td>
+                    <td class="num">$38.00</td>
+                    <td class="num">$6,967</td>
+                    <td class="num">$45,248/mo</td>
+                    <td class="num">$5,049/mo</td>
+                    <td>Highest walkable youth density; +$1,467/mo rent, tighter parking &amp; residential noise limits.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 11.3 MONTHLY OPERATING EXPENSES -->
+            <h3>11.3 Monthly Fixed Operating Expenses ($33,040/mo Base — Exchange District)</h3>
+            <p>
+              Modeled for <strong>98 operating hours/week</strong> (~425 open hrs/mo) staffed by an average of <strong>2.0 paid floor staff</strong> (850 paid hrs/mo @ <strong>$18.25/hr blended</strong>, above Manitoba's $16.40/hr Oct 2026 minimum wage<a class="cite-ref" href="#src-50">[50]</a><a class="cite-ref" href="#src-51">[51]</a>) plus a full-time working owner-operator. Employer statutory payroll burden is budgeted conservatively at <strong>13.0%</strong> (2026 CPP 5.95% / ~5.5% effective + EI 2.28% + MB Vacation 4.0% + WCB Manitoba sub-group 701-06 ~1.0%)<a class="cite-ref" href="#src-52">[52]</a><a class="cite-ref" href="#src-53">[53]</a>.
+            </p>
+            <div class="table-scroll">
+              <table class="data-table compact">
+                <thead>
+                  <tr>
+                    <th>Monthly Fixed OPEX Line Item</th>
+                    <th class="num">Base (CAD/mo)</th>
+                    <th class="num">% of Fixed</th>
+                    <th>2026 Winnipeg Basis</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Floor Staff Payroll (Loaded)</strong></td>
+                    <td class="num">$17,530</td>
+                    <td class="num">53.1%</td>
+                    <td>850 hrs @ $18.25/hr ($15,513) + 13% MB statutory burden (CPP, EI, Vac, WCB)<a class="cite-ref" href="#src-50">[50]</a><a class="cite-ref" href="#src-52">[52]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gross Commercial Lease (2,200 sq ft)</strong></td>
+                    <td class="num">$5,500</td>
+                    <td class="num">16.6%</td>
+                    <td>Exchange District baseline ($19 net + $11 CAM/tax)<a class="cite-ref" href="#src-33">[33]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Owner-Operator Salary / Draw</strong></td>
+                    <td class="num">$4,000</td>
+                    <td class="num">12.1%</td>
+                    <td>Transparent working-owner compensation (deferrable during ramp if needed).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Manitoba Hydro (Electricity + Natural Gas)</strong></td>
+                    <td class="num">$1,200</td>
+                    <td class="num">3.6%</td>
+                    <td>Annualized avg reflecting Jan 2026 +4% rate hike, winter heat &amp; 12-PC load<a class="cite-ref" href="#src-56">[56]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Live Acoustic Performers &amp; Entandem</strong></td>
+                    <td class="num">$950</td>
+                    <td class="num">2.9%</td>
+                    <td>~7–8 local acoustic sets/mo + SOCAN Tariff 3.A / 15.A &amp; Re:Sound<a class="cite-ref" href="#src-47">[47]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>PC Hardware Refresh Sinking Fund</strong></td>
+                    <td class="num">$950</td>
+                    <td class="num">2.9%</td>
+                    <td>Dedicated cash reserve for 3.5-year GPU &amp; peripheral upgrade cycle.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Marketing, Community &amp; Partnerships</strong></td>
+                    <td class="num">$750</td>
+                    <td class="num">2.3%</td>
+                    <td>Campus promotions, social campaigns, Discord &amp; local sponsorships.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Maintenance, Cleaning &amp; Janitorial</strong></td>
+                    <td class="num">$650</td>
+                    <td class="num">2.0%</td>
+                    <td>Espresso PM service, water filter cartridges, commercial sanitation.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Commercial Insurance Package</strong></td>
+                    <td class="num">$450</td>
+                    <td class="num">1.4%</td>
+                    <td>$5,400/yr Manitoba CGL ($2M–$5M), property, equipment breakdown &amp; cyber<a class="cite-ref" href="#src-49">[49]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gaming SaaS, POS &amp; Booking Software</strong></td>
+                    <td class="num">$450</td>
+                    <td class="num">1.4%</td>
+                    <td>ggLeap/SENET (~$220/mo incl. Steam pool) + Square/coworking booking SaaS<a class="cite-ref" href="#src-39">[39]</a><a class="cite-ref" href="#src-40">[40]</a>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bookkeeping, Accounting &amp; Admin</strong></td>
+                    <td class="num">$400</td>
+                    <td class="num">1.2%</td>
+                    <td>Monthly bookkeeping, CRA/PST remittances &amp; banking fees.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Business Gigabit Fiber + LTE Failover</strong></td>
+                    <td class="num">$210</td>
+                    <td class="num">0.6%</td>
+                    <td>Rogers/Bell MTS 1 Gbps business fiber (~$120–$135/mo) + cellular backup<a class="cite-ref" href="#src-54">[54]</a><a class="cite-ref" href="#src-55">[55]</a>.</td>
+                  </tr>
+                  <tr class="row-total">
+                    <td>Total Monthly Fixed OPEX (Base Case)</td>
+                    <td class="num">$33,040</td>
+                    <td class="num">100.0%</td>
+                    <td>Includes $4,000 owner salary &amp; $950 hardware refresh reserve.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 11.4 HYBRID PRICING TIERS & UNIT ECONOMICS -->
+            <h3>11.4 Hybrid Pricing Tiers &amp; Unit Economics</h3>
+            <div class="grid-4">
+              <div class="pricing-card">
+                <span class="badge-cat cat-coffee mono">Specialty Café</span>
+                <span class="pricing-price">$9.25 AOV</span>
+                <span class="pricing-gm">72.5% Gross Margin</span>
+                <ul class="pricing-list">
+                  <li>Drip / Filter: $3.50–$4.25</li>
+                  <li>Lattes / Iced / Matcha: $5.50–$7.00</li>
+                  <li>Pastries &amp; Wraps: $4.50–$10.50</li>
+                  <li>$0.50 Share-a-Meal on ~50% orders</li>
+                </ul>
+              </div>
+              <div class="pricing-card">
+                <span class="badge-cat cat-cowork mono">Coworking Zone</span>
+                <span class="pricing-price">$18/day · $165/mo</span>
+                <span class="pricing-gm">92.0% Gross Margin</span>
+                <ul class="pricing-list">
+                  <li>Drop-In Day Pass: $18 (incl. drip)</li>
+                  <li>Flex 10-Day Pack: $135/mo</li>
+                  <li>Unlimited Creator: $175/mo</li>
+                  <li>55%–72% below Launch / Regus</li>
+                </ul>
+              </div>
+              <div class="pricing-card">
+                <span class="badge-cat cat-gaming mono">PC Gaming (12 Rigs)</span>
+                <span class="pricing-price">$6.50–$8.00/hr</span>
+                <span class="pricing-gm">95.0% Gross Margin</span>
+                <ul class="pricing-list">
+                  <li>Walk-In Hourly: $8.00/hr</li>
+                  <li>4-Hr Pack / Member: $6.50/hr ($26)</li>
+                  <li>Evening / Wknd 5-Hr Pass: $28</li>
+                  <li>Base: 34% util = $826/PC/mo<a class="cite-ref" href="#src-58">[58]</a><a class="cite-ref" href="#src-60">[60]</a></li>
+                </ul>
+              </div>
+              <div class="pricing-card">
+                <span class="badge-cat cat-album mono">Events &amp; Music</span>
+                <span class="pricing-price">$10–$15 Entry</span>
+                <span class="pricing-gm">85.0% Gross Margin</span>
+                <ul class="pricing-list">
+                  <li>Weekly Esports Brackets: $15</li>
+                  <li>Acoustic Showcases: $5–$10</li>
+                  <li>Private Creative Bookings</li>
+                  <li>Drives evening F&amp;B cross-sell</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 11.5 INTERACTIVE SCENARIO MODELING & BREAK-EVEN DASHBOARD -->
+            <h3>11.5 Interactive Break-Even &amp; 12-Month Cash Flow Dashboard</h3>
+            <p>
+              Toggle between <strong>Conservative</strong>, <strong>Base (Recommended)</strong>, and <strong>Optimistic</strong> demand scenarios—and test Winnipeg corridor rent sensitivity—to inspect stabilized unit economics, Year-1 ramp burn, and break-even timing. Variable costs include stream COGS, <strong>2.3%</strong> blended payment processing fees, and the <strong>Share a Meal</strong> social contribution.
+            </p>
+
+            <div class="control-bar" aria-label="Interactive financial model controls">
+              <div class="control-group" role="tablist" aria-label="Financial scenario selector">
+                <span class="control-label mono">Scenario:</span>
+                <button type="button" class="seg-btn" data-scenario="conservative" role="tab" aria-selected="false">Conservative</button>
+                <button type="button" class="seg-btn is-active" data-scenario="base" role="tab" aria-selected="true">Base Case</button>
+                <button type="button" class="seg-btn" data-scenario="optimistic" role="tab" aria-selected="false">Optimistic</button>
+              </div>
+              <div class="control-group" role="tablist" aria-label="Winnipeg corridor lease selector">
+                <span class="control-label mono">Corridor:</span>
+                <button type="button" class="seg-btn is-active" data-corridor="exchange" role="tab" aria-selected="true">Exchange ($5.5k)</button>
+                <button type="button" class="seg-btn" data-corridor="pembina" role="tab" aria-selected="false">Pembina ($6.6k)</button>
+                <button type="button" class="seg-btn" data-corridor="osborne" role="tab" aria-selected="false">Osborne ($7.0k)</button>
+              </div>
+            </div>
+
+            <!-- Dynamic KPI Output Strip -->
+            <div class="scenario-kpis" id="scenario-kpis" aria-live="polite">
+              <div class="scen-kpi">
+                <span class="scen-kpi-lbl mono">Stabilized Monthly Rev</span>
+                <span class="scen-kpi-val" id="kpi-stab-rev">$51,869</span>
+                <span class="scen-kpi-note" id="kpi-yr1-rev">Yr-1 Ramped: $521,803</span>
+              </div>
+              <div class="scen-kpi">
+                <span class="scen-kpi-lbl mono">Monthly Break-Even</span>
+                <span class="scen-kpi-val" id="kpi-be-rev">$43,325</span>
+                <span class="scen-kpi-note" id="kpi-be-month">Op. Break-Even: Month 6</span>
+              </div>
+              <div class="scen-kpi">
+                <span class="scen-kpi-lbl mono">Stabilized Op. Profit</span>
+                <span class="scen-kpi-val is-positive" id="kpi-op-profit">+$6,516/mo</span>
+                <span class="scen-kpi-note" id="kpi-op-margin">12.6% margin · 61.3% Prime</span>
+              </div>
+              <div class="scen-kpi">
+                <span class="scen-kpi-lbl mono">Peak Ramp Burn / Meals</span>
+                <span class="scen-kpi-val" id="kpi-ramp-burn">-$21,779</span>
+                <span class="scen-kpi-note" id="kpi-meals">~890 Harvest meals/mo</span>
+              </div>
+            </div>
+
+            <div class="chart-grid-2">
+              <!-- CHART 3: Revenue Mix -->
+              <div class="chart-panel">
+                <div class="chart-panel-head">
+                  <h4 class="chart-panel-title" style="margin:0;">Stabilized Monthly Revenue Mix by Stream</h4>
+                  <span class="chart-panel-sub mono" id="mix-chart-sub">Base Case · $51,869/mo</span>
+                </div>
+                <div class="chart-stage" id="chart-mix-wrap">
+                  <canvas id="chart-mix" aria-label="Bar chart showing monthly revenue mix across Café, Gaming, Coworking, and Events"></canvas>
+                </div>
+              </div>
+
+              <!-- CHART 4: 12-Month Break-Even Trajectory -->
+              <div class="chart-panel">
+                <div class="chart-panel-head">
+                  <h4 class="chart-panel-title" style="margin:0;">12-Month Ramp: Revenue vs. Total Cost &amp; Cum. CF</h4>
+                  <span class="chart-panel-sub mono" id="be-chart-sub">Base · Exchange District</span>
+                </div>
+                <div class="chart-stage" id="chart-breakeven-wrap">
+                  <canvas id="chart-breakeven" aria-label="Line chart of 12-month revenue, total cost, and cumulative cash flow"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scenario Summary Comparison Table -->
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Benchmark Metric (Exchange District Baseline)</th>
+                    <th class="num">Conservative</th>
+                    <th class="num">Base Case</th>
+                    <th class="num">Optimistic</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Daily Café Orders / Avg Ticket (CAD)</td>
+                    <td class="num">90 @ $9.00</td>
+                    <td class="num"><strong>115 @ $9.25</strong></td>
+                    <td class="num">138 @ $9.60</td>
+                  </tr>
+                  <tr>
+                    <td>Coworking Day Passes / Monthly Members</td>
+                    <td class="num">85 / 22 mem</td>
+                    <td class="num"><strong>120 / 32 mem</strong></td>
+                    <td class="num">145 / 40 mem</td>
+                  </tr>
+                  <tr>
+                    <td>PC Gaming Utilization (12 Rigs · 4,320 avail. hrs/mo)</td>
+                    <td class="num">26% ($608/PC)</td>
+                    <td class="num"><strong>34% ($826/PC)</strong></td>
+                    <td class="num">42% ($1,058/PC)</td>
+                  </tr>
+                  <tr>
+                    <td>Stabilized Monthly Revenue (Annualized)</td>
+                    <td class="num">$38,560 ($463k)</td>
+                    <td class="num"><strong>$51,869 ($622k)</strong></td>
+                    <td class="num">$65,152 ($782k)</td>
+                  </tr>
+                  <tr>
+                    <td>Blended Contribution Margin Ratio</td>
+                    <td class="num">75.9%</td>
+                    <td class="num"><strong>76.3%</strong></td>
+                    <td class="num">76.4%</td>
+                  </tr>
+                  <tr>
+                    <td>Monthly Fixed OPEX (Scaled Floor Staffing)</td>
+                    <td class="num">$31,287</td>
+                    <td class="num"><strong>$33,040</strong></td>
+                    <td class="num">$35,670</td>
+                  </tr>
+                  <tr>
+                    <td>Monthly Operating Break-Even Revenue</td>
+                    <td class="num">$41,221/mo</td>
+                    <td class="num"><strong>$43,325/mo</strong></td>
+                    <td class="num">$46,674/mo</td>
+                  </tr>
+                  <tr class="row-highlight">
+                    <td><strong>Stabilized Monthly Operating Profit (EBITDA Margin)</strong></td>
+                    <td class="num" style="color:var(--plan-rose);">-$2,020 (-5.2%)*</td>
+                    <td class="num" style="color:var(--plan-emerald);"><strong>+$6,516 (+12.6%)</strong></td>
+                    <td class="num" style="color:var(--plan-emerald);">+$14,122 (+21.7%)</td>
+                  </tr>
+                  <tr>
+                    <td>Prime Cost (Direct COGS + Total Loaded Labour)</td>
+                    <td class="num">71.3%</td>
+                    <td class="num"><strong>61.3%</strong></td>
+                    <td class="num">56.8%</td>
+                  </tr>
+                  <tr>
+                    <td>Year-1 Ramped Revenue / Yr-1 Cumulative Op. Cash Flow</td>
+                    <td class="num">$387,914 / -$68,816</td>
+                    <td class="num"><strong>$521,803 / +$14,340</strong></td>
+                    <td class="num">$655,429 / +$86,778</td>
+                  </tr>
+                  <tr>
+                    <td>Operational Break-Even Month / Stabilized CAPEX Payback</td>
+                    <td class="num">Yr 2 / Re-baseline</td>
+                    <td class="num"><strong>Month 6 / 3.5 yrs</strong></td>
+                    <td class="num">Month 3 / 1.6 yrs</td>
+                  </tr>
+                  <tr>
+                    <td>Share a Meal Monthly Funding (Harvest / Siloam Meals)</td>
+                    <td class="num">$675 (~696 / ~156)</td>
+                    <td class="num"><strong>$863 (~890 / ~199)</strong></td>
+                    <td class="num">$1,035 (~1,067 / ~239)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout is-success">
+              <span class="callout-title">*Downside Stress-Test Transparency (Conservative Case)</span>
+              Even in the Conservative stress test (90 café orders/day and 26% PC utilization), the venue generates <strong>+$1,980/month before owner salary</strong>—covering rent, staff, utilities, and vendors. Reaching full owner compensation ($4,000/mo) and healthy debt-service coverage requires clearing <strong>$43,325/month</strong> (~100+ café orders/day and ~30%+ gaming utilization), reinforcing the Section 8 pre-launch validation gate.
+            </div>
+          </section>
+
+          <!-- ============================================================
+               APPENDIX: CITED 2025-2026 SOURCES
+               ============================================================ -->
+          <section class="plan-section" id="sec-sources" aria-labelledby="h-sec-sources">
+            <div class="plan-section-head">
+              <div class="plan-section-title-wrap">
+                <span class="plan-sec-num mono">Appendix</span>
+                <h2 id="h-sec-sources">Cited 2025–2026 Primary Sources</h2>
+              </div>
+              <span class="section-tag mono">Verified Research Bibliography</span>
+            </div>
+
+            <p>All demographic, competitive, regulatory, wage, and financial benchmarks in V3 are drawn from verified 2025–2026 public records, official institutional reports, and active Winnipeg operator data:</p>
+
+            <ol class="sources-grid">
+              <li id="src-1"><span class="source-idx">[1]</span> City of Winnipeg Open Data — Population Dataset &amp; Forecasts: <a href="https://data.winnipeg.ca/City-Planning/City-Of-Winnipeg-Population/q9jq-5bf2" target="_blank" rel="noopener noreferrer">data.winnipeg.ca</a></li>
+              <li id="src-2"><span class="source-idx">[2]</span> CBC Manitoba / StatCan Subprovincial Population (850,260): <a href="https://www.cbc.ca/news/canada/manitoba" target="_blank" rel="noopener noreferrer">cbc.ca/news/canada/manitoba</a></li>
+              <li id="src-3"><span class="source-idx">[3]</span> Statistics Canada — Winnipeg CMA Demographic Profile (66% 15–64): <a href="https://www150.statcan.gc.ca/" target="_blank" rel="noopener noreferrer">www150.statcan.gc.ca</a></li>
+              <li id="src-4"><span class="source-idx">[4]</span> University of Manitoba OIA — Enrolment Reports (32,568): <a href="https://umanitoba.ca/institutional-analysis/enrolment-reports" target="_blank" rel="noopener noreferrer">umanitoba.ca/institutional-analysis</a></li>
+              <li id="src-5"><span class="source-idx">[5]</span> University of Winnipeg — Fast Facts (~9,000 students): <a href="https://www.uwinnipeg.ca/about/fast-facts.html" target="_blank" rel="noopener noreferrer">uwinnipeg.ca/about/fast-facts.html</a></li>
+              <li id="src-6"><span class="source-idx">[6]</span> RRC Polytech — Institutional Analysis (~23,400 registered): <a href="https://www.rrc.ca/numbers/" target="_blank" rel="noopener noreferrer">rrc.ca/numbers</a></li>
+              <li id="src-7"><span class="source-idx">[7]</span> Statistics Canada — Working from Home by CMA (Winnipeg 15.1%): <a href="https://www150.statcan.gc.ca/" target="_blank" rel="noopener noreferrer">www150.statcan.gc.ca</a></li>
+              <li id="src-8"><span class="source-idx">[8]</span> Mahoney et al., <em>Clinical Nutrition</em> (92% student caffeine): <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer">pubmed.ncbi.nlm.nih.gov</a></li>
+              <li id="src-9"><span class="source-idx">[9]</span> Coffee Association of Canada (71% daily coffee; Gen Z trends): <a href="https://coffeeassoc.com/" target="_blank" rel="noopener noreferrer">coffeeassoc.com</a></li>
+              <li id="src-10"><span class="source-idx">[10]</span> Buffer — State of Remote Work (27% café; 23%–25% loneliness): <a href="https://buffer.com/state-of-remote-work" target="_blank" rel="noopener noreferrer">buffer.com/state-of-remote-work</a></li>
+              <li id="src-12"><span class="source-idx">[12]</span> Health Canada — CPADS 2024–2025 (84.3% → 74.9% alcohol use): <a href="https://health-infobase.canada.ca/substance-use/reports/cpads/" target="_blank" rel="noopener noreferrer">health-infobase.canada.ca/.../cpads</a></li>
+              <li id="src-13"><span class="source-idx">[13]</span> Statistics Canada — Past-Year Alcohol Abstinence (23% → 29%): <a href="https://www.statcan.gc.ca/" target="_blank" rel="noopener noreferrer">statcan.gc.ca</a></li>
+              <li id="src-14"><span class="source-idx">[14]</span> Across the Board Game Café (Exchange District, $12 cover): <a href="https://www.acrosstheboardcafe.com/" target="_blank" rel="noopener noreferrer">acrosstheboardcafe.com</a></li>
+              <li id="src-15"><span class="source-idx">[15]</span> GameKnight Games &amp; Cool Stuff (Osborne Village): <a href="https://gameknight.ca/" target="_blank" rel="noopener noreferrer">gameknight.ca</a></li>
+              <li id="src-16"><span class="source-idx">[16]</span> Select Start Arcade Restolounge ($12.50, 18+ after 7:30 PM): <a href="https://selectstartwpg.com/" target="_blank" rel="noopener noreferrer">selectstartwpg.com</a></li>
+              <li id="src-17"><span class="source-idx">[17]</span> Statistics Canada LFS / City of Winnipeg (>524k employed): <a href="https://www.winnipeg.ca/" target="_blank" rel="noopener noreferrer">winnipeg.ca</a></li>
+              <li id="src-18"><span class="source-idx">[18]</span> Canadian HR Reporter — Manitoba Hybrid Work Agreements: <a href="https://www.hrreporter.com/" target="_blank" rel="noopener noreferrer">hrreporter.com</a></li>
+              <li id="src-19"><span class="source-idx">[19]</span> Canadian Grocer / RestoBiz — Gen Z Iced &amp; Custom Coffee: <a href="https://canadiangrocer.com/" target="_blank" rel="noopener noreferrer">canadiangrocer.com</a></li>
+              <li id="src-20"><span class="source-idx">[20]</span> Stay Winnipeg — Parlour Coffee Closure &amp; Passage Café: <a href="https://staywinnipeg.ca/" target="_blank" rel="noopener noreferrer">staywinnipeg.ca</a></li>
+              <li id="src-21"><span class="source-idx">[21]</span> Winnipeg Local Status — MAKE Coffee + Stuff Closure: <a href="https://www.winnipeg.ca/" target="_blank" rel="noopener noreferrer">winnipeg.ca</a></li>
+              <li id="src-22"><span class="source-idx">[22]</span> Thom Bargen Coffee Roasters — Locations &amp; Pricing: <a href="https://www.thombargen.com/" target="_blank" rel="noopener noreferrer">thombargen.com</a></li>
+              <li id="src-23"><span class="source-idx">[23]</span> Little Sister Coffee Maker — Osborne Hours &amp; Menu: <a href="https://www.littlesistercoffeemaker.ca/" target="_blank" rel="noopener noreferrer">littlesistercoffeemaker.ca</a></li>
+              <li id="src-24"><span class="source-idx">[24]</span> Fools &amp; Horses Coffee — The Forks / Hargrave Market: <a href="https://www.theforks.com/" target="_blank" rel="noopener noreferrer">theforks.com</a></li>
+              <li id="src-25"><span class="source-idx">[25]</span> Empty Cup Collective — Winnipeg Cafés &amp; Menu: <a href="https://emptycup.co/" target="_blank" rel="noopener noreferrer">emptycup.co</a></li>
+              <li id="src-26"><span class="source-idx">[26]</span> Café Postal — St. Boniface Hours &amp; Pricing: <a href="https://cafepostal.ca/" target="_blank" rel="noopener noreferrer">cafepostal.ca</a></li>
+              <li id="src-27"><span class="source-idx">[27]</span> The Rec Room Winnipeg — Seasons of Tuxedo: <a href="https://www.therecroom.com/" target="_blank" rel="noopener noreferrer">therecroom.com</a></li>
+              <li id="src-28"><span class="source-idx">[28]</span> Launch Coworking Winnipeg ($40–$49/day; ~$249 dedicated): <a href="https://www.launchcoworking.ca/" target="_blank" rel="noopener noreferrer">launchcoworking.ca</a></li>
+              <li id="src-29"><span class="source-idx">[29]</span> Regus / Spaces Winnipeg (~$65/day; from $159/mo): <a href="https://www.regus.com/" target="_blank" rel="noopener noreferrer">regus.com</a> · <a href="https://www.spacesworks.com/" target="_blank" rel="noopener noreferrer">spacesworks.com</a></li>
+              <li id="src-30"><span class="source-idx">[30]</span> North Forge Technology Exchange — SmartPark &amp; FabLab: <a href="https://www.northforge.ca/" target="_blank" rel="noopener noreferrer">northforge.ca</a></li>
+              <li id="src-31"><span class="source-idx">[31]</span> CBRE Canada — Winnipeg Commercial Retail Insights: <a href="https://www.cbre.ca/" target="_blank" rel="noopener noreferrer">cbre.ca</a></li>
+              <li id="src-32"><span class="source-idx">[32]</span> Colliers Canada — Winnipeg Retail Market Reports: <a href="https://www.collierscanada.com/" target="_blank" rel="noopener noreferrer">collierscanada.com</a></li>
+              <li id="src-33"><span class="source-idx">[33]</span> ICI Properties / CommercialCafe — Exchange District Leases: <a href="https://www.iciproperties.com/" target="_blank" rel="noopener noreferrer">iciproperties.com</a></li>
+              <li id="src-34"><span class="source-idx">[34]</span> Capital Commercial Real Estate — Osborne &amp; Pembina Listings: <a href="https://www.capitalgrp.ca/" target="_blank" rel="noopener noreferrer">capitalgrp.ca</a></li>
+              <li id="src-35"><span class="source-idx">[35]</span> iDrinkCoffee Canada — Commercial Espresso Machines (CAD): <a href="https://idrinkcoffee.com/" target="_blank" rel="noopener noreferrer">idrinkcoffee.com</a></li>
+              <li id="src-39"><span class="source-idx">[39]</span> SENET &amp; ggCircuit (ggLeap) — Esports Café Software: <a href="https://senet.cloud/" target="_blank" rel="noopener noreferrer">senet.cloud</a> · <a href="https://www.ggcircuit.com/" target="_blank" rel="noopener noreferrer">ggcircuit.com</a></li>
+              <li id="src-40"><span class="source-idx">[40]</span> Valve Steamworks — Steam PC Café Commercial Program: <a href="https://partner.steamgames.com/pccafe" target="_blank" rel="noopener noreferrer">partner.steamgames.com/pccafe</a></li>
+              <li id="src-41"><span class="source-idx">[41]</span> BuildUp Contracting / Custom CPA — Canadian Café Buildouts: <a href="https://buildupcontracting.ca/" target="_blank" rel="noopener noreferrer">buildupcontracting.ca</a></li>
+              <li id="src-42"><span class="source-idx">[42]</span> Square Canada / Waitery — Canadian Café Margins &amp; Prime Cost: <a href="https://squareup.com/ca/en" target="_blank" rel="noopener noreferrer">squareup.com/ca/en</a></li>
+              <li id="src-43"><span class="source-idx">[43]</span> City of Winnipeg — Building Occupancy &amp; Load Permits: <a href="https://www.winnipeg.ca/building-development/building-renovating/permit-processing-times/occupancy-permits" target="_blank" rel="noopener noreferrer">winnipeg.ca/.../occupancy-permits</a></li>
+              <li id="src-44"><span class="source-idx">[44]</span> Gov. of Manitoba — Food Handling Regulation (M.R. 339/88R): <a href="https://web2.gov.mb.ca/laws/regs/current/_pdf-regs.php?reg=339/88" target="_blank" rel="noopener noreferrer">web2.gov.mb.ca/laws</a></li>
+              <li id="src-45"><span class="source-idx">[45]</span> Community Futures Manitoba — $0 Health Permit Guide: <a href="https://cfmanitoba.ca/" target="_blank" rel="noopener noreferrer">cfmanitoba.ca</a></li>
+              <li id="src-46"><span class="source-idx">[46]</span> City of Winnipeg — Fixed-Address Food Licence Policy: <a href="https://www.winnipeg.ca/" target="_blank" rel="noopener noreferrer">winnipeg.ca</a></li>
+              <li id="src-47"><span class="source-idx">[47]</span> Entandem (SOCAN/Re:Sound) — Tariff 3.A Live Music: <a href="https://www.entandemlicensing.com/" target="_blank" rel="noopener noreferrer">entandemlicensing.com</a></li>
+              <li id="src-48"><span class="source-idx">[48]</span> Manitoba Finance — 7% PST &amp; 5% GST on Prepared Food: <a href="https://www.gov.mb.ca/finance/taxation/" target="_blank" rel="noopener noreferrer">gov.mb.ca/finance/taxation</a></li>
+              <li id="src-49"><span class="source-idx">[49]</span> Western Financial / Ratehub — Manitoba Café Insurance: <a href="https://westernfinancialgroup.ca/" target="_blank" rel="noopener noreferrer">westernfinancialgroup.ca</a></li>
+              <li id="src-50"><span class="source-idx">[50]</span> Manitoba Employment Standards — $16.40 Min Wage (Oct 2026) &amp; 4% Vac: <a href="https://www.gov.mb.ca/labour/standards/" target="_blank" rel="noopener noreferrer">gov.mb.ca/labour/standards</a></li>
+              <li id="src-51"><span class="source-idx">[51]</span> Job Bank Canada — Winnipeg Barista Wages (NOC 65201): <a href="https://www.jobbank.gc.ca/" target="_blank" rel="noopener noreferrer">jobbank.gc.ca</a></li>
+              <li id="src-52"><span class="source-idx">[52]</span> CRA — 2026 CPP (5.95%) &amp; Employer EI (2.282%) Rates: <a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" rel="noopener noreferrer">canada.ca/en/revenue-agency</a></li>
+              <li id="src-53"><span class="source-idx">[53]</span> WCB Manitoba — 2026 Assessment Rates (Sub-group 701-06): <a href="https://www.wcb.mb.ca/" target="_blank" rel="noopener noreferrer">wcb.mb.ca</a></li>
+              <li id="src-54"><span class="source-idx">[54]</span> Rogers Business — Business Gigabit Internet Winnipeg: <a href="https://www.rogers.com/business" target="_blank" rel="noopener noreferrer">rogers.com/business</a></li>
+              <li id="src-55"><span class="source-idx">[55]</span> Bell MTS Business — Gigabit Fibe Internet Manitoba: <a href="https://www.bell.ca/Business" target="_blank" rel="noopener noreferrer">bell.ca/Business</a></li>
+              <li id="src-56"><span class="source-idx">[56]</span> Manitoba Hydro — 2026 Commercial Electricity (+4%) &amp; Gas Rates: <a href="https://www.hydro.mb.ca/" target="_blank" rel="noopener noreferrer">hydro.mb.ca</a></li>
+              <li id="src-58"><span class="source-idx">[58]</span> OverKlocked Gaming (Edmonton) — Prairie PC Lounge Pricing: <a href="https://www.overklocked.com/" target="_blank" rel="noopener noreferrer">overklocked.com</a></li>
+              <li id="src-60"><span class="source-idx">[60]</span> Airavoto Gaming — Esports Café Utilization &amp; PC Benchmarks: <a href="https://airavotogaming.com/" target="_blank" rel="noopener noreferrer">airavotogaming.com</a></li>
+              <li id="src-61"><span class="source-idx">[61]</span> Harvest Manitoba — Food Security Meal Impact (~$0.97/meal): <a href="https://www.harvestmanitoba.ca/" target="_blank" rel="noopener noreferrer">harvestmanitoba.ca</a></li>
+              <li id="src-62"><span class="source-idx">[62]</span> Siloam Mission (~$4.33/hot meal) &amp; Main Street Project: <a href="https://www.siloam.ca/" target="_blank" rel="noopener noreferrer">siloam.ca</a> · <a href="https://www.mainstreetproject.ca/" target="_blank" rel="noopener noreferrer">mainstreetproject.ca</a></li>
+            </ol>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER (Matches portfolio.css) -->
+  <footer class="site-footer">
+    <div class="plan-container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-text">Album Coffee Shop · Business Plan V3</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <span class="footer-updated mono">Winnipeg, MB · November 2026</span>
+      </div>
+      <nav class="footer-links" aria-label="Document footer navigation">
+        <a href="index.html#reports-data">← Back to Portfolio</a>
+        <a href="Album_Business_Plan_06-07-2025_V2.html">Archive: V2 (2025)</a>
+        <a href="Album_Business_Plan_06-07-2025.html">Archive: V1</a>
+        <a href="#top">Back to Top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE LOGIC: Theme Sync, TOC Scrollspy, Competitor Filter & Financial Charts (Chart.js + SVG Fallback) -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* --------------------------------------------------------------------
+         1. Financial Model Data (Verified exact match to album_deep_research.md)
+         -------------------------------------------------------------------- */
+      var CORRIDORS = {
+        exchange: { label: 'Exchange District', rent: 5500, delta: 0 },
+        pembina:  { label: 'Pembina / U of M',  rent: 6600, delta: 1100 },
+        osborne:  { label: 'Osborne Village',   rent: 6967, delta: 1467 }
+      };
+
+      var RAMP_CURVE = [0.52, 0.59, 0.66, 0.73, 0.80, 0.86, 0.91, 0.95, 0.98, 1.00, 1.02, 1.04];
+      var OPEX_SCALE = [0.85, 0.88, 0.92, 0.96, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00];
+
+      var SCENARIOS = {
+        conservative: {
+          label: 'Conservative',
+          revCafe: 24300,
+          revCw: 5160,
+          revPc: 7300,
+          revEvt: 1800,
+          totalRev: 38560,
+          cmRatio: (38560 - 9293) / 38560,
+          baseFixed: 31287,
+          primeCost: 71.3,
+          shareMeal: 675,
+          harvestMeals: 696,
+          siloamMeals: 156
+        },
+        base: {
+          label: 'Base Case',
+          revCafe: 31913,
+          revCw: 7440,
+          revPc: 9916,
+          revEvt: 2600,
+          totalRev: 51869,
+          cmRatio: (51869 - 12313) / 51869,
+          baseFixed: 33040,
+          primeCost: 61.3,
+          shareMeal: 863,
+          harvestMeals: 890,
+          siloamMeals: 199
+        },
+        optimistic: {
+          label: 'Optimistic',
+          revCafe: 39744,
+          revCw: 9210,
+          revPc: 12698,
+          revEvt: 3500,
+          totalRev: 65152,
+          cmRatio: (65152 - 15360) / 65152,
+          baseFixed: 35670,
+          primeCost: 56.8,
+          shareMeal: 1035,
+          harvestMeals: 1067,
+          siloamMeals: 239
+        }
+      };
+
+      var CAPEX_ITEMS = [
+        { label: 'Leasehold & Acoustic', value: 110000, pct: 40.0 },
+        { label: '12 Gaming PCs & LAN',  value: 47000,  pct: 17.1 },
+        { label: 'Working Capital',      value: 38000,  pct: 13.8 },
+        { label: 'Espresso & Café Eq.',  value: 34000,  pct: 12.4 },
+        { label: 'Permits, Dep. & Inv.', value: 26000,  pct: 9.5 },
+        { label: 'Furniture & Stage AV', value: 20000,  pct: 7.3 }
+      ];
+
+      var state = {
+        scenario: 'base',
+        corridor: 'exchange'
+      };
+
+      var chartInstances = {};
+
+      function fmtCAD(n) {
+        var abs = Math.abs(Math.round(n)).toLocaleString('en-CA');
+        return (n < 0 ? '-$' : '$') + abs;
+      }
+
+      function computeProjection(scenKey, corrKey) {
+        var s = SCENARIOS[scenKey];
+        var c = CORRIDORS[corrKey];
+        var fixedOpex = s.baseFixed + c.delta;
+        var grossProfit = Math.round(s.totalRev * s.cmRatio);
+        var opProfit = grossProfit - fixedOpex;
+        var opMargin = (opProfit / s.totalRev) * 100;
+        var beRev = Math.round(fixedOpex / s.cmRatio);
+
+        var months = [];
+        var revSeries = [];
+        var costSeries = [];
+        var cumSeries = [];
+        var cum = 0;
+        var minCum = 0;
+        var yr1Rev = 0;
+        var beMonth = null;
+
+        for (var i = 0; i < 12; i++) {
+          var mRev = Math.round(s.totalRev * RAMP_CURVE[i]);
+          var mVar = Math.round(mRev * (1 - s.cmRatio));
+          var mFix = Math.round(fixedOpex * OPEX_SCALE[i]);
+          var mCost = mVar + mFix;
+          var mNet = mRev - mCost;
+          cum += mNet;
+          if (cum < minCum) minCum = cum;
+          yr1Rev += mRev;
+          if (beMonth === null && mNet >= 0) beMonth = i + 1;
+          months.push('M' + (i + 1));
+          revSeries.push(mRev);
+          costSeries.push(mCost);
+          cumSeries.push(cum);
+        }
+
+        return {
+          s: s,
+          c: c,
+          fixedOpex: fixedOpex,
+          opProfit: opProfit,
+          opMargin: opMargin,
+          beRev: beRev,
+          yr1Rev: yr1Rev,
+          minCum: minCum,
+          beMonth: beMonth,
+          months: months,
+          revSeries: revSeries,
+          costSeries: costSeries,
+          cumSeries: cumSeries
+        };
+      }
+
+      function getPalette() {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return {
+          isDark: isDark,
+          text: isDark ? '#f1f5f9' : '#0f172a',
+          muted: isDark ? '#94a3b8' : '#475569',
+          grid: isDark ? 'rgba(148, 163, 184, 0.14)' : 'rgba(15, 23, 42, 0.08)',
+          accent: isDark ? '#38bdf8' : '#0284c7',
+          teal: isDark ? '#2dd4bf' : '#0d9488',
+          emerald: isDark ? '#34d399' : '#059669',
+          amber: isDark ? '#fbbf24' : '#d97706',
+          violet: isDark ? '#a5b4fc' : '#6366f1',
+          rose: isDark ? '#fb7185' : '#e11d48',
+          slate: isDark ? '#64748b' : '#94a3b8',
+          surface: isDark ? '#161b22' : '#ffffff'
+        };
+      }
+
+      /* --------------------------------------------------------------------
+         2. Theme Toggle & Print Button
+         -------------------------------------------------------------------- */
+      var themeToggle = document.getElementById('theme-toggle');
+      var themeLabel = document.getElementById('theme-label');
+
+      function applyTheme(theme, persist) {
+        var normalized = theme === 'light' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', normalized);
+        if (themeToggle) {
+          var isDark = normalized === 'dark';
+          themeToggle.setAttribute('aria-pressed', String(isDark));
+          themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+          if (themeLabel) themeLabel.textContent = isDark ? 'Light' : 'Dark';
+        }
+        if (persist) {
+          try {
+            localStorage.setItem('portfolio-theme', normalized);
+            localStorage.setItem('darkMode', normalized === 'dark' ? '1' : '0');
+          } catch (e) {}
+        }
+        renderAllCharts();
+      }
+
+      var initTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      if (themeToggle) {
+        var initDark = initTheme === 'dark';
+        themeToggle.setAttribute('aria-pressed', String(initDark));
+        if (themeLabel) themeLabel.textContent = initDark ? 'Light' : 'Dark';
+        themeToggle.addEventListener('click', function () {
+          var cur = document.documentElement.getAttribute('data-theme');
+          applyTheme(cur === 'dark' ? 'light' : 'dark', true);
+        });
+      }
+
+      var printBtn = document.getElementById('btn-print');
+      if (printBtn) {
+        printBtn.addEventListener('click', function () {
+          window.print();
+        });
+      }
+
+      /* --------------------------------------------------------------------
+         3. Competitor Table Filter
+         -------------------------------------------------------------------- */
+      var compBtns = Array.prototype.slice.call(document.querySelectorAll('[data-comp-filter]'));
+      var compRows = Array.prototype.slice.call(document.querySelectorAll('#competitor-table tbody tr'));
+      var compCountEl = document.getElementById('comp-count');
+
+      compBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var filter = btn.getAttribute('data-comp-filter');
+          compBtns.forEach(function (b) {
+            var active = b === btn;
+            b.classList.toggle('is-active', active);
+            b.setAttribute('aria-selected', String(active));
+          });
+          var visible = 0;
+          compRows.forEach(function (row) {
+            var cat = row.getAttribute('data-comp-cat');
+            var show = filter === 'all' || cat === 'album' || cat === filter;
+            row.style.display = show ? '' : 'none';
+            if (show && cat !== 'album') visible += 1;
+          });
+          if (compCountEl) {
+            compCountEl.textContent = 'Showing Album + ' + visible + ' Winnipeg venue' + (visible === 1 ? '' : 's');
+          }
+        });
+      });
+
+      /* --------------------------------------------------------------------
+         4. Scenario & Corridor Controls (Section 11)
+         -------------------------------------------------------------------- */
+      function updateScenarioUI() {
+        var p = computeProjection(state.scenario, state.corridor);
+
+        var elRev = document.getElementById('kpi-stab-rev');
+        var elYr1 = document.getElementById('kpi-yr1-rev');
+        var elBe = document.getElementById('kpi-be-rev');
+        var elBeM = document.getElementById('kpi-be-month');
+        var elProf = document.getElementById('kpi-op-profit');
+        var elMarg = document.getElementById('kpi-op-margin');
+        var elBurn = document.getElementById('kpi-ramp-burn');
+        var elMeals = document.getElementById('kpi-meals');
+        var elMixSub = document.getElementById('mix-chart-sub');
+        var elBeSub = document.getElementById('be-chart-sub');
+
+        if (elRev) elRev.textContent = fmtCAD(p.s.totalRev);
+        if (elYr1) elYr1.textContent = 'Yr-1 Ramped: ' + fmtCAD(p.yr1Rev);
+        if (elBe) elBe.textContent = fmtCAD(p.beRev);
+        if (elBeM) elBeM.textContent = p.beMonth ? ('Op. Break-Even: Month ' + p.beMonth) : 'Op. Break-Even: Year 2';
+        if (elProf) {
+          elProf.textContent = (p.opProfit >= 0 ? '+' : '') + fmtCAD(p.opProfit) + '/mo';
+          elProf.classList.toggle('is-positive', p.opProfit >= 0);
+          elProf.classList.toggle('is-negative', p.opProfit < 0);
+        }
+        if (elMarg) elMarg.textContent = p.opMargin.toFixed(1) + '% margin · ' + p.s.primeCost + '% Prime';
+        if (elBurn) elBurn.textContent = fmtCAD(p.minCum);
+        if (elMeals) elMeals.textContent = '~' + p.s.harvestMeals.toLocaleString('en-CA') + ' Harvest meals/mo';
+        if (elMixSub) elMixSub.textContent = p.s.label + ' · ' + fmtCAD(p.s.totalRev) + '/mo';
+        if (elBeSub) elBeSub.textContent = p.s.label + ' · ' + p.c.label + ' (' + fmtCAD(p.c.rent) + '/mo)';
+
+        renderMixChart(p);
+        renderBreakEvenChart(p);
+      }
+
+      Array.prototype.slice.call(document.querySelectorAll('[data-scenario]')).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.scenario = btn.getAttribute('data-scenario');
+          Array.prototype.slice.call(document.querySelectorAll('[data-scenario]')).forEach(function (b) {
+            var a = b === btn;
+            b.classList.toggle('is-active', a);
+            b.setAttribute('aria-selected', String(a));
+          });
+          updateScenarioUI();
+        });
+      });
+
+      Array.prototype.slice.call(document.querySelectorAll('[data-corridor]')).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.corridor = btn.getAttribute('data-corridor');
+          Array.prototype.slice.call(document.querySelectorAll('[data-corridor]')).forEach(function (b) {
+            var a = b === btn;
+            b.classList.toggle('is-active', a);
+            b.setAttribute('aria-selected', String(a));
+          });
+          updateScenarioUI();
+        });
+      });
+
+      /* --------------------------------------------------------------------
+         5. Chart Rendering (Chart.js 4 Primary + Clean Inline SVG Fallback)
+         -------------------------------------------------------------------- */
+      function destroyChart(id) {
+        if (chartInstances[id]) {
+          try { chartInstances[id].destroy(); } catch (e) {}
+          delete chartInstances[id];
+        }
+      }
+
+      function renderSvgHorizontalBars(containerId, items, maxVal, unitSuffix, colors) {
+        var wrap = document.getElementById(containerId);
+        if (!wrap) return;
+        var pal = getPalette();
+        var rowH = 38;
+        var svgH = items.length * rowH + 24;
+        var svgW = 560;
+        var labelW = 165;
+        var barArea = svgW - labelW - 95;
+        var bars = items.map(function (it, idx) {
+          var y = 14 + idx * rowH;
+          var w = Math.max(4, Math.round((it.value / maxVal) * barArea));
+          var col = colors[idx % colors.length];
+          return (
+            '<text x="' + (labelW - 10) + '" y="' + (y + 17) + '" text-anchor="end" fill="' + pal.muted + '" font-size="11.5" font-family="Inter,sans-serif">' + it.label + '</text>' +
+            '<rect x="' + labelW + '" y="' + (y + 4) + '" width="' + barArea + '" height="18" rx="4" fill="' + pal.grid + '"/>' +
+            '<rect x="' + labelW + '" y="' + (y + 4) + '" width="' + w + '" height="18" rx="4" fill="' + col + '"/>' +
+            '<text x="' + (labelW + w + 8) + '" y="' + (y + 17) + '" fill="' + pal.text + '" font-size="11.5" font-weight="600" font-family="JetBrains Mono,monospace">' + it.display + (unitSuffix || '') + '</text>'
+          );
+        }).join('');
+        wrap.innerHTML = '<svg class="svg-fallback" viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="Data chart">' + bars + '</svg>';
+      }
+
+      function renderMarketChart() {
+        var pal = getPalette();
+        var labels = [
+          'Winnipeg CMA 15–64',
+          'City 2026 TAM (15–64)',
+          'V2 2025 TAM (Outdated)',
+          'Winnipeg Remote Workers',
+          'Big-3 Post-Sec Students',
+          '2026 SAM (10% TAM)',
+          'Year-1 SOM (2,822)'
+        ];
+        var values = [630300, 564300, 497000, 79124, 64968, 56430, 2822];
+        var colors = [pal.slate, pal.accent, pal.amber, pal.teal, pal.violet, pal.emerald, pal.rose];
+
+        if (typeof window.Chart !== 'undefined') {
+          destroyChart('market');
+          var canvas = document.getElementById('chart-market');
+          if (!canvas) return;
+          chartInstances.market = new window.Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Individuals (2026)',
+                data: values,
+                backgroundColor: colors,
+                borderRadius: 6,
+                barThickness: 20
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ' ' + Number(ctx.raw).toLocaleString('en-CA') + ' residents';
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { color: pal.grid },
+                  ticks: {
+                    color: pal.muted,
+                    callback: function (v) { return v >= 1000 ? (v / 1000) + 'k' : v; }
+                  }
+                },
+                y: {
+                  grid: { display: false },
+                  ticks: { color: pal.text, font: { size: 11.5 } }
+                }
+              }
+            }
+          });
+        } else {
+          renderSvgHorizontalBars(
+            'chart-market-wrap',
+            labels.map(function (l, i) { return { label: l, value: values[i], display: values[i].toLocaleString('en-CA') }; }),
+            650000,
+            '',
+            colors
+          );
+        }
+      }
+
+      function renderCapexChart() {
+        var pal = getPalette();
+        var colors = [pal.accent, pal.violet, pal.emerald, pal.amber, pal.teal, pal.rose];
+
+        if (typeof window.Chart !== 'undefined') {
+          destroyChart('capex');
+          var canvas = document.getElementById('chart-capex');
+          if (!canvas) return;
+          chartInstances.capex = new window.Chart(canvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: CAPEX_ITEMS.map(function (d) { return d.label; }),
+              datasets: [{
+                data: CAPEX_ITEMS.map(function (d) { return d.value; }),
+                backgroundColor: colors,
+                borderColor: pal.surface,
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '58%',
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { color: pal.muted, boxWidth: 11, padding: 10, font: { size: 11 } }
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      var item = CAPEX_ITEMS[ctx.dataIndex];
+                      return ' ' + item.label + ': ' + fmtCAD(item.value) + ' (' + item.pct + '%)';
+                    }
+                  }
+                }
+              }
+            }
+          });
+        } else {
+          renderSvgHorizontalBars(
+            'chart-capex-wrap',
+            CAPEX_ITEMS.map(function (d) { return { label: d.label, value: d.value, display: fmtCAD(d.value) }; }),
+            120000,
+            '',
+            colors
+          );
+        }
+      }
+
+      function renderMixChart(p) {
+        var pal = getPalette();
+        var labels = ['Specialty Café', 'PC Gaming (12)', 'Coworking', 'Events & Music'];
+        var values = [p.s.revCafe, p.s.revPc, p.s.revCw, p.s.revEvt];
+        var colors = [pal.amber, pal.violet, pal.accent, pal.emerald];
+
+        if (typeof window.Chart !== 'undefined') {
+          destroyChart('mix');
+          var canvas = document.getElementById('chart-mix');
+          if (!canvas) return;
+          chartInstances.mix = new window.Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Monthly Revenue (CAD)',
+                data: values,
+                backgroundColor: colors,
+                borderRadius: 7,
+                maxBarThickness: 54
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      var pct = ((ctx.raw / p.s.totalRev) * 100).toFixed(1);
+                      return ' ' + fmtCAD(ctx.raw) + '/mo (' + pct + '%)';
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { color: pal.text, font: { size: 11.5 } }
+                },
+                y: {
+                  beginAtZero: true,
+                  grid: { color: pal.grid },
+                  ticks: {
+                    color: pal.muted,
+                    callback: function (v) { return '$' + (v / 1000) + 'k'; }
+                  }
+                }
+              }
+            }
+          });
+        } else {
+          renderSvgHorizontalBars(
+            'chart-mix-wrap',
+            labels.map(function (l, i) { return { label: l, value: values[i], display: fmtCAD(values[i]) }; }),
+            42000,
+            '',
+            colors
+          );
+        }
+      }
+
+      function renderBreakEvenChart(p) {
+        var pal = getPalette();
+
+        if (typeof window.Chart !== 'undefined') {
+          destroyChart('breakeven');
+          var canvas = document.getElementById('chart-breakeven');
+          if (!canvas) return;
+          chartInstances.breakeven = new window.Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: {
+              labels: p.months,
+              datasets: [
+                {
+                  label: 'Monthly Revenue',
+                  data: p.revSeries,
+                  borderColor: pal.accent,
+                  backgroundColor: pal.accent,
+                  borderWidth: 2.6,
+                  tension: 0.3,
+                  pointRadius: 3.5
+                },
+                {
+                  label: 'Monthly Total Cost',
+                  data: p.costSeries,
+                  borderColor: pal.rose,
+                  backgroundColor: pal.rose,
+                  borderWidth: 2.2,
+                  borderDash: [5, 4],
+                  tension: 0.25,
+                  pointRadius: 3
+                },
+                {
+                  label: 'Cumulative Op. Cash Flow',
+                  data: p.cumSeries,
+                  borderColor: pal.emerald,
+                  backgroundColor: pal.isDark ? 'rgba(52, 211, 153, 0.12)' : 'rgba(5, 150, 105, 0.10)',
+                  borderWidth: 2.2,
+                  fill: true,
+                  tension: 0.3,
+                  pointRadius: 3
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: 'index', intersect: false },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { color: pal.muted, boxWidth: 12, padding: 10, font: { size: 11 } }
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ' ' + ctx.dataset.label + ': ' + fmtCAD(ctx.raw);
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { color: pal.muted }
+                },
+                y: {
+                  grid: { color: pal.grid },
+                  ticks: {
+                    color: pal.muted,
+                    callback: function (v) { return (v < 0 ? '-$' : '$') + (Math.abs(v) / 1000) + 'k'; }
+                  }
+                }
+              }
+            }
+          });
+        } else {
+          // Clean inline SVG line fallback if Chart.js CDN is offline
+          var wrap = document.getElementById('chart-breakeven-wrap');
+          if (!wrap) return;
+          var allVals = p.revSeries.concat(p.costSeries, p.cumSeries, [0]);
+          var minV = Math.min.apply(null, allVals) * 1.1;
+          var maxV = Math.max.apply(null, allVals) * 1.08;
+          var W = 520, H = 260, padL = 54, padR = 16, padT = 18, padB = 34;
+          var plotW = W - padL - padR, plotH = H - padT - padB;
+          function sx(i) { return padL + (i / 11) * plotW; }
+          function sy(v) { return padT + (1 - (v - minV) / (maxV - minV)) * plotH; }
+          function pathOf(arr) {
+            return arr.map(function (v, i) { return (i === 0 ? 'M' : 'L') + sx(i).toFixed(1) + ' ' + sy(v).toFixed(1); }).join(' ');
+          }
+          var zeroY = sy(0).toFixed(1);
+          var xTicks = p.months.map(function (m, i) {
+            return '<text x="' + sx(i).toFixed(1) + '" y="' + (H - 12) + '" text-anchor="middle" fill="' + pal.muted + '" font-size="10" font-family="JetBrains Mono,monospace">' + m + '</text>';
+          }).join('');
+          wrap.innerHTML =
+            '<svg class="svg-fallback" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="12-month ramp projection">' +
+            '<line x1="' + padL + '" y1="' + zeroY + '" x2="' + (W - padR) + '" y2="' + zeroY + '" stroke="' + pal.muted + '" stroke-opacity="0.4" stroke-dasharray="3 3"/>' +
+            '<path d="' + pathOf(p.costSeries) + '" fill="none" stroke="' + pal.rose + '" stroke-width="2.2" stroke-dasharray="5 4"/>' +
+            '<path d="' + pathOf(p.revSeries) + '" fill="none" stroke="' + pal.accent + '" stroke-width="2.6"/>' +
+            '<path d="' + pathOf(p.cumSeries) + '" fill="none" stroke="' + pal.emerald + '" stroke-width="2.2"/>' +
+            xTicks +
+            '<text x="' + (padL + 4) + '" y="14" fill="' + pal.accent + '" font-size="10.5" font-weight="600">Rev</text>' +
+            '<text x="' + (padL + 38) + '" y="14" fill="' + pal.rose + '" font-size="10.5" font-weight="600">Cost</text>' +
+            '<text x="' + (padL + 78) + '" y="14" fill="' + pal.emerald + '" font-size="10.5" font-weight="600">Cum CF</text>' +
+            '</svg>';
+        }
+      }
+
+      function renderAllCharts() {
+        renderMarketChart();
+        renderCapexChart();
+        var p = computeProjection(state.scenario, state.corridor);
+        renderMixChart(p);
+        renderBreakEvenChart(p);
+      }
+
+      /* --------------------------------------------------------------------
+         6. Active Section Scrollspy for Desktop TOC
+         -------------------------------------------------------------------- */
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-sidebar .toc-link'));
+      if ('IntersectionObserver' in window && tocLinks.length > 0) {
+        var secEls = tocLinks
+          .map(function (a) { return document.getElementById(a.getAttribute('data-toc')); })
+          .filter(Boolean);
+
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var id = entry.target.id;
+            tocLinks.forEach(function (a) {
+              a.classList.toggle('is-active', a.getAttribute('data-toc') === id);
+            });
+          });
+        }, { rootMargin: '-18% 0px -68% 0px', threshold: 0.02 });
+
+        secEls.forEach(function (el) { obs.observe(el); });
+      }
+
+      // Close mobile TOC after jumping
+      var mobileToc = document.querySelector('.mobile-toc');
+      if (mobileToc) {
+        Array.prototype.slice.call(mobileToc.querySelectorAll('a')).forEach(function (a) {
+          a.addEventListener('click', function () {
+            mobileToc.removeAttribute('open');
+          });
+        });
+      }
+
+      // Initialize once DOM + deferred Chart.js are ready
+      window.addEventListener('load', function () {
+        updateScenarioUI();
+        renderAllCharts();
+      });
+    })();
+  </script>
+</body>
+</html>
